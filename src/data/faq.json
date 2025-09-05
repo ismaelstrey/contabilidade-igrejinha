@@ -1,0 +1,52 @@
+[
+  {
+    "id": "faq-1",
+    "question": "Quanto tempo demora para abrir uma empresa?",
+    "answer": "O processo de abertura de empresa geralmente leva de 15 a 30 dias úteis, dependendo do tipo de empresa e da documentação fornecida. Trabalhamos para agilizar ao máximo este processo."
+  },
+  {
+    "id": "faq-2",
+    "question": "Quais documentos preciso para a contabilidade da minha empresa?",
+    "answer": "Você precisará fornecer: notas fiscais de entrada e saída, extratos bancários, comprovantes de pagamentos, folhas de pagamento e demais documentos fiscais. Nossa equipe te orientará sobre toda a documentação necessária."
+  },
+  {
+    "id": "faq-3",
+    "question": "Vocês atendem empresas de todos os portes?",
+    "answer": "Somos especializados em pequenas empresas, incluindo MEI, ME e EPP. Nosso foco é oferecer um atendimento personalizado e adequado às necessidades de negócios em crescimento."
+  },
+  {
+    "id": "faq-4",
+    "question": "Como funciona o atendimento?",
+    "answer": "Oferecemos atendimento presencial, por telefone, WhatsApp e e-mail. Cada cliente tem um contador responsável que acompanha de perto todas as demandas da empresa."
+  },
+  {
+    "id": "faq-5",
+    "question": "Vocês fazem planejamento tributário?",
+    "answer": "Sim! Realizamos análises periódicas para identificar oportunidades de economia fiscal dentro da legalidade, sempre buscando o regime tributário mais vantajoso para sua empresa."
+  },
+  {
+    "id": "faq-6",
+    "question": "Qual a diferença entre MEI, ME e EPP?",
+    "answer": "MEI é para faturamento até R$ 81.000/ano, ME até R$ 360.000/ano e EPP até R$ 4.800.000/ano. Cada modalidade tem suas particularidades tributárias e obrigações específicas."
+  },
+  {
+    "id": "faq-7",
+    "question": "Vocês cuidam da folha de pagamento?",
+    "answer": "Sim, oferecemos serviços completos de departamento pessoal, incluindo folha de pagamento, admissões, demissões, férias, 13º salário e todas as obrigações trabalhistas."
+  },
+  {
+    "id": "faq-8",
+    "question": "Como posso acompanhar a situação da minha empresa?",
+    "answer": "Fornecemos relatórios mensais detalhados e mantemos nossos clientes sempre informados sobre prazos, obrigações e a situação fiscal da empresa através de diversos canais de comunicação."
+  },
+  {
+    "id": "faq-9",
+    "question": "Vocês oferecem consultoria empresarial?",
+    "answer": "Sim, oferecemos consultoria para análise financeira, planejamento estratégico, controles internos e indicadores de performance para ajudar no crescimento do seu negócio."
+  },
+  {
+    "id": "faq-10",
+    "question": "Qual o prazo para entrega das obrigações fiscais?",
+    "answer": "Todas as obrigações fiscais são entregues dentro dos prazos legais. Trabalhamos com cronograma organizado e mantemos nossos clientes informados sobre todos os vencimentos."
+  }
+]

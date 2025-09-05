@@ -1,0 +1,33 @@
+{
+  "name": "Contabillidadeigrejinha",
+  "description": "Escritório de contabilidade especializado em atender pequenas empresas com excelência, agilidade e transparência. Oferecemos soluções contábeis completas para impulsionar o crescimento do seu negócio.",
+  "phone": " (51) 9916-0766",
+  "email": "contato@contabillidadeigrejinha.com.br",
+  "address": {
+    "street": "Estrada Geraldo Meneger, 12",
+    "city": "Igrejinha",
+    "state": "RS",
+    "zipCode": "01234-567"
+  },
+  "socialMedia": {
+    "whatsapp": "https://wa.me/555199160766",
+    "instagram": "https://instagram.com/contabillidadeigrejinha",
+    "linkedin": "https://linkedin.com/company/contabillidadeigrejinha",
+    "facebook": "https://facebook.com/contabillidadeigrejinha"
+  },
+  "workingHours": {
+    "weekdays": "Segunda a Sexta: 8h às 18h",
+    "saturday": "Sábado: Fechado",
+    "sunday": "Domingo: Fechado"
+  },
+  "mission": "Simplificar a gestão contábil de pequenas empresas, oferecendo serviços de qualidade com tecnologia e atendimento humanizado.",
+  "vision": "Ser referência em contabilidade para pequenas empresas, contribuindo para o crescimento sustentável dos nossos clientes.",
+  "values": [
+    "Transparência",
+    "Agilidade",
+    "Qualidade",
+    "Ética",
+    "Inovação",
+    "Atendimento humanizado"
+  ]
+}

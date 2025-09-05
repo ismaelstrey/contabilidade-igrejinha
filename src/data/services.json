@@ -1,0 +1,86 @@
+[
+  {
+    "id": "contabilidade-geral",
+    "title": "Contabilidade Geral",
+    "description": "Serviços completos de contabilidade para manter sua empresa em dia com todas as obrigações fiscais e contábeis.",
+    "icon": "📊",
+    "features": [
+      "Escrituração contábil",
+      "Balancetes mensais",
+      "Demonstrações financeiras",
+      "Conciliação bancária",
+      "Controle patrimonial"
+    ],
+    "price": "A partir de R$ 299/mês"
+  },
+  {
+    "id": "abertura-empresa",
+    "title": "Abertura de Empresa",
+    "description": "Processo completo para abertura da sua empresa de forma rápida e descomplicada.",
+    "icon": "🏢",
+    "features": [
+      "Consulta de viabilidade",
+      "Elaboração do contrato social",
+      "Registro na Junta Comercial",
+      "Inscrições fiscais (CNPJ, IE, IM)",
+      "Alvará de funcionamento"
+    ],
+    "price": "A partir de R$ 599"
+  },
+  {
+    "id": "departamento-pessoal",
+    "title": "Departamento Pessoal",
+    "description": "Gestão completa de recursos humanos e folha de pagamento para sua empresa.",
+    "icon": "👥",
+    "features": [
+      "Folha de pagamento",
+      "Admissões e demissões",
+      "Férias e 13º salário",
+      "Obrigações trabalhistas",
+      "eSocial e FGTS"
+    ],
+    "price": "A partir de R$ 35/funcionário"
+  },
+  {
+    "id": "fiscal-tributario",
+    "title": "Fiscal e Tributário",
+    "description": "Gestão fiscal e tributária para otimizar a carga tributária da sua empresa.",
+    "icon": "📋",
+    "features": [
+      "Apuração de impostos",
+      "Declarações fiscais",
+      "Planejamento tributário",
+      "Defesas e recursos",
+      "Parcelamentos fiscais"
+    ],
+    "price": "Consulte-nos"
+  },
+  {
+    "id": "consultoria",
+    "title": "Consultoria Empresarial",
+    "description": "Orientação estratégica para o crescimento sustentável do seu negócio.",
+    "icon": "💡",
+    "features": [
+      "Análise financeira",
+      "Planejamento estratégico",
+      "Controles internos",
+      "Fluxo de caixa",
+      "Indicadores de performance"
+    ],
+    "price": "A partir de R$ 150/hora"
+  },
+  {
+    "id": "mei-simples",
+    "title": "MEI e Simples Nacional",
+    "description": "Serviços especializados para microempreendedores e empresas do Simples Nacional.",
+    "icon": "🏪",
+    "features": [
+      "Formalização MEI",
+      "Declaração anual DASN",
+      "Migração para ME/EPP",
+      "Desenquadramento Simples",
+      "Orientações fiscais"
+    ],
+    "price": "A partir de R$ 99/mês"
+  }
+]

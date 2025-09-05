@@ -1,0 +1,29 @@
+module.exports = {
+  root: true,
+  env: { browser: true, es2020: true },
+  extends: [
+    'eslint:recommended'
+  ],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts', '*.config.*'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true
+    }
+  },
+  plugins: ['react-refresh'],
+  globals: {
+    React: 'readonly'
+  },
+  rules: {
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
+    'no-unused-vars': 'off',
+    'prefer-const': 'error',
+    'no-var': 'error'
+  },
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "maria-silva",
+    "name": "Maria Silva",
+    "position": "Contadora Responsável",
+    "description": "Contadora com mais de 15 anos de experiência, especializada em pequenas e médias empresas. CRC ativo e pós-graduação em Controladoria.",
+    "photo": "/images/team/maria-silva.jpg",
+    "qualifications": [
+      "CRC-SP 123456/O-7",
+      "Bacharel em Ciências Contábeis - USP",
+      "Pós-graduação em Controladoria - FGV",
+      "Certificação em eSocial",
+      "15+ anos de experiência"
+    ]
+  },
+  {
+    "id": "joao-santos",
+    "name": "João Santos",
+    "position": "Analista Fiscal",
+    "description": "Especialista em legislação tributária e fiscal, com ampla experiência em Simples Nacional e regimes especiais de tributação.",
+    "photo": "/images/team/joao-santos.jpg",
+    "qualifications": [
+      "Bacharel em Ciências Contábeis - FECAP",
+      "Especialização em Direito Tributário",
+      "Certificação Simples Nacional",
+      "Curso de Planejamento Tributário",
+      "8+ anos de experiência"
+    ]
+  },
+  {
+    "id": "ana-costa",
+    "name": "Ana Costa",
+    "position": "Analista de Departamento Pessoal",
+    "description": "Especialista em gestão de pessoas e folha de pagamento, com conhecimento avançado em legislação trabalhista e eSocial.",
+    "photo": "/images/team/ana-costa.jpg",
+    "qualifications": [
+      "Bacharel em Recursos Humanos - Mackenzie",
+      "Pós-graduação em Gestão de Pessoas",
+      "Certificação eSocial Avançado",
+      "Curso de Legislação Trabalhista",
+      "10+ anos de experiência"
+    ]
+  },
+  {
+    "id": "carlos-oliveira",
+    "name": "Carlos Oliveira",
+    "position": "Consultor Empresarial",
+    "description": "Consultor com vasta experiência em gestão empresarial, especializado em pequenas empresas e startups.",
+    "photo": "/images/team/carlos-oliveira.jpg",
+    "qualifications": [
+      "MBA em Gestão Empresarial - FGV",
+      "Bacharel em Administração - PUC",
+      "Certificação em Consultoria Empresarial",
+      "Curso de Análise Financeira",
+      "12+ anos de experiência"
+    ]
+  }
+]
