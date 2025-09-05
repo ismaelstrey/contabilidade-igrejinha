@@ -1,10 +1,10 @@
-# 📊 Contabiligrejinha
+# 📊 Contabilidadeigrejinha
 
 > Sistema de contabilidade especializado para igrejas e organizações religiosas
 
 ## 🎯 Sobre o Projeto
 
-O **Contabiligrejinha** é uma aplicação web moderna desenvolvida especificamente para atender às necessidades contábeis de igrejas e organizações religiosas. O sistema oferece uma interface intuitiva e funcionalidades especializadas para gestão financeira transparente e eficiente.
+O **Contabilidadeigrejinha** é uma aplicação web moderna desenvolvida especificamente para atender às necessidades contábeis de igrejas e organizações religiosas. O sistema oferece uma interface intuitiva e funcionalidades especializadas para gestão financeira transparente e eficiente.
 
 ## ✨ Funcionalidades
 
@@ -48,7 +48,7 @@ O **Contabiligrejinha** é uma aplicação web moderna desenvolvida especificame
 ## 📁 Estrutura do Projeto
 
 ```
-contabiligrejinha/
+contabilidadeigrejinha/
 ├── public/                 # Arquivos estáticos
 │   ├── favicon.svg
 │   ├── robots.txt
@@ -89,8 +89,8 @@ contabiligrejinha/
 
 1. **Clone o repositório**
    ```bash
-   git clone https://github.com/seu-usuario/contabiligrejinha.git
-   cd contabiligrejinha
+   git clone https://github.com/seu-usuario/contabilidadeigrejinha.git
+   cd contabilidadeigrejinha
    ```
 
 2. **Instale as dependências**
@@ -212,9 +212,9 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 📞 Contato
 
-- **Website**: [contabiligrejinha.com.br](https://contabiligrejinha.com.br)
-- **Email**: contato@contabiligrejinha.com.br
-- **Telefone**: (11) 9999-9999
+- **Website**: [contabilidadeigrejinha.com.br](https://contabilidadeigrejinha.com.br)
+- **Email**: contato@contabilidadeigrejinha.com.br
+- **Telefone**: (51) 9 8175-4701
 
 ---
 
