@@ -83,7 +83,40 @@ Este erro é resolvido pelos arquivos de configuração incluídos. Certifique-s
 
 **Erro: "ERR_CONTENT_DECODING_FAILED"**
 
-Este erro foi resolvido removendo configurações incorretas de `Content-Encoding` que conflitavam com a compressão automática do Cloudflare.Build output directory: dist
+Este erro ocorre quando o Cloudflare aplica compressão automática nos arquivos. Para resolver:
+
+1. **Desabilitar Auto Minify no Cloudflare**:
+   - Vá para Speed > Optimization no painel do Cloudflare
+   - Desabilite "Auto Minify" para JavaScript, CSS e HTML
+
+2. **Configurar Headers Corretos**:
+   - O arquivo `_headers` força `Content-Encoding: identity`
+   - Isso instrui o Cloudflare a não aplicar compressão
+
+3. **Usar Middleware Personalizado**:
+   - O arquivo `functions/_middleware.js` garante MIME types corretos
+   - Remove headers de compressão problemáticos
+
+4. **Configurações de Deploy**:
+   - Use as configurações em `cloudflare-pages.toml`
+   - Defina variáveis de ambiente: `DISABLE_COMPRESSION=true`
+
+### Passos Críticos para Resolver o Erro:
+
+1. **No Dashboard do Cloudflare**:
+   ```
+   Speed > Optimization > Auto Minify: OFF
+   Speed > Optimization > Brotli: OFF (temporariamente)
+   ```
+
+2. **Limpar Cache Completamente**:
+   ```
+   Caching > Configuration > Purge Everything
+   ```
+
+3. **Aguardar Propagação**: 5-10 minutos após as mudanças
+
+4. **Testar em Modo Incógnito**: Para evitar cache do navegadorBuild output directory: dist
 Root directory: (deixe vazio)
 ```
 

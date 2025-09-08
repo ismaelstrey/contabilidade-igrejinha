@@ -5,6 +5,12 @@ compatibility_date = "2024-01-01"
 command = "npm run build"
 publish = "dist"
 
+# Configurações para desabilitar compressão automática
+[env.production]
+COMPRESSION = "false"
+AUTO_MINIFY = "false"
+
+# Regras específicas para tipos de arquivo
 [[rules]]
 type = "Text"
 globs = ["**/*.js", "**/*.mjs", "**/*.jsx"]
@@ -23,3 +29,4 @@ globs = ["**/*.webp", "**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.svg"]
 
 [build.environment_variables]
 NODE_ENV = "production"
+DISABLE_COMPRESSION = "true"

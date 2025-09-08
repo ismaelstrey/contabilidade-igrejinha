@@ -1,0 +1,36 @@
+# Configuração específica para Cloudflare Pages
+# Este arquivo desabilita a compressão automática que está causando os erros
+
+[build]
+command = "npm run build"
+publish = "dist"
+
+[build.environment_variables]
+NODE_ENV = "production"
+DISABLE_MINIFICATION = "true"
+DISABLE_COMPRESSION = "true"
+
+# Configurações de deploy
+[deployment]
+auto_minify = false
+compression = false
+
+# Headers customizados
+[headers]
+"/*.js" = [
+  { name = "Content-Type", value = "application/javascript; charset=utf-8" },
+  { name = "Content-Encoding", value = "identity" },
+  { name = "Cache-Control", value = "public, max-age=31536000, immutable" }
+]
+
+"/*.css" = [
+  { name = "Content-Type", value = "text/css; charset=utf-8" },
+  { name = "Content-Encoding", value = "identity" },
+  { name = "Cache-Control", value = "public, max-age=31536000, immutable" }
+]
+
+"/*.html" = [
+  { name = "Content-Type", value = "text/html; charset=utf-8" },
+  { name = "Content-Encoding", value = "identity" },
+  { name = "Cache-Control", value = "public, max-age=0, must-revalidate" }
+]
