@@ -1,40 +1,35 @@
+# JavaScript modules
+/assets/*.js
+  Content-Type: application/javascript
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS files
+/assets/*.css
+  Content-Type: text/css
+  Cache-Control: public, max-age=31536000, immutable
+
+# Static assets
 /static/*
   Cache-Control: public, max-age=31536000, immutable
 
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
-
-/*.js
-  Cache-Control: public, max-age=31536000, immutable
-
-/*.css
-  Cache-Control: public, max-age=31536000, immutable
-
+# Posts cache
 /posts/*
   Cache-Control: public, max-age=3600
 
+# HTML files
+/*.html
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Security headers for all pages
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-XSS-Protection: 1; mode=block
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  # Compressão para melhorar latência
-  Content-Encoding: gzip
-  # Cache otimizado
-  Cache-Control: public, max-age=31536000, immutable
 
-# Cache específico para assets
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
-  Content-Encoding: gzip
-
-# Cache para HTML
-/*.html
-  Cache-Control: public, max-age=0, must-revalidate
-  Content-Encoding: gzip
-
-# Preload headers para recursos críticos
+# Root page headers
 /
-  Link: </assets/index-Ys52xpGy.js>; rel=modulepreload; as=script
-  Link: </assets/react-core-DKsRcJzb.js>; rel=modulepreload; as=script
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=0, must-revalidate

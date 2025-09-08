@@ -1,0 +1,25 @@
+name = "contabiligrejinha"
+compatibility_date = "2024-01-01"
+
+[build]
+command = "npm run build"
+publish = "dist"
+
+[[rules]]
+type = "Text"
+globs = ["**/*.js", "**/*.mjs", "**/*.jsx"]
+
+[[rules]]
+type = "Text"
+globs = ["**/*.css"]
+
+[[rules]]
+type = "Text"
+globs = ["**/*.html"]
+
+[[rules]]
+type = "Data"
+globs = ["**/*.webp", "**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.svg"]
+
+[build.environment_variables]
+NODE_ENV = "production"

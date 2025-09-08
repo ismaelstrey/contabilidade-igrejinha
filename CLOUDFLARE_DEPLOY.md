@@ -49,6 +49,41 @@ Project name: contabiligrejinha
 Production branch: main
 Build command: npm run build
 Build output directory: dist
+Root directory: (leave blank)
+Environment variables:
+  NODE_VERSION: 18
+  NPM_VERSION: 9
+```
+
+### 4. Configurações Importantes para Resolver Erros de MIME Type
+
+O projeto inclui os seguintes arquivos de configuração:
+
+#### `public/_headers`
+- Configura MIME types corretos para arquivos JavaScript
+- Define políticas de cache otimizadas
+- Inclui headers de segurança
+
+#### `public/_mimes`
+- Mapeia extensões de arquivo para MIME types corretos
+- Garante que arquivos .js sejam servidos como `application/javascript`
+
+#### `wrangler.toml`
+- Configuração específica do Cloudflare Workers
+- Define regras de processamento para diferentes tipos de arquivo
+
+### 5. Solução para Erros Comuns
+
+**Erro: "Expected a JavaScript module script but server responded with MIME type 'application/octet-stream'"**
+
+Este erro é resolvido pelos arquivos de configuração incluídos. Certifique-se de que:
+1. Os arquivos `_headers`, `_mimes` e `wrangler.toml` estão no repositório
+2. O deploy foi feito após adicionar estes arquivos
+3. O cache do Cloudflare foi limpo (pode levar alguns minutos)
+
+**Erro: "ERR_CONTENT_DECODING_FAILED"**
+
+Este erro foi resolvido removendo configurações incorretas de `Content-Encoding` que conflitavam com a compressão automática do Cloudflare.Build output directory: dist
 Root directory: (deixe vazio)
 ```
 

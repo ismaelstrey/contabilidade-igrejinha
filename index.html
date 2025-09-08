@@ -31,11 +31,8 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
     
-    <!-- Preload do bundle principal para reduzir LCP -->
-    <link rel="modulepreload" href="/src/main.tsx">
-    
-    <!-- Preload de imagens críticas -->
-    <link rel="preload" href="/images/sobre_nos-convertido-de-png.webp" as="image" type="image/webp">
+    <!-- Preload de imagens críticas apenas se necessário -->
+    <link rel="preload" href="/images/sobre_nos-convertido-de-png.webp" as="image" type="image/webp" media="(min-width: 768px)">
     
     <!-- Resource hints para melhor performance -->
     <meta http-equiv="x-dns-prefetch-control" content="on">
