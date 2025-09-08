@@ -6,6 +6,7 @@ import Home from '@components/pages/Home/Home.tsx'
 import TeamPage from '@components/pages/TeamPage'
 import FAQPage from '@components/pages/FAQPage'
 import ContactPage from '@components/pages/ContactPage'
+import PostsPage from '@components/pages/PostsPage'
 import { AppContainer } from './App.styles'
 
 const App: React.FC = () => {
@@ -18,6 +19,7 @@ const App: React.FC = () => {
             <Route path="/equipe" element={<TeamPage />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contato" element={<ContactPage />} />
+            <Route path="/posts" element={<PostsPage />} />
           </Routes>
         </AnimatePresence>
       </AppContainer>

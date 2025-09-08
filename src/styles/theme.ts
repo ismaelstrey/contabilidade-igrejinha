@@ -28,6 +28,17 @@ export const theme = {
       orange: '#f97316',
       yellow: '#eab308',
       red: '#ef4444'
+    },
+    text: {
+      primary: '#111827',
+      secondary: '#6b7280',
+      muted: '#9ca3af'
+    },
+    background: {
+      paper: '#ffffff'
+    },
+    border: {
+      light: '#e5e7eb'
     }
   },
   typography: {
@@ -38,13 +49,17 @@ export const theme = {
       xs: '0.75rem',
       sm: '0.875rem',
       base: '1rem',
+      md: '1rem',
       lg: '1.125rem',
       xl: '1.25rem',
       '2xl': '1.5rem',
       '3xl': '1.875rem',
       '4xl': '2.25rem',
       '5xl': '3rem',
-      '6xl': '3.75rem'
+      '6xl': '3.75rem',
+      h1: '2.25rem',
+      h2: '1.875rem',
+      h3: '1.5rem'
     },
     fontWeight: {
       light: 300,
@@ -60,6 +75,7 @@ export const theme = {
     md: '1.5rem',
     lg: '2rem',
     xl: '3rem',
+    xxl: '4rem',
     '2xl': '4rem',
     '3xl': '6rem',
     '4xl': '8rem'
@@ -74,7 +90,9 @@ export const theme = {
     sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
     md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
     lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-    xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+    xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+    card: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+    cardHover: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
   },
   borderRadius: {
     sm: '0.25rem',
