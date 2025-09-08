@@ -15,7 +15,10 @@ loadFontsAsync()
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HelmetProvider>
-      <BrowserRouter>
+      <BrowserRouter future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}>
         <GlobalStyles />
         <App />
       </BrowserRouter>

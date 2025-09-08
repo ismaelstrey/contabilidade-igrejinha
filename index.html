@@ -19,10 +19,26 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <title>Contabiligrejinha - Contabilidade para Pequenas Empresas</title>
+    <!-- DNS prefetch para melhorar latência -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+    <!-- Preconnect para estabelecer conexões antecipadas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload crítico para fontes -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Preload do bundle principal para reduzir LCP -->
+    <link rel="modulepreload" href="/src/main.tsx">
+    
+    <!-- Preload de imagens críticas -->
+    <link rel="preload" href="/images/sobre_nos-convertido-de-png.webp" as="image" type="image/webp">
+    
+    <!-- Resource hints para melhor performance -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
   </head>
   <body>
     <div id="root"></div>

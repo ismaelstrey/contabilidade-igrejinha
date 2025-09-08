@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
@@ -21,12 +22,22 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false, // Desabilitar sourcemaps em produção
     minify: 'terser',
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 500, // Reduzir limite para chunks menores
     terserOptions: {
       compress: {
         drop_console: true, // Remove console.log em produção
         drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug']
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+        passes: 2, // Múltiplas passadas para melhor compressão
+        unsafe_arrows: true,
+        unsafe_methods: true,
+        unsafe_proto: true
+      },
+      mangle: {
+        safari10: true
+      },
+      format: {
+        comments: false
       }
     },
     rollupOptions: {
@@ -35,19 +46,29 @@ export default defineConfig({
       },
       output: {
         manualChunks: (id) => {
+          // Separar framer-motion em chunk próprio
           if (id.includes('framer-motion')) {
             return 'animations'
           }
+          // Separar styled-components
           if (id.includes('styled-components')) {
             return 'styles'
           }
+          // React Router em chunk separado
           if (id.includes('react-router')) {
             return 'router'
           }
+          // React core em chunk separado e menor
           if (id.includes('react') && !id.includes('react-router')) {
-            return 'react-vendor'
+            return 'react-core'
           }
+          // Dividir vendor em chunks menores por funcionalidade
           if (id.includes('node_modules')) {
+            // Utilitários pequenos juntos
+            if (id.includes('helmet') || id.includes('path')) {
+              return 'utils'
+            }
+            // Outras dependências
             return 'vendor'
           }
         },

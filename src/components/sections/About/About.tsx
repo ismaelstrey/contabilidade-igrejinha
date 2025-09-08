@@ -114,14 +114,18 @@ const About: React.FC = () => {
                   <img
                     src="/images/sobre_nos-convertido-de-png.webp"
                     alt="Equipe de contabilidade trabalhando"
+                    loading="lazy"
+                    decoding="async"
+                    width="600"
+                    height="400"
                   />
 
                   <FloatingCard
                     as={motion.div}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
+                    transition={{ delay: 0.2, duration: 0.4 }}
                   >
                     <div>✅</div>
                     <div>

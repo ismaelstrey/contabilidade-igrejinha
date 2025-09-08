@@ -19,23 +19,22 @@ import {
 } from './Hero.styles'
 
 const Hero: React.FC = () => {
-  // Variantes de animação para framer-motion
+  // Variantes de animação otimizadas para melhor performance
   const cardVariants = {
-    hidden: { y: 100, opacity: 0, scale: 0.8 },
+    hidden: { y: 50, opacity: 0 },
     visible: (i: number) => ({
       y: 0,
       opacity: 1,
-      scale: 1,
       transition: {
-        delay: 0.5 + i * 0.2,
-        duration: 1,
-        ease: [0.68, -0.55, 0.265, 1.55] // back.out equivalent
+        delay: 0.2 + i * 0.1, // Reduzir delays
+        duration: 0.5, // Animações mais rápidas
+        ease: 'easeOut'
       }
     }),
     floating: {
-      y: [-10, 10, -10],
+      y: [-5, 5, -5], // Movimento mais sutil
       transition: {
-        duration: 2,
+        duration: 3, // Mais lento para menos processamento
         repeat: Infinity,
         ease: 'easeInOut'
       }
@@ -61,9 +60,9 @@ const Hero: React.FC = () => {
       <Container>
         <HeroContent>
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
           >
             <HeroSubtitle>
               Contabilidade Especializada
@@ -100,9 +99,9 @@ const Hero: React.FC = () => {
                 <StatItem
                   key={index}
                   as={motion.div}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
                   <StatNumber>{stat.number}</StatNumber>
                   <StatLabel>{stat.label}</StatLabel>
