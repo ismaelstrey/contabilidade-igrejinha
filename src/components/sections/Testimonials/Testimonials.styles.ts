@@ -128,7 +128,7 @@ export const AuthorInfo = styled.div`
   }
 `
 
-export const AuthorName = styled.h4`
+export const AuthorName = styled.h3`
   font-size: ${theme.typography.fontSize.base};
   font-weight: ${theme.typography.fontWeight.semibold};
   color: ${theme.colors.primary.dark};
