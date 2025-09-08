@@ -64,6 +64,14 @@ export const TeamPhoto = styled.div`
   justify-content: center;
   margin-bottom: ${theme.spacing.lg};
   
+  img {
+    width: 120px;
+    height: 120px;
+    border-radius: ${theme.borderRadius.full};
+    box-shadow: ${theme.shadows.md};
+    object-fit: cover;
+  }
+  
   svg {
     border-radius: ${theme.borderRadius.full};
     box-shadow: ${theme.shadows.md};

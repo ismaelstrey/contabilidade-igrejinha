@@ -56,20 +56,29 @@ const Team: React.FC = () => {
               whileHover={{ y: -10 }}
             >
               <TeamPhoto>
-                <svg
-                  width="120"
-                  height="120"
-                  viewBox="0 0 120 120"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle cx="60" cy="60" r="60" fill="#e5e7eb" />
-                  <circle cx="60" cy="45" r="20" fill="#9ca3af" />
-                  <path
-                    d="M20 100c0-22.091 17.909-40 40-40s40 17.909 40 40"
-                    fill="#9ca3af"
+                {member.photo && member.photo !== null ? (
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    onLoad={() => console.log(`Imagem carregada: ${member.name}`)}
+                    onError={() => console.log(`Erro ao carregar imagem: ${member.name}`)}
                   />
-                </svg>
+                ) : (
+                  <svg
+                    width="120"
+                    height="120"
+                    viewBox="0 0 120 120"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="60" cy="60" r="60" fill="#e5e7eb" />
+                    <circle cx="60" cy="45" r="20" fill="#9ca3af" />
+                    <path
+                      d="M20 100c0-22.091 17.909-40 40-40s40 17.909 40 40"
+                      fill="#9ca3af"
+                    />
+                  </svg>
+                )}
               </TeamPhoto>
               
               <TeamInfo>

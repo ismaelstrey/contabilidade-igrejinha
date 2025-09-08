@@ -5,7 +5,7 @@
     "company": "Padaria do Bairro",
     "message": "Excelente atendimento! A equipe da Contabiligrejinha me ajudou muito na abertura da minha padaria. Processo rápido e sem complicações. Recomendo!",
     "rating": 5,
-    "photo": "/images/testimonials/pedro-almeida.jpg"
+    "photo": "images/testimonials/pedro-almeida.jpg"
   },
   {
     "id": "cliente-2",
@@ -13,14 +13,15 @@
     "company": "Boutique Elegance",
     "message": "Trabalho com eles há 3 anos e sempre tive um atendimento excepcional. São muito organizados e sempre me mantêm informada sobre prazos e obrigações.",
     "rating": 5,
-    "photo": "/images/testimonials/fernanda-lima.jpg"
+    "photo": "images/testimonials/fernanda-lima.jpg"
   },
   {
     "id": "cliente-3",
     "name": "Roberto Silva",
     "company": "Oficina do Roberto",
     "message": "Migrei de outro escritório e a diferença é notável. Aqui tenho agilidade, transparência e um preço justo. Minha empresa está sempre em dia!",
-    "rating": 5
+    "rating": 5,
+    "photo": "images/testimonials/roberto-silva.jpg"
   },
   {
     "id": "cliente-4",
@@ -28,14 +29,15 @@
     "company": "Clínica Bem Estar",
     "message": "Profissionais competentes e atenciosos. Me ajudaram muito com o planejamento tributário da minha clínica. Economizei bastante em impostos!",
     "rating": 5,
-    "photo": "/images/testimonials/juliana-santos.jpg"
+    "photo": "images/testimonials/juliana-santos.jpg"
   },
   {
     "id": "cliente-5",
     "name": "Marcos Ferreira",
     "company": "Distribuidora MF",
     "message": "Atendimento personalizado e sempre disponíveis para esclarecer dúvidas. A consultoria empresarial me ajudou a organizar melhor meu negócio.",
-    "rating": 5
+    "rating": 5,
+    "photo": null
   },
   {
     "id": "cliente-6",
@@ -43,6 +45,6 @@
     "company": "Escola Infantil Carinho",
     "message": "Equipe muito profissional! Cuidam de toda parte contábil da minha escola com muita responsabilidade. Posso focar no que realmente importa: educar.",
     "rating": 5,
-    "photo": "/images/testimonials/carla-rodrigues.jpg"
+    "photo": "images/testimonials/carla-rodrigues.jpg"
   }
 ]

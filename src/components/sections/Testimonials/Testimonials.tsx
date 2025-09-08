@@ -117,8 +117,13 @@ const Testimonials: React.FC = () => {
                 
                 <TestimonialAuthor>
                   <AuthorPhoto>
-                    {currentTestimonial.photo ? (
-                      <img src={currentTestimonial.photo} alt={currentTestimonial.name} />
+                    {currentTestimonial.photo && currentTestimonial.photo !== null ? (
+                      <img 
+                        src={currentTestimonial.photo} 
+                        alt={currentTestimonial.name}
+                        onLoad={() => console.log('Imagem carregada:', currentTestimonial.photo)}
+                        onError={(e) => console.error('Erro ao carregar imagem:', currentTestimonial.photo, e)}
+                      />
                     ) : (
                       <svg
                         width="60"
