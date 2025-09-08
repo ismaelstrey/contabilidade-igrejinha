@@ -112,7 +112,7 @@ const About: React.FC = () => {
               <motion.div variants={itemVariants}>
                 <ImageContainer>
                   <img
-                    src="/images/sobre_nos.png"
+                    src="/images/sobre_nos-convertido-de-png.webp"
                     alt="Equipe de contabilidade trabalhando"
                   />
 
