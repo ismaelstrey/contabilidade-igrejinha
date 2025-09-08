@@ -2,6 +2,11 @@ import { createGlobalStyle } from 'styled-components'
 import { theme } from './theme.ts'
 
 const GlobalStyles = createGlobalStyle`
+  @font-face {
+    font-family: 'Inter';
+    font-display: swap;
+  }
+
   * {
     margin: 0;
     padding: 0;
