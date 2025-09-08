@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ThemeProvider } from 'styled-components'
+import { motion, AnimatePresence } from 'framer-motion'
 import { theme } from '@/styles/theme'
 import SEO from '@components/common/SEO'
 import Header from '@components/layout/Header'
@@ -67,42 +68,92 @@ const PostsPage: React.FC = () => {
           <Header />
           <MainContent>
             <PostsContainer>
-              <button 
+              <motion.button 
                 onClick={handleBackToList}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                whileHover={{ scale: 1.05, x: -5 }}
+                whileTap={{ scale: 0.95 }}
                 style={{
-                  background: 'none',
+                  background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
                   border: 'none',
-                  color: theme.colors.primary.main,
+                  color: 'white',
                   fontSize: '16px',
                   cursor: 'pointer',
                   marginBottom: '2rem',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.5rem'
+                  gap: '0.5rem',
+                  padding: '12px 24px',
+                  borderRadius: '50px',
+                  fontWeight: '600',
+                  boxShadow: '0 4px 15px rgba(37, 99, 235, 0.4)',
+                  transition: 'all 0.3s ease'
                 }}
               >
-                ← Voltar para posts
-              </button>
+                <span style={{ fontSize: '18px' }}>←</span>
+                Voltar para posts
+              </motion.button>
               
-              <article>
-                <PostMeta>
-                  <PostDate>{formatDate(selectedPost.date)}</PostDate>
-                  <PostCategory>{selectedPost.category}</PostCategory>
-                </PostMeta>
+              <motion.article
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <PostMeta style={{ marginBottom: '2rem' }}>
+                    <PostDate>
+                      <span style={{ marginRight: '8px', fontSize: '18px' }}>📅</span>
+                      {formatDate(selectedPost.date)}
+                    </PostDate>
+                    <PostCategory>
+                      <span style={{ marginRight: '4px', fontSize: '16px' }}>🏷️</span>
+                      {selectedPost.category}
+                    </PostCategory>
+                  </PostMeta>
+                </motion.div>
                 
-                <PostTitle as="h1" style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>
-                  {selectedPost.title}
-                </PostTitle>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                  <PostTitle as="h1" style={{ 
+                    fontSize: '2.8rem', 
+                    marginBottom: '2rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '16px'
+                  }}>
+                    <span style={{ fontSize: '3rem' }}>📄</span>
+                    {selectedPost.title}
+                  </PostTitle>
+                </motion.div>
                 
-                <div style={{
-                  fontSize: '1.1rem',
-                  lineHeight: '1.8',
-                  color: theme.colors.text.primary,
-                  whiteSpace: 'pre-line'
-                }}>
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  style={{
+                    fontSize: '1.1rem',
+                    lineHeight: '1.8',
+                    color: theme.colors.text.primary,
+                    whiteSpace: 'pre-line',
+                    background: 'linear-gradient(135deg, #ffffff 0%, #fafbff 100%)',
+                    padding: '2rem',
+                    borderRadius: '16px',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                    border: '1px solid #e5e7eb'
+                  }}
+                >
                   {selectedPost.content}
-                </div>
-              </article>
+                </motion.div>
+              </motion.article>
             </PostsContainer>
           </MainContent>
           <Footer />
@@ -123,39 +174,103 @@ const PostsPage: React.FC = () => {
         <Header />
         <MainContent>
           <PostsContainer>
-            <PostsHeader>
-              <PostsTitle>Posts sobre Reforma Tributária</PostsTitle>
-              <PostsSubtitle>
-                Fique por dentro das últimas novidades sobre a Reforma Tributária 2025 
-                e como ela impacta sua contabilidade. Artigos especializados para 
-                contadores e empresários que querem se manter atualizados.
-              </PostsSubtitle>
-            </PostsHeader>
+            <motion.div
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <PostsHeader>
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <PostsTitle>
+                    <span style={{ fontSize: '2.5rem', marginRight: '12px' }}>📊</span>
+                    Posts sobre Reforma Tributária
+                  </PostsTitle>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                >
+                  <PostsSubtitle>
+                    <span style={{ fontSize: '1.2rem', marginRight: '8px' }}>💡</span>
+                    Fique por dentro das últimas novidades sobre a Reforma Tributária 2025 
+                    e como ela impacta sua contabilidade. Artigos especializados para 
+                    contadores e empresários que querem se manter atualizados.
+                  </PostsSubtitle>
+                </motion.div>
+              </PostsHeader>
+            </motion.div>
 
-            <PostsGrid>
-              {posts.map((post) => (
-                <PostCard key={post.id}>
-                  <PostMeta>
-                    <PostDate>{formatDate(post.date)}</PostDate>
-                    <PostCategory>{post.category}</PostCategory>
-                  </PostMeta>
-                  
-                  <PostTitle>{post.title}</PostTitle>
-                  <PostExcerpt>{post.excerpt}</PostExcerpt>
-                  
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ 
-                      fontSize: theme.typography.fontSize.sm, 
-                      color: theme.colors.text.muted 
-                    }}>
-                      {post.readTime} de leitura
-                    </span>
-                    <ReadMoreButton onClick={() => handleReadMore(post)}>
-                      Ler mais
-                    </ReadMoreButton>
-                  </div>
-                </PostCard>
-              ))}
+            <PostsGrid
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, staggerChildren: 0.1 }}
+            >
+              <AnimatePresence>
+                {posts.map((post, index) => (
+                  <PostCard 
+                    key={post.id}
+                    initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -50, scale: 0.9 }}
+                    transition={{ 
+                      duration: 0.5, 
+                      delay: index * 0.1,
+                      type: "spring",
+                      stiffness: 100
+                    }}
+                    whileHover={{ 
+                      y: -8, 
+                      scale: 1.02,
+                      transition: { duration: 0.2 }
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <PostMeta>
+                      <PostDate>
+                        <span style={{ marginRight: '8px' }}>📅</span>
+                        {formatDate(post.date)}
+                      </PostDate>
+                      <PostCategory>
+                        <span style={{ marginRight: '4px' }}>🏷️</span>
+                        {post.category}
+                      </PostCategory>
+                    </PostMeta>
+                    
+                    <PostTitle>
+                      <span style={{ marginRight: '8px' }}>📄</span>
+                      {post.title}
+                    </PostTitle>
+                    <PostExcerpt>{post.excerpt}</PostExcerpt>
+                    
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ 
+                        fontSize: theme.typography.fontSize.sm, 
+                        color: theme.colors.text.muted,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px'
+                      }}>
+                        <span>⏱️</span>
+                        {post.readTime} de leitura
+                      </span>
+                      <ReadMoreButton 
+                        onClick={() => handleReadMore(post)}
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                      >
+                        Ler mais
+                        <span style={{ marginLeft: '6px' }}>→</span>
+                      </ReadMoreButton>
+                    </div>
+                  </PostCard>
+                ))}
+              </AnimatePresence>
             </PostsGrid>
           </PostsContainer>
         </MainContent>

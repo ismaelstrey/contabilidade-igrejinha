@@ -81,7 +81,9 @@ export const theme = {
     '4xl': '8rem'
   },
   breakpoints: {
+    sm: '640px',
     mobile: '480px',
+    md: '768px',
     tablet: '768px',
     desktop: '1024px',
     wide: '1280px'
