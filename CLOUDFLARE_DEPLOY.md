@@ -116,7 +116,49 @@ Este erro ocorre quando o Cloudflare aplica compressão automática nos arquivos
 
 3. **Aguardar Propagação**: 5-10 minutos após as mudanças
 
-4. **Testar em Modo Incógnito**: Para evitar cache do navegadorBuild output directory: dist
+4. **Testar em Modo Incógnito**: Para evitar cache do navegador
+
+### Problema Específico com Domínio Customizado
+
+**Sintoma:** O site funciona no link do Cloudflare Pages (`*.pages.dev`) mas falha no domínio customizado com `ERR_CONTENT_DECODING_FAILED`.
+
+**Causa:** Domínios customizados podem ter configurações diferentes de compressão no Cloudflare.
+
+**Solução:**
+
+1. **Configurar Page Rules no Cloudflare Dashboard:**
+   - Acesse Rules > Page Rules
+   - Crie uma regra para `teste.contabilidadeigrejinha.com.br/*`
+   - Desabilite: Brotli, Auto Minify (JS/CSS/HTML), Rocket Loader, Mirage, Polish
+   - Prioridade: 1
+
+2. **Configurar Cache Rules para Assets:**
+   - Crie outra regra para `teste.contabilidadeigrejinha.com.br/assets/*.js`
+   - Configure: Cache Level = Cache Everything
+   - Edge Cache TTL = 1 year
+   - Browser Cache TTL = 1 year
+   - Prioridade: 2
+
+3. **Verificar DNS:**
+   - Certifique-se que o CNAME está apontando corretamente
+   - Status do proxy deve estar "Proxied" (nuvem laranja)
+
+4. **Limpar Cache Específico:**
+   - Purge por URL: `https://teste.contabilidadeigrejinha.com.br/*`
+   - Aguarde 10-15 minutos para propagação completa
+
+5. **Testar Sequencialmente:**
+   - Primeiro teste o link `.pages.dev`
+   - Depois teste o domínio customizado
+   - Use ferramentas de desenvolvedor para verificar headers
+
+### 4. Configurações de Build
+
+```yaml
+Project name: contabiligrejinha
+Production branch: main
+Build command: npm run build
+Build output directory: dist
 Root directory: (deixe vazio)
 ```
 

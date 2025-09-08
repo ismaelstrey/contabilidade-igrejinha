@@ -1,0 +1,19 @@
+# Configuração específica para domínio customizado no Cloudflare
+# Este arquivo resolve problemas de compressão em domínios personalizados
+
+# Desabilitar compressão automática para domínios customizados
+X-Cloudflare-No-Compression: true
+
+# Forçar MIME types corretos
+*.js
+  Content-Type: application/javascript; charset=utf-8
+  Content-Encoding: identity
+  X-Content-Type-Options: nosniff
+
+*.css
+  Content-Type: text/css; charset=utf-8
+  Content-Encoding: identity
+
+*.html
+  Content-Type: text/html; charset=utf-8
+  Content-Encoding: identity
