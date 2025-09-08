@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { motion, AnimatePresence } from 'framer-motion'
 import { theme } from '@/styles/theme'
 import SEO from '@components/common/SEO'
+import Breadcrumbs from '@components/common/Breadcrumbs'
 import Header from '@components/layout/Header'
 import Footer from '@components/layout/Footer'
 import GlobalStyles from '@/styles/globalStyles'
 import postsData from '@/data/posts.json'
+import { generatePostSlug } from '@/utils/slugify'
 import {
   PageContainer,
   MainContent,
@@ -36,7 +39,7 @@ interface Post {
 
 const PostsPage: React.FC = () => {
   const [posts] = useState<Post[]>(postsData)
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null)
+  const navigate = useNavigate()
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -48,119 +51,14 @@ const PostsPage: React.FC = () => {
   }
 
   const handleReadMore = (post: Post) => {
-    setSelectedPost(post)
+    const slug = generatePostSlug(post.title, post.id)
+    navigate(`/posts/${slug}`)
   }
 
-  const handleBackToList = () => {
-    setSelectedPost(null)
-  }
-
-  if (selectedPost) {
-    return (
-      <ThemeProvider theme={theme}>
-        <SEO 
-          title={`${selectedPost.title} - Contabiligrejinha`}
-          description={selectedPost.excerpt}
-          keywords={`${selectedPost.category.toLowerCase()}, contabilidade, reforma tributária`}
-        />
-        <GlobalStyles />
-        <PageContainer>
-          <Header />
-          <MainContent>
-            <PostsContainer>
-              <motion.button 
-                onClick={handleBackToList}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                whileHover={{ scale: 1.05, x: -5 }}
-                whileTap={{ scale: 0.95 }}
-                style={{
-                  background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
-                  border: 'none',
-                  color: 'white',
-                  fontSize: '16px',
-                  cursor: 'pointer',
-                  marginBottom: '2rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '12px 24px',
-                  borderRadius: '50px',
-                  fontWeight: '600',
-                  boxShadow: '0 4px 15px rgba(37, 99, 235, 0.4)',
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                <span style={{ fontSize: '18px' }}>←</span>
-                Voltar para posts
-              </motion.button>
-              
-              <motion.article
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                  <PostMeta style={{ marginBottom: '2rem' }}>
-                    <PostDate>
-                      <span style={{ marginRight: '8px', fontSize: '18px' }}>📅</span>
-                      {formatDate(selectedPost.date)}
-                    </PostDate>
-                    <PostCategory>
-                      <span style={{ marginRight: '4px', fontSize: '16px' }}>🏷️</span>
-                      {selectedPost.category}
-                    </PostCategory>
-                  </PostMeta>
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                >
-                  <PostTitle as="h1" style={{ 
-                    fontSize: '2.8rem', 
-                    marginBottom: '2rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px'
-                  }}>
-                    <span style={{ fontSize: '3rem' }}>📄</span>
-                    {selectedPost.title}
-                  </PostTitle>
-                </motion.div>
-                
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
-                  style={{
-                    fontSize: '1.1rem',
-                    lineHeight: '1.8',
-                    color: theme.colors.text.primary,
-                    whiteSpace: 'pre-line',
-                    background: 'linear-gradient(135deg, #ffffff 0%, #fafbff 100%)',
-                    padding: '2rem',
-                    borderRadius: '16px',
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
-                    border: '1px solid #e5e7eb'
-                  }}
-                >
-                  {selectedPost.content}
-                </motion.div>
-              </motion.article>
-            </PostsContainer>
-          </MainContent>
-          <Footer />
-        </PageContainer>
-      </ThemeProvider>
-    )
-  }
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Posts', url: '/posts' }
+  ]
 
   return (
     <ThemeProvider theme={theme}>
@@ -174,6 +72,7 @@ const PostsPage: React.FC = () => {
         <Header />
         <MainContent>
           <PostsContainer>
+            <Breadcrumbs items={breadcrumbs} />
             <motion.div
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}

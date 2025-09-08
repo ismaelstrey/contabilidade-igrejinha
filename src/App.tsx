@@ -7,6 +7,7 @@ import TeamPage from '@components/pages/TeamPage'
 import FAQPage from '@components/pages/FAQPage'
 import ContactPage from '@components/pages/ContactPage'
 import PostsPage from '@components/pages/PostsPage'
+import PostPage from '@components/pages/PostPage'
 import { AppContainer } from './App.styles'
 
 const App: React.FC = () => {
@@ -20,6 +21,7 @@ const App: React.FC = () => {
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contato" element={<ContactPage />} />
             <Route path="/posts" element={<PostsPage />} />
+            <Route path="/posts/:slug" element={<PostPage />} />
           </Routes>
         </AnimatePresence>
       </AppContainer>
