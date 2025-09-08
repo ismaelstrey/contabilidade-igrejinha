@@ -79,8 +79,8 @@ const About: React.FC = () => {
                   {companyInfo.description}
                 </AboutDescription>
                 <AboutDescription>
-                  Com mais de 15 anos de experiência no mercado, nossa equipe especializada 
-                  oferece soluções completas em contabilidade, sempre focando na excelência 
+                  Com mais de 15 anos de experiência no mercado, nossa equipe especializada
+                  oferece soluções completas em contabilidade, sempre focando na excelência
                   e na satisfação dos nossos clientes.
                 </AboutDescription>
               </motion.div>
@@ -112,10 +112,10 @@ const About: React.FC = () => {
               <motion.div variants={itemVariants}>
                 <ImageContainer>
                   <img
-                    src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                    src="/images/sobre_nos.png"
                     alt="Equipe de contabilidade trabalhando"
                   />
-                  
+
                   <FloatingCard
                     as={motion.div}
                     initial={{ opacity: 0, scale: 0.8 }}
