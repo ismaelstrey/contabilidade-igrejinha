@@ -19,25 +19,41 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: false,
+    sourcemap: false, // Desabilitar sourcemaps em produção
     minify: 'terser',
+    chunkSizeWarningLimit: 1000,
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.log em produção
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug']
+      }
+    },
     rollupOptions: {
+      treeshake: {
+        moduleSideEffects: false
+      },
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          animations: ['framer-motion', 'gsap']
+        manualChunks: (id) => {
+          if (id.includes('framer-motion')) {
+            return 'animations'
+          }
+          if (id.includes('styled-components')) {
+            return 'styles'
+          }
+          if (id.includes('react-router')) {
+            return 'router'
+          }
+          if (id.includes('react') && !id.includes('react-router')) {
+            return 'react-vendor'
+          }
+          if (id.includes('node_modules')) {
+            return 'vendor'
+          }
         },
-        assetFileNames: (assetInfo) => {
-          const info = assetInfo.name.split('.')
-          const ext = info[info.length - 1]
-          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
-            return `assets/images/[name]-[hash][extname]`
-          }
-          if (/woff2?|eot|ttf|otf/i.test(ext)) {
-            return `assets/fonts/[name]-[hash][extname]`
-          }
-          return `assets/[name]-[hash][extname]`
-        }
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js'
       }
     },
     cssCodeSplit: true,

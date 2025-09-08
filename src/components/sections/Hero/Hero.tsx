@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
-import { gsap } from 'gsap'
 import Container from '@components/common/Container'
 import Button from '@components/common/Button'
 import companyInfo from '@data/companyInfo.json'
@@ -20,41 +19,28 @@ import {
 } from './Hero.styles'
 
 const Hero: React.FC = () => {
-  const heroRef = useRef<HTMLDivElement>(null)
-  const cardsRef = useRef<HTMLDivElement[]>([])
-
-  useEffect(() => {
-    // Animação GSAP para os cards flutuantes
-    if (cardsRef.current.length > 0) {
-      gsap.fromTo(
-        cardsRef.current,
-        {
-          y: 100,
-          opacity: 0,
-          scale: 0.8
-        },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 1,
-          stagger: 0.2,
-          ease: 'back.out(1.7)',
-          delay: 0.5
-        }
-      )
-
-      // Animação de flutuação contínua
-      gsap.to(cardsRef.current, {
-        y: -10,
+  // Variantes de animação para framer-motion
+  const cardVariants = {
+    hidden: { y: 100, opacity: 0, scale: 0.8 },
+    visible: (i: number) => ({
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay: 0.5 + i * 0.2,
+        duration: 1,
+        ease: [0.68, -0.55, 0.265, 1.55] // back.out equivalent
+      }
+    }),
+    floating: {
+      y: [-10, 10, -10],
+      transition: {
         duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power2.inOut',
-        stagger: 0.3
-      })
+        repeat: Infinity,
+        ease: 'easeInOut'
+      }
     }
-  }, [])
+  }
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -71,7 +57,7 @@ const Hero: React.FC = () => {
   ]
 
   return (
-    <HeroSection id="hero" ref={heroRef}>
+    <HeroSection id="hero">
       <Container>
         <HeroContent>
           <motion.div
@@ -127,7 +113,11 @@ const Hero: React.FC = () => {
 
           <HeroImage>
             <FloatingCard
-              ref={(el) => el && (cardsRef.current[0] = el)}
+              as={motion.div}
+              custom={0}
+              initial="hidden"
+              animate={["visible", "floating"]}
+              variants={cardVariants}
               style={{ top: '10%', right: '10%' }}
             >
               <span>📊</span>
@@ -138,7 +128,11 @@ const Hero: React.FC = () => {
             </FloatingCard>
             
             <FloatingCard
-              ref={(el) => el && (cardsRef.current[1] = el)}
+              as={motion.div}
+              custom={1}
+              initial="hidden"
+              animate={["visible", "floating"]}
+              variants={cardVariants}
               style={{ top: '40%', left: '5%' }}
             >
               <span>⚡</span>
@@ -149,7 +143,11 @@ const Hero: React.FC = () => {
             </FloatingCard>
             
             <FloatingCard
-              ref={(el) => el && (cardsRef.current[2] = el)}
+              as={motion.div}
+              custom={2}
+              initial="hidden"
+              animate={["visible", "floating"]}
+              variants={cardVariants}
               style={{ bottom: '20%', right: '5%' }}
             >
               <span>🛡️</span>
