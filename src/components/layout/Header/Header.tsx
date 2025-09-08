@@ -48,13 +48,13 @@ const Header: React.FC = () => {
   }
 
   const navItems = [
-    { label: 'Início', path: '/', sectionId: 'hero' },
-    { label: 'Serviços', path: '/', sectionId: 'services' },
-    { label: 'Sobre', path: '/', sectionId: 'about' },
-    { label: 'Equipe', path: '/equipe' },
-    { label: 'Posts', path: '/posts' },
-    { label: 'Depoimentos', path: '/', sectionId: 'testimonials' },
-    { label: 'FAQ', path: '/faq' }
+    { label: 'Início', path: '/', sectionId: 'hero', href: '/' },
+    { label: 'Serviços', path: '/', sectionId: 'services', href: '/#servicos' },
+    { label: 'Sobre', path: '/', sectionId: 'about', href: '/#sobre' },
+    { label: 'Equipe', path: '/equipe', href: '/equipe' },
+    { label: 'Posts', path: '/posts', href: '/posts' },
+    { label: 'Depoimentos', path: '/', sectionId: 'testimonials', href: '/#depoimentos' },
+    { label: 'FAQ', path: '/faq', href: '/faq' }
   ]
 
   return (
@@ -74,7 +74,14 @@ const Header: React.FC = () => {
           <NavList>
             {navItems.map((item) => (
               <NavItem key={item.path + (item.sectionId || '')}>
-                <NavLink onClick={() => handleNavigation(item.path, item.sectionId)}>
+                <NavLink 
+                  as="a"
+                  href={item.href}
+                  onClick={(e: React.MouseEvent) => {
+                    e.preventDefault()
+                    handleNavigation(item.path, item.sectionId)
+                  }}
+                >
                   {item.label}
                 </NavLink>
               </NavItem>
@@ -115,7 +122,12 @@ const Header: React.FC = () => {
               {navItems.map((item) => (
                 <NavLink
                   key={item.path + (item.sectionId || '')}
-                  onClick={() => handleNavigation(item.path, item.sectionId)}
+                  as="a"
+                  href={item.href}
+                  onClick={(e: React.MouseEvent) => {
+                    e.preventDefault()
+                    handleNavigation(item.path, item.sectionId)
+                  }}
                 >
                   {item.label}
                 </NavLink>

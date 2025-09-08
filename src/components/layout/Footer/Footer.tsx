@@ -28,12 +28,12 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear()
 
   const quickLinks = [
-    { label: 'Início', href: 'hero' },
-    { label: 'Serviços', href: 'services' },
-    { label: 'Sobre Nós', href: 'about' },
-    { label: 'Equipe', href: 'team' },
-    { label: 'Depoimentos', href: 'testimonials' },
-    { label: 'FAQ', href: 'faq' }
+    { label: 'Início', href: 'hero', url: '/' },
+    { label: 'Serviços', href: 'services', url: '/#servicos' },
+    { label: 'Sobre Nós', href: 'about', url: '/#sobre' },
+    { label: 'Equipe', href: 'team', url: '/equipe' },
+    { label: 'Depoimentos', href: 'testimonials', url: '/#depoimentos' },
+    { label: 'FAQ', href: 'faq', url: '/faq' }
   ]
 
   const services = [
@@ -114,7 +114,13 @@ const Footer: React.FC = () => {
             <FooterList>
               {quickLinks.map((link) => (
                 <FooterListItem key={link.href}>
-                  <FooterLink onClick={() => scrollToSection(link.href)}>
+                  <FooterLink 
+                    href={link.url}
+                    onClick={(e: React.MouseEvent) => {
+                      e.preventDefault()
+                      scrollToSection(link.href)
+                    }}
+                  >
                     {link.label}
                   </FooterLink>
                 </FooterListItem>
@@ -133,7 +139,13 @@ const Footer: React.FC = () => {
             <FooterList>
               {services.map((service) => (
                 <FooterListItem key={service}>
-                  <FooterLink onClick={() => scrollToSection('services')}>
+                  <FooterLink 
+                    href="/#servicos"
+                    onClick={(e: React.MouseEvent) => {
+                      e.preventDefault()
+                      scrollToSection('services')
+                    }}
+                  >
                     {service}
                   </FooterLink>
                 </FooterListItem>

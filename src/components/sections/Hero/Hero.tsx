@@ -94,6 +94,7 @@ const Hero: React.FC = () => {
               <Button
                 variant="primary"
                 size="lg"
+                href="/#servicos"
                 onClick={() => scrollToSection('services')}
               >
                 Nossos Serviços
@@ -101,6 +102,7 @@ const Hero: React.FC = () => {
               <Button
                 variant="outline"
                 size="lg"
+                href="/#contato"
                 onClick={() => scrollToSection('contact')}
               >
                 Fale Conosco

@@ -107,6 +107,7 @@ const Services: React.FC = () => {
               <Button
                 variant="outline"
                 size="sm"
+                href="/#contato"
                 onClick={() => scrollToSection('contact')}
               >
                 Solicitar Orçamento
@@ -125,6 +126,7 @@ const Services: React.FC = () => {
           <Button
             variant="primary"
             size="lg"
+            href="/#contato"
             onClick={() => scrollToSection('contact')}
           >
             Fale Conosco para Mais Informações

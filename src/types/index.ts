@@ -70,10 +70,12 @@ export interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'outline'
   size?: 'sm' | 'md' | 'lg'
   children: React.ReactNode
-  onClick?: () => void
+  onClick?: (e?: React.MouseEvent) => void
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
   className?: string
+  href?: string
+  as?: 'button' | 'a'
 }
 
 export interface SectionProps {

@@ -100,8 +100,12 @@ const PostPage: React.FC = () => {
         <MainContent>
           <PostsContainer>
             <Breadcrumbs items={breadcrumbs} />
-            <motion.button 
-              onClick={() => navigate('/posts')}
+            <motion.a 
+              href="/posts"
+              onClick={(e: React.MouseEvent) => {
+                e.preventDefault()
+                navigate('/posts')
+              }}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
@@ -121,12 +125,13 @@ const PostPage: React.FC = () => {
                 borderRadius: '50px',
                 fontWeight: '600',
                 boxShadow: '0 4px 15px rgba(37, 99, 235, 0.4)',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                textDecoration: 'none'
               }}
             >
               <span style={{ fontSize: '18px' }}>←</span>
               Voltar para posts
-            </motion.button>
+            </motion.a>
             
             <motion.article
               initial={{ opacity: 0, y: 30 }}
