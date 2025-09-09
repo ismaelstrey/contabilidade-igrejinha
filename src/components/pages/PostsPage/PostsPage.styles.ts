@@ -1,15 +1,42 @@
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
-export const PageContainer = styled.div`
+interface ThemeProps {
+  $themeMode?: 'light' | 'dark'
+}
+
+export const PageContainer = styled.div<ThemeProps>`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: ${({ theme, $themeMode }) => 
+    $themeMode === 'dark' 
+      ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)'
+      : theme.colors.background.paper};
+  transition: ${({ theme }) => theme.transitions.normal};
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: ${({ $themeMode }) => 
+      $themeMode === 'dark'
+        ? 'radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%)'
+        : 'none'};
+    pointer-events: none;
+    z-index: 0;
+  }
 `
 
-export const MainContent = styled.main`
+export const MainContent = styled.main<ThemeProps>`
   flex: 1;
   padding-top: ${({ theme }) => theme.spacing.xl};
+  position: relative;
+  z-index: 1;
   
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding-top: ${({ theme }) => theme.spacing.lg};
@@ -62,9 +89,10 @@ export const PostsTitle = styled.h1`
   }
 `
 
-export const PostsSubtitle = styled.p`
+export const PostsSubtitle = styled.p<ThemeProps>`
   font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  color: ${({ theme }) => theme.colors.text.secondary};
+  color: ${({ theme, $themeMode }) => 
+    $themeMode === 'dark' ? '#e2e8f0' : theme.colors.text.secondary};
   text-align: center;
   max-width: 700px;
   margin: 0 auto;
@@ -73,11 +101,21 @@ export const PostsSubtitle = styled.p`
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: ${({ $themeMode }) => 
+    $themeMode === 'dark'
+      ? 'linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.8) 100%)'
+      : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'};
   padding: 1.5rem 2rem;
   border-radius: 16px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid ${({ $themeMode }) => 
+    $themeMode === 'dark' ? 'rgba(148, 163, 184, 0.2)' : '#e2e8f0'};
+  box-shadow: ${({ $themeMode }) => 
+    $themeMode === 'dark'
+      ? '0 2px 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(120, 119, 198, 0.1)'
+      : '0 2px 10px rgba(0, 0, 0, 0.05)'};
+  backdrop-filter: ${({ $themeMode }) => 
+    $themeMode === 'dark' ? 'blur(10px)' : 'none'};
+  transition: ${({ theme }) => theme.transitions.normal};
   
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: column;
@@ -98,15 +136,25 @@ export const PostsGrid = styled(motion.div)`
   }
 `
 
-export const PostCard = styled(motion.article)`
-  background: linear-gradient(135deg, ${({ theme }) => theme.colors.background.paper} 0%, #fafbff 100%);
+export const PostCard = styled(motion.article)<ThemeProps>`
+  background: ${({ theme, $themeMode }) => 
+    $themeMode === 'dark'
+      ? 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.9) 100%)'
+      : `linear-gradient(135deg, ${theme.colors.background.paper} 0%, #fafbff 100%)`};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: ${({ theme }) => theme.spacing.xl};
-  box-shadow: ${({ theme }) => theme.shadows.card};
-  border: 1px solid ${({ theme }) => theme.colors.border.light};
+  box-shadow: ${({ theme, $themeMode }) => 
+    $themeMode === 'dark'
+      ? '0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(120, 119, 198, 0.1)'
+      : theme.shadows.card};
+  border: 1px solid ${({ theme, $themeMode }) => 
+    $themeMode === 'dark' ? 'rgba(148, 163, 184, 0.2)' : theme.colors.border.light};
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  backdrop-filter: ${({ $themeMode }) => 
+    $themeMode === 'dark' ? 'blur(10px)' : 'none'};
+  transition: ${({ theme }) => theme.transitions.normal};
   
   &::before {
     content: '';
@@ -120,8 +168,12 @@ export const PostCard = styled(motion.article)`
   
   &:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: ${({ theme }) => theme.shadows.cardHover};
-    border-color: ${({ theme }) => theme.colors.primary.light};
+    box-shadow: ${({ theme, $themeMode }) => 
+      $themeMode === 'dark'
+        ? '0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(120, 119, 198, 0.2)'
+        : theme.shadows.cardHover};
+    border-color: ${({ theme, $themeMode }) => 
+      $themeMode === 'dark' ? 'rgba(120, 119, 198, 0.4)' : theme.colors.primary.light};
   }
 `
 
@@ -141,18 +193,20 @@ export const PostTitle = styled.h2`
   }
 `
 
-export const PostExcerpt = styled.p`
+export const PostExcerpt = styled.p<ThemeProps>`
   font-size: ${({ theme }) => theme.typography.fontSize.md};
-  color: ${({ theme }) => theme.colors.text.secondary};
+  color: ${({ theme, $themeMode }) => 
+    $themeMode === 'dark' ? '#cbd5e1' : theme.colors.text.secondary};
   line-height: 1.7;
   margin-bottom: ${({ theme }) => theme.spacing.lg};
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  transition: ${({ theme }) => theme.transitions.normal};
 `
 
-export const PostMeta = styled.div`
+export const PostMeta = styled.div<ThemeProps>`
   display: flex;
   gap: 1.5rem;
   margin-bottom: 1rem;
@@ -160,10 +214,20 @@ export const PostMeta = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  background: ${({ $themeMode }) => 
+    $themeMode === 'dark'
+      ? 'linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%)'
+      : 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)'};
   border-radius: 50px;
-  border: 1px solid #cbd5e1;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid ${({ $themeMode }) => 
+    $themeMode === 'dark' ? 'rgba(148, 163, 184, 0.2)' : '#cbd5e1'};
+  box-shadow: ${({ $themeMode }) => 
+    $themeMode === 'dark'
+      ? '0 2px 8px rgba(0, 0, 0, 0.3), 0 0 15px rgba(120, 119, 198, 0.1)'
+      : '0 2px 8px rgba(0, 0, 0, 0.06)'};
+  backdrop-filter: ${({ $themeMode }) => 
+    $themeMode === 'dark' ? 'blur(10px)' : 'none'};
+  transition: ${({ theme }) => theme.transitions.normal};
   
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     flex-direction: column;
@@ -172,17 +236,23 @@ export const PostMeta = styled.div`
   }
 `
 
-export const PostDate = styled.span`
-  color: ${({ theme }) => theme.colors.text.muted};
+export const PostDate = styled.span<ThemeProps>`
+  color: ${({ theme, $themeMode }) => 
+    $themeMode === 'dark' ? '#94a3b8' : theme.colors.text.muted};
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  background: ${({ $themeMode }) => 
+    $themeMode === 'dark'
+      ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%)'
+      : 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)'};
   border-radius: 25px;
-  border: 1px solid #93c5fd;
+  border: 1px solid ${({ $themeMode }) => 
+    $themeMode === 'dark' ? 'rgba(59, 130, 246, 0.3)' : '#93c5fd'};
+  transition: ${({ theme }) => theme.transitions.normal};
 `
 
 export const PostCategory = styled.span`

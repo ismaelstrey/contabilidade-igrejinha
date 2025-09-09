@@ -3,9 +3,12 @@ import SEO from '@components/common/SEO'
 import Header from '@components/layout/Header'
 import Footer from '@components/layout/Footer'
 import FAQ from '@components/sections/FAQ'
+import { useTheme } from '@/contexts/ThemeContext'
 import { PageContainer, MainContent } from './FAQPage.styles'
 
 const FAQPage: React.FC = () => {
+  const { themeMode } = useTheme()
+  
   return (
     <>
       <SEO 
@@ -13,9 +16,9 @@ const FAQPage: React.FC = () => {
         description="Encontre respostas para as principais dúvidas sobre contabilidade em Igrejinha RS. FAQ completo sobre serviços contábeis para pequenas empresas."
         keywords="FAQ contabilidade Igrejinha RS, dúvidas contábeis, perguntas frequentes contabilidade, escritório contábil Igrejinha"
       />
-      <PageContainer>
+      <PageContainer $themeMode={themeMode}>
         <Header />
-        <MainContent>
+        <MainContent $themeMode={themeMode}>
           <FAQ />
         </MainContent>
         <Footer />

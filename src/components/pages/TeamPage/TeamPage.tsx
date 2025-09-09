@@ -3,9 +3,12 @@ import SEO from '@components/common/SEO'
 import Header from '@components/layout/Header'
 import Footer from '@components/layout/Footer'
 import Team from '@components/sections/Team'
+import { useTheme } from '@/contexts/ThemeContext'
 import { PageContainer, MainContent } from './TeamPage.styles'
 
 const TeamPage: React.FC = () => {
+  const { themeMode } = useTheme()
+  
   return (
     <>
       <SEO 
@@ -13,9 +16,9 @@ const TeamPage: React.FC = () => {
         description="Conheça nossa equipe de contadores especializados em Igrejinha RS. Profissionais qualificados para atender pequenas empresas."
         keywords="equipe contabilidade Igrejinha RS, contadores Igrejinha, profissionais contábeis, escritório contábil Igrejinha"
       />
-      <PageContainer>
+      <PageContainer $themeMode={themeMode}>
         <Header />
-        <MainContent>
+        <MainContent $themeMode={themeMode}>
           <Team />
         </MainContent>
         <Footer />

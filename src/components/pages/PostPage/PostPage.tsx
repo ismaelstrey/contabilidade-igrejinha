@@ -7,6 +7,7 @@ import Header from '@components/layout/Header'
 import Footer from '@components/layout/Footer'
 import postsData from '@/data/posts.json'
 import { extractIdFromSlug } from '@/utils/slugify'
+import { useTheme } from '@/contexts/ThemeContext'
 import {
   PageContainer,
   MainContent,
@@ -30,6 +31,7 @@ interface Post {
 const PostPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>()
   const navigate = useNavigate()
+  const { themeMode } = useTheme()
   
   // Extrair ID do slug e encontrar o post
   const postId = slug ? extractIdFromSlug(slug) : null
@@ -42,9 +44,9 @@ const PostPage: React.FC = () => {
           title="Post não encontrado - Contabiligrejinha"
           description="O post que você está procurando não foi encontrado."
         />
-        <PageContainer>
+        <PageContainer $themeMode={themeMode}>
           <Header />
-          <MainContent>
+          <MainContent $themeMode={themeMode}>
             <PostsContainer>
               <h1>Post não encontrado</h1>
               <p>O post que você está procurando não existe ou foi removido.</p>
@@ -90,9 +92,9 @@ const PostPage: React.FC = () => {
         }}
         breadcrumbs={breadcrumbs}
       />
-      <PageContainer>
+      <PageContainer $themeMode={themeMode}>
         <Header />
-        <MainContent>
+        <MainContent $themeMode={themeMode}>
           <PostsContainer>
             <Breadcrumbs items={breadcrumbs} />
             <motion.a 
@@ -138,8 +140,8 @@ const PostPage: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <PostMeta style={{ marginBottom: '2rem' }}>
-                  <PostDate>
+                <PostMeta $themeMode={themeMode} style={{ marginBottom: '2rem' }}>
+                  <PostDate $themeMode={themeMode}>
                     <span style={{ marginRight: '8px', fontSize: '18px' }}>📅</span>
                     {formatDate(post.date)}
                   </PostDate>
@@ -174,13 +176,19 @@ const PostPage: React.FC = () => {
                 style={{
                   fontSize: '1.1rem',
                   lineHeight: '1.8',
-                  color: '#1a202c',
+                  color: themeMode === 'dark' ? '#e2e8f0' : '#1a202c',
                   whiteSpace: 'pre-line',
-                  background: 'linear-gradient(135deg, #ffffff 0%, #fafbff 100%)',
+                  background: themeMode === 'dark' 
+                    ? 'linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.8) 100%)'
+                    : 'linear-gradient(135deg, #ffffff 0%, #fafbff 100%)',
                   padding: '2rem',
                   borderRadius: '16px',
-                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
-                  border: '1px solid #e5e7eb'
+                  boxShadow: themeMode === 'dark'
+                    ? '0 4px 20px rgba(0, 0, 0, 0.3)'
+                    : '0 4px 20px rgba(0, 0, 0, 0.08)',
+                  border: themeMode === 'dark' ? '1px solid rgba(148, 163, 184, 0.2)' : '1px solid #e5e7eb',
+                  backdropFilter: themeMode === 'dark' ? 'blur(10px)' : 'none',
+                  transition: 'all 0.3s ease'
                 }}
               >
                 {post.content}

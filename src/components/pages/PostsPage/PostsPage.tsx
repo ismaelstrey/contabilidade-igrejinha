@@ -7,6 +7,7 @@ import Header from '@components/layout/Header'
 import Footer from '@components/layout/Footer'
 import postsData from '@/data/posts.json'
 import { generatePostSlug } from '@/utils/slugify'
+import { useTheme } from '@/contexts/ThemeContext'
 import {
   PageContainer,
   MainContent,
@@ -37,6 +38,7 @@ interface Post {
 const PostsPage: React.FC = () => {
   const [posts] = useState<Post[]>(postsData)
   const navigate = useNavigate()
+  const { themeMode } = useTheme()
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -59,14 +61,14 @@ const PostsPage: React.FC = () => {
 
   return (
     <>
-      <SEO 
+      <SEO
         title="Posts sobre Reforma Tributária - Contabiligrejinha"
         description="Fique por dentro das últimas novidades sobre a Reforma Tributária 2025 e como ela impacta sua contabilidade. Artigos especializados para contadores e empresários."
         keywords="reforma tributária, IVA dual, IBS, CBS, imposto seletivo, contabilidade, posts"
       />
-      <PageContainer>
+      <PageContainer $themeMode={themeMode}>
         <Header />
-        <MainContent>
+        <MainContent $themeMode={themeMode}>
           <PostsContainer>
             <Breadcrumbs items={breadcrumbs} />
             <motion.div
@@ -90,10 +92,10 @@ const PostsPage: React.FC = () => {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                  <PostsSubtitle>
+                  <PostsSubtitle $themeMode={themeMode}>
                     <span style={{ fontSize: '1.2rem', marginRight: '8px' }}>💡</span>
-                    Fique por dentro das últimas novidades sobre a Reforma Tributária 2025 
-                    e como ela impacta sua contabilidade. Artigos especializados para 
+                    Fique por dentro das últimas novidades sobre a Reforma Tributária 2025
+                    e como ela impacta sua contabilidade. Artigos especializados para
                     contadores e empresários que querem se manter atualizados.
                   </PostsSubtitle>
                 </motion.div>
@@ -107,26 +109,27 @@ const PostsPage: React.FC = () => {
             >
               <AnimatePresence>
                 {posts.map((post, index) => (
-                  <PostCard 
+                  <PostCard
                     key={post.id}
+                    $themeMode={themeMode}
                     initial={{ opacity: 0, y: 50, scale: 0.9 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -50, scale: 0.9 }}
-                    transition={{ 
-                      duration: 0.5, 
+                    transition={{
+                      duration: 0.5,
                       delay: index * 0.1,
                       type: "spring",
                       stiffness: 100
                     }}
-                    whileHover={{ 
-                      y: -8, 
+                    whileHover={{
+                      y: -8,
                       scale: 1.02,
                       transition: { duration: 0.2 }
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <PostMeta>
-                      <PostDate>
+                    <PostMeta $themeMode={themeMode}>
+                      <PostDate $themeMode={themeMode}>
                         <span style={{ marginRight: '8px' }}>📅</span>
                         {formatDate(post.date)}
                       </PostDate>
@@ -135,16 +138,16 @@ const PostsPage: React.FC = () => {
                         {post.category}
                       </PostCategory>
                     </PostMeta>
-                    
+
                     <PostTitle>
                       <span style={{ marginRight: '8px' }}>📄</span>
                       {post.title}
                     </PostTitle>
-                    <PostExcerpt>{post.excerpt}</PostExcerpt>
-                    
+                    <PostExcerpt $themeMode={themeMode}>{post.excerpt}</PostExcerpt>
+
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ 
-                        fontSize: '0.875rem', 
+                      <span style={{
+                        fontSize: '0.875rem',
                         color: '#6b7280',
                         display: 'flex',
                         alignItems: 'center',
@@ -153,7 +156,7 @@ const PostsPage: React.FC = () => {
                         <span>⏱️</span>
                         {post.readTime} de leitura
                       </span>
-                      <ReadMoreButton 
+                      <ReadMoreButton
                         onClick={() => handleReadMore(post)}
                         whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.95 }}
