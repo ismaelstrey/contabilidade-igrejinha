@@ -83,7 +83,6 @@ const PostsPage: React.FC = () => {
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
                   <PostsTitle>
-                    <span style={{ fontSize: '2.5rem', marginRight: '12px' }}>📊</span>
                     Posts sobre Reforma Tributária
                   </PostsTitle>
                 </motion.div>
@@ -93,7 +92,6 @@ const PostsPage: React.FC = () => {
                   transition={{ duration: 0.8, delay: 0.4 }}
                 >
                   <PostsSubtitle $themeMode={themeMode}>
-                    <span style={{ fontSize: '1.2rem', marginRight: '8px' }}>💡</span>
                     Fique por dentro das últimas novidades sobre a Reforma Tributária 2025
                     e como ela impacta sua contabilidade. Artigos especializados para
                     contadores e empresários que querem se manter atualizados.
@@ -130,17 +128,14 @@ const PostsPage: React.FC = () => {
                   >
                     <PostMeta $themeMode={themeMode}>
                       <PostDate $themeMode={themeMode}>
-                        <span style={{ marginRight: '8px' }}>📅</span>
                         {formatDate(post.date)}
                       </PostDate>
                       <PostCategory>
-                        <span style={{ marginRight: '4px' }}>🏷️</span>
                         {post.category}
                       </PostCategory>
                     </PostMeta>
 
                     <PostTitle>
-                      <span style={{ marginRight: '8px' }}>📄</span>
                       {post.title}
                     </PostTitle>
                     <PostExcerpt $themeMode={themeMode}>{post.excerpt}</PostExcerpt>
@@ -153,17 +148,15 @@ const PostsPage: React.FC = () => {
                         alignItems: 'center',
                         gap: '4px'
                       }}>
-                        <span>⏱️</span>
                         {post.readTime} de leitura
                       </span>
                       <ReadMoreButton
                         onClick={() => handleReadMore(post)}
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ scale: 1.02, y: -1 }}
+                        whileTap={{ scale: 0.98 }}
                         transition={{ type: "spring", stiffness: 400, damping: 17 }}
                       >
                         Ler mais
-                        <span style={{ marginLeft: '6px' }}>→</span>
                       </ReadMoreButton>
                     </div>
                   </PostCard>
