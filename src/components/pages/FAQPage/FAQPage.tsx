@@ -12,9 +12,9 @@ const FAQPage: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <SEO 
-        title="Perguntas Frequentes - Contabiligrejinha"
-        description="Encontre respostas para as principais dúvidas sobre contabilidade para igrejas e organizações religiosas."
-        keywords="FAQ contabilidade, dúvidas contábeis, perguntas frequentes igreja"
+        title="Perguntas Frequentes - Contabiligrejinha | Contabilidade em Igrejinha RS"
+        description="Encontre respostas para as principais dúvidas sobre contabilidade em Igrejinha RS. FAQ completo sobre serviços contábeis para pequenas empresas."
+        keywords="FAQ contabilidade Igrejinha RS, dúvidas contábeis, perguntas frequentes contabilidade, escritório contábil Igrejinha"
       />
       <GlobalStyles />
       <PageContainer>

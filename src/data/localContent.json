@@ -1,0 +1,43 @@
+{
+  "localInfo": {
+    "city": "Igrejinha",
+    "state": "RS",
+    "region": "Vale do Paranhana",
+    "nearbyCities": ["Três Coroas", "Gramado", "Canela", "Taquara", "Parobé"]
+  },
+  "localServices": {
+    "title": "Contabilidade em Igrejinha RS",
+    "description": "Atendemos empresas em Igrejinha e região do Vale do Paranhana com serviços contábeis especializados para pequenas empresas.",
+    "benefits": [
+      "Atendimento presencial em Igrejinha RS",
+      "Conhecimento da legislação local",
+      "Suporte para empresas da região",
+      "Proximidade e agilidade no atendimento"
+    ]
+  },
+  "localKeywords": [
+    "escritório de contabilidade Igrejinha RS",
+    "contabilidade Igrejinha RS",
+    "contadores Igrejinha RS",
+    "contador Igrejinha",
+    "escritório contábil Igrejinha",
+    "contabilidade Vale do Paranhana",
+    "serviços contábeis Igrejinha"
+  ],
+  "competitiveAdvantages": [
+    "Único escritório especializado em pequenas empresas em Igrejinha",
+    "Atendimento personalizado e próximo ao cliente",
+    "Conhecimento profundo do mercado local",
+    "Suporte completo para empresários da região"
+  ],
+  "localTestimonials": [
+    {
+      "business": "Padaria do Centro - Igrejinha",
+      "testimonial": "Excelente atendimento! A Contabiligrejinha nos ajudou a regularizar nossa empresa e sempre está disponível para esclarecer dúvidas."
+    },
+    {
+      "business": "Loja de Roupas Três Coroas",
+      "testimonial": "Profissionais competentes que entendem as necessidades das pequenas empresas da nossa região."
+    }
+  ]
+}

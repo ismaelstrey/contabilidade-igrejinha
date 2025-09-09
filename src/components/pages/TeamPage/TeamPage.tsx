@@ -12,9 +12,9 @@ const TeamPage: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <SEO 
-        title="Nossa Equipe - Contabiligrejinha"
-        description="Conheça nossa equipe de profissionais especializados em contabilidade para igrejas e organizações religiosas."
-        keywords="equipe contabilidade, profissionais contábeis, contabilidade religiosa"
+        title="Nossa Equipe - Contabiligrejinha | Contadores em Igrejinha RS"
+        description="Conheça nossa equipe de contadores especializados em Igrejinha RS. Profissionais qualificados para atender pequenas empresas."
+        keywords="equipe contabilidade Igrejinha RS, contadores Igrejinha, profissionais contábeis, escritório contábil Igrejinha"
       />
       <GlobalStyles />
       <PageContainer>

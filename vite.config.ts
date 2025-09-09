@@ -46,29 +46,32 @@ export default defineConfig({
       },
       output: {
         manualChunks: (id) => {
-          // Separar framer-motion em chunk próprio
+          // Separar framer-motion em chunk próprio para lazy loading
           if (id.includes('framer-motion')) {
             return 'animations'
           }
-          // Separar styled-components
-          if (id.includes('styled-components')) {
-            return 'styles'
+          // Separar React e ReactDOM
+          if (id.includes('react') || id.includes('react-dom')) {
+            return 'react-vendor'
           }
-          // React Router em chunk separado
-          if (id.includes('react-router')) {
-            return 'router'
+          // Separar componentes de UI em chunks menores
+          if (id.includes('/components/ui/') || id.includes('/components/common/')) {
+            return 'ui-components'
           }
-          // React core em chunk separado e menor
-          if (id.includes('react') && !id.includes('react-router')) {
-            return 'react-core'
+          // Separar páginas para code splitting
+          if (id.includes('/pages/') || id.includes('Page.tsx')) {
+            return 'pages'
           }
-          // Dividir vendor em chunks menores por funcionalidade
+          // Separar utilitários e hooks
+          if (id.includes('/hooks/') || id.includes('/utils/')) {
+            return 'utilities'
+          }
+          // Separar outras bibliotecas grandes
           if (id.includes('node_modules')) {
-            // Utilitários pequenos juntos
-            if (id.includes('helmet') || id.includes('path')) {
-              return 'utils'
+            // Criar chunks específicos para bibliotecas grandes
+            if (id.includes('styled-components') || id.includes('@emotion')) {
+              return 'styling'
             }
-            // Outras dependências
             return 'vendor'
           }
         },

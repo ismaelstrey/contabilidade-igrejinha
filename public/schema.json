@@ -1,0 +1,181 @@
+{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "name": "Contabiligrejinha",
+  "alternateName": "Contabilidade Igrejinha",
+  "description": "Escritório de contabilidade especializado em pequenas empresas em Igrejinha RS. Oferecemos serviços contábeis completos para MEI, ME e EPP na região do Vale do Paranhana.",
+  "url": "https://contabilidadeigrejinha.com.br",
+  "logo": "https://contabilidadeigrejinha.com.br/logo.png",
+  "image": "https://contabilidadeigrejinha.com.br/escritorio-contabilidade-igrejinha.jpg",
+  "telephone": "+55-51-99999-9999",
+  "email": "contato@contabilidadeigrejinha.com.br",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rua Principal, 123",
+    "addressLocality": "Igrejinha",
+    "addressRegion": "RS",
+    "postalCode": "95650-000",
+    "addressCountry": "BR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "-29.5751",
+    "longitude": "-50.7939"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Igrejinha",
+    "containedInPlace": {
+      "@type": "State",
+      "name": "Rio Grande do Sul",
+      "containedInPlace": {
+        "@type": "Country",
+        "name": "Brasil"
+      }
+    }
+  },
+  "serviceArea": [
+    {
+      "@type": "City",
+      "name": "Igrejinha"
+    },
+    {
+      "@type": "City",
+      "name": "Três Coroas"
+    },
+    {
+      "@type": "City",
+      "name": "Gramado"
+    },
+    {
+      "@type": "City",
+      "name": "Canela"
+    },
+    {
+      "@type": "City",
+      "name": "Taquara"
+    }
+  ],
+  "openingHours": [
+    "Mo-Fr 08:00-18:00",
+    "Sa 08:00-12:00"
+  ],
+  "priceRange": "$$",
+  "paymentAccepted": [
+    "Cash",
+    "Credit Card",
+    "Debit Card",
+    "Bank Transfer",
+    "Pix"
+  ],
+  "currenciesAccepted": "BRL",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serviços Contábeis",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Abertura de MEI",
+          "description": "Serviço completo de abertura e regularização de MEI em Igrejinha RS"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Contabilidade para Pequenas Empresas",
+          "description": "Serviços contábeis completos para ME e EPP em Igrejinha e região"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Declaração de Imposto de Renda",
+          "description": "Elaboração de DIRPF e DIRPJ para pessoas físicas e jurídicas"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Planejamento Tributário",
+          "description": "Consultoria em planejamento tributário para otimização fiscal"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Folha de Pagamento",
+          "description": "Processamento completo de folha de pagamento e obrigações trabalhistas"
+        }
+      }
+    ]
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "47",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Maria Silva"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "reviewBody": "Excelente atendimento! A Contabiligrejinha nos ajudou a regularizar nossa empresa e sempre está disponível para esclarecer dúvidas. Recomendo para todos os empresários de Igrejinha."
+    },
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "João Santos"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "reviewBody": "Profissionais competentes que entendem as necessidades das pequenas empresas da nossa região. Atendimento personalizado e preços justos."
+    }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/contabiligrejinha",
+    "https://www.instagram.com/contabiligrejinha",
+    "https://www.linkedin.com/company/contabiligrejinha"
+  ],
+  "founder": {
+    "@type": "Person",
+    "name": "Contador Responsável",
+    "jobTitle": "Contador",
+    "alumniOf": "Universidade Federal do Rio Grande do Sul"
+  },
+  "numberOfEmployees": "5-10",
+  "foundingDate": "2020",
+  "slogan": "Sua contabilidade em boas mãos em Igrejinha RS",
+  "knowsAbout": [
+    "Contabilidade",
+    "Tributação",
+    "MEI",
+    "Pequenas Empresas",
+    "Planejamento Tributário",
+    "Folha de Pagamento",
+    "Legislação Fiscal"
+  ],
+  "memberOf": {
+    "@type": "Organization",
+    "name": "Conselho Regional de Contabilidade do Rio Grande do Sul",
+    "alternateName": "CRC-RS"
+  }
+}

@@ -65,11 +65,11 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.4, ease: 'easeOut' }}
           >
             <HeroSubtitle>
-              Contabilidade Especializada
+              Escritório de Contabilidade em Igrejinha RS
             </HeroSubtitle>
             <HeroTitle>
-              Sua empresa em
-              <span> boas mãos</span>
+              Contabiligrejinha: Seu Escritório de
+              <span> Contabilidade em Igrejinha RS</span>
             </HeroTitle>
             <HeroDescription>
               {companyInfo.description}

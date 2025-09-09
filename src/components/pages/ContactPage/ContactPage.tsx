@@ -12,9 +12,9 @@ const ContactPage: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <SEO 
-        title="Fale Conosco - Contabiligrejinha"
-        description="Entre em contato conosco para esclarecer dúvidas ou solicitar nossos serviços de contabilidade para igrejas."
-        keywords="contato contabilidade, fale conosco, atendimento igreja"
+        title="Fale Conosco - Contabiligrejinha | Contato Escritório Contábil Igrejinha RS"
+        description="Entre em contato com nosso escritório de contabilidade em Igrejinha RS. Solicite orçamento para serviços contábeis para pequenas empresas."
+        keywords="contato contabilidade Igrejinha RS, fale conosco escritório contábil, atendimento contabilidade Igrejinha, orçamento contabilidade"
       />
       <GlobalStyles />
       <PageContainer>
