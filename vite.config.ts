@@ -45,35 +45,15 @@ export default defineConfig({
         moduleSideEffects: false
       },
       output: {
-        manualChunks: (id) => {
-          // Separar framer-motion em chunk próprio para lazy loading
-          if (id.includes('framer-motion')) {
-            return 'animations'
-          }
-          // Separar React e ReactDOM
-          if (id.includes('react') || id.includes('react-dom')) {
-            return 'react-vendor'
-          }
-          // Separar componentes de UI em chunks menores
-          if (id.includes('/components/ui/') || id.includes('/components/common/')) {
-            return 'ui-components'
-          }
-          // Separar páginas para code splitting
-          if (id.includes('/pages/') || id.includes('Page.tsx')) {
-            return 'pages'
-          }
-          // Separar utilitários e hooks
-          if (id.includes('/hooks/') || id.includes('/utils/')) {
-            return 'utilities'
-          }
-          // Separar outras bibliotecas grandes
-          if (id.includes('node_modules')) {
-            // Criar chunks específicos para bibliotecas grandes
-            if (id.includes('styled-components') || id.includes('@emotion')) {
-              return 'styling'
-            }
-            return 'vendor'
-          }
+        manualChunks: {
+          // Chunk para React e ReactDOM
+          'react-vendor': ['react', 'react-dom'],
+          // Chunk para framer-motion
+          'animations': ['framer-motion'],
+          // Chunk para styled-components
+          'styling': ['styled-components'],
+          // Chunk para react-router
+          'router': ['react-router-dom']
         },
         assetFileNames: 'assets/[name]-[hash][extname]',
         chunkFileNames: 'assets/[name]-[hash].js',
