@@ -21,7 +21,7 @@ import {
 
 const Hero: React.FC = () => {
   const { themeMode } = useTheme()
-  
+
   // Variantes de animação otimizadas para melhor performance
   const cardVariants = {
     hidden: { y: 50, opacity: 0, scale: 0.9 },
@@ -47,7 +47,7 @@ const Hero: React.FC = () => {
       }
     }
   }
-  
+
   const titleVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -59,7 +59,7 @@ const Hero: React.FC = () => {
       }
     }
   }
-  
+
   const subtitleVariants = {
     hidden: { opacity: 0, x: -20 },
     visible: {
@@ -106,7 +106,7 @@ const Hero: React.FC = () => {
                 Escritório de Contabilidade em Igrejinha RS
               </HeroSubtitle>
             </motion.div>
-            
+
             <motion.div
               variants={titleVariants}
               initial="hidden"
@@ -118,7 +118,7 @@ const Hero: React.FC = () => {
                 <span> Contabilidade em Igrejinha RS</span>
               </HeroTitle>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -129,7 +129,7 @@ const Hero: React.FC = () => {
                 {companyInfo.description}
               </HeroDescription>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -138,10 +138,10 @@ const Hero: React.FC = () => {
             >
               <HeroButtons>
                 <motion.div
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.05,
-                    boxShadow: themeMode === 'dark' 
-                      ? '0 10px 30px rgba(96, 165, 250, 0.3)' 
+                    boxShadow: themeMode === 'dark'
+                      ? '0 10px 30px rgba(96, 165, 250, 0.3)'
                       : '0 10px 30px rgba(59, 130, 246, 0.3)'
                   }}
                   whileTap={{ scale: 0.95 }}
@@ -156,12 +156,12 @@ const Hero: React.FC = () => {
                     Nossos Serviços
                   </Button>
                 </motion.div>
-                
+
                 <motion.div
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.05,
-                    boxShadow: themeMode === 'dark' 
-                      ? '0 10px 30px rgba(96, 165, 250, 0.2)' 
+                    boxShadow: themeMode === 'dark'
+                      ? '0 10px 30px rgba(96, 165, 250, 0.2)'
                       : '0 10px 30px rgba(0, 0, 0, 0.1)'
                   }}
                   whileTap={{ scale: 0.95 }}
@@ -192,13 +192,13 @@ const Hero: React.FC = () => {
                     as={motion.div}
                     initial={{ opacity: 0, y: 20, scale: 0.8 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    whileHover={{ 
+                    whileHover={{
                       scale: 1.05,
                       y: -5,
                       transition: { type: 'spring', stiffness: 300 }
                     }}
-                    transition={{ 
-                      duration: 0.6, 
+                    transition={{
+                      duration: 0.6,
                       delay: 0.9 + index * 0.1,
                       type: 'spring',
                       stiffness: 100
@@ -223,12 +223,12 @@ const Hero: React.FC = () => {
               whileHover={{
                 scale: 1.1,
                 rotate: 2,
-                boxShadow: themeMode === 'dark' 
+                boxShadow: themeMode === 'dark'
                   ? '0 30px 40px -10px rgba(0, 0, 0, 0.5), 0 20px 20px -10px rgba(96, 165, 250, 0.2)'
                   : '0 30px 60px -12px rgba(0, 0, 0, 0.3)',
                 transition: { type: 'spring', stiffness: 300 }
               }}
-              style={{ top: '10%', right: '10%' }}
+              style={{ top: '5%', right: '10%' }}
             >
               <motion.span
                 animate={{ rotate: [0, 10, -10, 0] }}
@@ -241,7 +241,7 @@ const Hero: React.FC = () => {
                 <p>Mensais detalhados</p>
               </div>
             </FloatingCard>
-            
+
             <FloatingCard
               as={motion.div}
               custom={1}
@@ -251,7 +251,7 @@ const Hero: React.FC = () => {
               whileHover={{
                 scale: 1.1,
                 rotate: -2,
-                boxShadow: themeMode === 'dark' 
+                boxShadow: themeMode === 'dark'
                   ? '0 30px 40px -10px rgba(0, 0, 0, 0.5), 0 20px 20px -10px rgba(96, 165, 250, 0.2)'
                   : '0 30px 60px -12px rgba(0, 0, 0, 0.3)',
                 transition: { type: 'spring', stiffness: 300 }
@@ -269,7 +269,7 @@ const Hero: React.FC = () => {
                 <p>Processos rápidos</p>
               </div>
             </FloatingCard>
-            
+
             <FloatingCard
               as={motion.div}
               custom={2}
@@ -279,12 +279,12 @@ const Hero: React.FC = () => {
               whileHover={{
                 scale: 1.1,
                 rotate: 1,
-                boxShadow: themeMode === 'dark' 
+                boxShadow: themeMode === 'dark'
                   ? '0 30px 40px -10px rgba(0, 0, 0, 0.5), 0 20px 20px -10px rgba(96, 165, 250, 0.2)'
                   : '0 30px 60px -12px rgba(0, 0, 0, 0.3)',
                 transition: { type: 'spring', stiffness: 300 }
               }}
-              style={{ bottom: '20%', right: '5%' }}
+              style={{ bottom: '5%', right: '5%' }}
             >
               <motion.span
                 animate={{ rotateY: [0, 180, 360] }}
