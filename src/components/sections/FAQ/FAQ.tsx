@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Container from '@components/common/Container'
+import { useTheme } from '@/contexts/ThemeContext'
 import faqData from '@data/faq.json'
 import {
   FAQContainer,
@@ -22,6 +23,7 @@ interface FAQItemType {
 
 const FAQ: React.FC = () => {
   const [openItems, setOpenItems] = useState<string[]>([])
+  const { themeMode } = useTheme()
 
   // Função para alternar a abertura/fechamento de um item do FAQ
   const toggleItem = (itemId: string) => {
@@ -33,7 +35,7 @@ const FAQ: React.FC = () => {
   }
 
   return (
-    <FAQContainer id="faq">
+    <FAQContainer id="faq" $themeMode={themeMode}>
       <Container>
         <FAQHeader
           as={motion.div}
@@ -41,6 +43,7 @@ const FAQ: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
+          $themeMode={themeMode}
         >
           <FAQTitle>Perguntas Frequentes</FAQTitle>
           <FAQSubtitle>
@@ -60,13 +63,16 @@ const FAQ: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                $themeMode={themeMode}
               >
                 <FAQQuestion
                   onClick={() => toggleItem(item.id)}
                   isOpen={isOpen}
+                  $themeMode={themeMode}
                 >
                   <span>{item.question}</span>
-                  <FAQIcon isOpen={isOpen}>
+                  <FAQIcon isOpen={isOpen} $themeMode={themeMode}>
                     <svg
                       width="24"
                       height="24"
@@ -93,6 +99,7 @@ const FAQ: React.FC = () => {
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3 }}
+                      $themeMode={themeMode}
                     >
                       <p>{item.answer}</p>
                     </FAQAnswer>

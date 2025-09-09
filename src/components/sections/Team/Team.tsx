@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Container from '@components/common/Container'
+import { useTheme } from '@/contexts/ThemeContext'
 import teamData from '@data/team.json'
 import {
   TeamContainer,
@@ -28,8 +29,10 @@ interface TeamMember {
 }
 
 const Team: React.FC = () => {
+  const { themeMode } = useTheme()
+  
   return (
-    <TeamContainer id="team">
+    <TeamContainer id="team" $themeMode={themeMode}>
       <Container>
         <TeamHeader
           as={motion.div}
@@ -37,6 +40,7 @@ const Team: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
+          $themeMode={themeMode}
         >
           <TeamTitle>Nossa Equipe</TeamTitle>
           <TeamSubtitle>
@@ -44,18 +48,19 @@ const Team: React.FC = () => {
           </TeamSubtitle>
         </TeamHeader>
 
-        <TeamGrid>
+        <TeamGrid $themeMode={themeMode}>
           {teamData.map((member: TeamMember, index) => (
             <TeamCard
               key={member.id}
               as={motion.div}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 30, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: index * 0.1, type: "spring", stiffness: 100 }}
               viewport={{ once: true }}
-              whileHover={{ y: -10 }}
+              whileHover={{ y: -15, scale: 1.05, rotateY: 5 }}
+              $themeMode={themeMode}
             >
-              <TeamPhoto>
+              <TeamPhoto $themeMode={themeMode}>
                 {member.photo && member.photo !== null ? (
                   <img
                     src={member.photo}
@@ -81,14 +86,14 @@ const Team: React.FC = () => {
                 )}
               </TeamPhoto>
               
-              <TeamInfo>
-                <TeamName>{member.name}</TeamName>
-                <TeamPosition>{member.position}</TeamPosition>
-                <TeamDescription>{member.description}</TeamDescription>
+              <TeamInfo $themeMode={themeMode}>
+                <TeamName $themeMode={themeMode}>{member.name}</TeamName>
+                <TeamPosition $themeMode={themeMode}>{member.position}</TeamPosition>
+                <TeamDescription $themeMode={themeMode}>{member.description}</TeamDescription>
                 
-                <TeamQualifications>
+                <TeamQualifications $themeMode={themeMode}>
                   {member.qualifications.map((qualification, qualIndex) => (
-                    <QualificationItem key={qualIndex}>
+                    <QualificationItem key={qualIndex} $themeMode={themeMode}>
                       <svg
                         width="16"
                         height="16"
