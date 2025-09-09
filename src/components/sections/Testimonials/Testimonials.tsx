@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Container from '@components/common/Container'
+import { useTheme } from '@/contexts/ThemeContext'
 import testimonialsData from '@data/testimonials.json'
 import {
   TestimonialsContainer,
@@ -26,6 +27,7 @@ import {
 
 
 const Testimonials: React.FC = () => {
+  const { themeMode } = useTheme()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
@@ -78,7 +80,7 @@ const Testimonials: React.FC = () => {
   const currentTestimonial = testimonialsData[currentIndex]
 
   return (
-    <TestimonialsContainer id="testimonials">
+    <TestimonialsContainer id="testimonials" $themeMode={themeMode}>
       <Container>
         <TestimonialsHeader
           as={motion.div}
@@ -87,8 +89,8 @@ const Testimonials: React.FC = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <TestimonialsTitle>O que nossos clientes dizem</TestimonialsTitle>
-          <TestimonialsSubtitle>
+          <TestimonialsTitle $themeMode={themeMode}>O que nossos clientes dizem</TestimonialsTitle>
+          <TestimonialsSubtitle $themeMode={themeMode}>
             Veja os depoimentos de quem confia em nossos serviços
           </TestimonialsSubtitle>
         </TestimonialsHeader>
@@ -105,13 +107,14 @@ const Testimonials: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5 }}
+              $themeMode={themeMode}
             >
               <TestimonialContent>
                 <TestimonialRating>
                   {renderStars(currentTestimonial.rating)}
                 </TestimonialRating>
                 
-                <TestimonialMessage>
+                <TestimonialMessage $themeMode={themeMode}>
                   "{currentTestimonial.message}"
                 </TestimonialMessage>
                 
@@ -132,19 +135,19 @@ const Testimonials: React.FC = () => {
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <circle cx="30" cy="30" r="30" fill="#e5e7eb" />
-                        <circle cx="30" cy="22" r="10" fill="#9ca3af" />
+                        <circle cx="30" cy="30" r="30" fill={themeMode === 'dark' ? '#374151' : '#e5e7eb'} />
+                        <circle cx="30" cy="22" r="10" fill={themeMode === 'dark' ? '#6b7280' : '#9ca3af'} />
                         <path
                           d="M10 50c0-11.046 8.954-20 20-20s20 8.954 20 20"
-                          fill="#9ca3af"
+                          fill={themeMode === 'dark' ? '#6b7280' : '#9ca3af'}
                         />
                       </svg>
                     )}
                   </AuthorPhoto>
                   
                   <AuthorInfo>
-                    <AuthorName>{currentTestimonial.name}</AuthorName>
-                    <AuthorCompany>{currentTestimonial.company}</AuthorCompany>
+                    <AuthorName $themeMode={themeMode}>{currentTestimonial.name}</AuthorName>
+                    <AuthorCompany $themeMode={themeMode}>{currentTestimonial.company}</AuthorCompany>
                   </AuthorInfo>
                 </TestimonialAuthor>
               </TestimonialContent>
@@ -152,13 +155,13 @@ const Testimonials: React.FC = () => {
           </AnimatePresence>
 
           <CarouselControls>
-            <CarouselButton onClick={prevTestimonial} aria-label="Depoimento anterior">
+            <CarouselButton onClick={prevTestimonial} aria-label="Depoimento anterior" $themeMode={themeMode}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </CarouselButton>
             
-            <CarouselButton onClick={nextTestimonial} aria-label="Próximo depoimento">
+            <CarouselButton onClick={nextTestimonial} aria-label="Próximo depoimento" $themeMode={themeMode}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -173,6 +176,7 @@ const Testimonials: React.FC = () => {
               isActive={index === currentIndex}
               onClick={() => goToTestimonial(index)}
               aria-label={`Ir para depoimento ${index + 1}`}
+              $themeMode={themeMode}
             />
           ))}
         </CarouselDots>

@@ -27,11 +27,11 @@ const sizeStyles = {
 const variantStyles = {
   primary: css`
     background: ${theme.colors.primary.gradient};
-    color: ${theme.colors.neutral.white};
+     color: ${theme.colors.neutral.white};
     border: 2px solid transparent;
     
     &:hover:not(:disabled) {
-      background: ${theme.colors.primary.dark};
+      background: ${theme.colors.primary.light};
       box-shadow: ${theme.shadows.md};
     }
   `,
@@ -59,7 +59,7 @@ const variantStyles = {
 
 export const StyledButton = styled.button.withConfig({
   shouldForwardProp: (prop) => !['variant', 'size'].includes(prop)
-})<StyledButtonProps>`
+}) <StyledButtonProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
