@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate, useLocation } from 'react-router-dom'
 import Container from '@components/common/Container'
 import Button from '@components/common/Button'
+import ThemeToggle from '@components/common/ThemeToggle'
 import companyInfo from '@data/companyInfo.json'
 import {
   HeaderContainer,
@@ -89,6 +90,7 @@ const Header: React.FC = () => {
           </NavList>
 
           <ContactInfo>
+            <ThemeToggle />
             <Button
               variant="primary"
               size="sm"

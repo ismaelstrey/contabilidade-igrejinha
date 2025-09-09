@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components'
-import { theme } from './theme.ts'
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -18,41 +17,42 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: ${theme.typography.fontFamily.primary};
-    font-size: ${theme.typography.fontSize.base};
+    font-family: ${({ theme }) => theme.typography.fontFamily.primary};
+    font-size: ${({ theme }) => theme.typography.fontSize.base};
     line-height: 1.6;
-    color: ${theme.colors.neutral.gray800};
-    background-color: ${theme.colors.neutral.white};
+    color: ${({ theme }) => theme.colors.text.primary};
+    background-color: ${({ theme }) => theme.colors.background.main};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color ${({ theme }) => theme.transitions.normal}, color ${({ theme }) => theme.transitions.normal};
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: ${theme.typography.fontFamily.primary};
-    font-weight: ${theme.typography.fontWeight.semibold};
+    font-family: ${({ theme }) => theme.typography.fontFamily.primary};
+    font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
     line-height: 1.2;
-    color: ${theme.colors.primary.dark};
+    color: ${({ theme }) => theme.colors.text.primary};
   }
 
   h1 {
-    font-size: ${theme.typography.fontSize['4xl']};
+    font-size: ${({ theme }) => theme.typography.fontSize['4xl']};
   }
 
   h2 {
-    font-size: ${theme.typography.fontSize['3xl']};
+    font-size: ${({ theme }) => theme.typography.fontSize['3xl']};
   }
 
   h3 {
-    font-size: ${theme.typography.fontSize['2xl']};
+    font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
   }
 
   a {
-    color: ${theme.colors.primary.main};
+    color: ${({ theme }) => theme.colors.primary.main};
     text-decoration: none;
     transition: color 0.3s ease;
 
     &:hover {
-      color: ${theme.colors.primary.dark};
+      color: ${({ theme }) => theme.colors.primary.dark};
     }
   }
 
@@ -85,16 +85,16 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ::-webkit-scrollbar-track {
-    background: ${theme.colors.neutral.gray100};
+    background: ${({ theme }) => theme.colors.background.secondary};
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${theme.colors.primary.main};
+    background: ${({ theme }) => theme.colors.primary.main};
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: ${theme.colors.primary.dark};
+    background: ${({ theme }) => theme.colors.primary.dark};
   }
 `
 

@@ -1,13 +1,10 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
 import { motion } from 'framer-motion'
-import { theme } from '@/styles/theme'
 import SEO from '@components/common/SEO'
 import Breadcrumbs from '@components/common/Breadcrumbs'
 import Header from '@components/layout/Header'
 import Footer from '@components/layout/Footer'
-import GlobalStyles from '@/styles/globalStyles'
 import postsData from '@/data/posts.json'
 import { extractIdFromSlug } from '@/utils/slugify'
 import {
@@ -40,12 +37,11 @@ const PostPage: React.FC = () => {
   
   if (!post) {
     return (
-      <ThemeProvider theme={theme}>
+      <>
         <SEO 
           title="Post não encontrado - Contabiligrejinha"
           description="O post que você está procurando não foi encontrado."
         />
-        <GlobalStyles />
         <PageContainer>
           <Header />
           <MainContent>
@@ -57,7 +53,7 @@ const PostPage: React.FC = () => {
           </MainContent>
           <Footer />
         </PageContainer>
-      </ThemeProvider>
+      </>
     )
   }
 
@@ -78,7 +74,7 @@ const PostPage: React.FC = () => {
   ]
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <SEO 
         title={`${post.title} - Contabiligrejinha`}
         description={post.excerpt}
@@ -94,7 +90,6 @@ const PostPage: React.FC = () => {
         }}
         breadcrumbs={breadcrumbs}
       />
-      <GlobalStyles />
       <PageContainer>
         <Header />
         <MainContent>
@@ -179,7 +174,7 @@ const PostPage: React.FC = () => {
                 style={{
                   fontSize: '1.1rem',
                   lineHeight: '1.8',
-                  color: theme.colors.text.primary,
+                  color: '#1a202c',
                   whiteSpace: 'pre-line',
                   background: 'linear-gradient(135deg, #ffffff 0%, #fafbff 100%)',
                   padding: '2rem',
@@ -195,7 +190,7 @@ const PostPage: React.FC = () => {
         </MainContent>
         <Footer />
       </PageContainer>
-    </ThemeProvider>
+    </>
   )
 }
 

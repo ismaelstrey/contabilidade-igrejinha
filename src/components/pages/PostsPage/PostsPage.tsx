@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
 import { motion, AnimatePresence } from 'framer-motion'
-import { theme } from '@/styles/theme'
 import SEO from '@components/common/SEO'
 import Breadcrumbs from '@components/common/Breadcrumbs'
 import Header from '@components/layout/Header'
 import Footer from '@components/layout/Footer'
-import GlobalStyles from '@/styles/globalStyles'
 import postsData from '@/data/posts.json'
 import { generatePostSlug } from '@/utils/slugify'
 import {
@@ -61,13 +58,12 @@ const PostsPage: React.FC = () => {
   ]
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <SEO 
         title="Posts sobre Reforma Tributária - Contabiligrejinha"
         description="Fique por dentro das últimas novidades sobre a Reforma Tributária 2025 e como ela impacta sua contabilidade. Artigos especializados para contadores e empresários."
         keywords="reforma tributária, IVA dual, IBS, CBS, imposto seletivo, contabilidade, posts"
       />
-      <GlobalStyles />
       <PageContainer>
         <Header />
         <MainContent>
@@ -148,8 +144,8 @@ const PostsPage: React.FC = () => {
                     
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span style={{ 
-                        fontSize: theme.typography.fontSize.sm, 
-                        color: theme.colors.text.muted,
+                        fontSize: '0.875rem', 
+                        color: '#6b7280',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '4px'
@@ -175,7 +171,7 @@ const PostsPage: React.FC = () => {
         </MainContent>
         <Footer />
       </PageContainer>
-    </ThemeProvider>
+    </>
   )
 }
 
