@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import Container from '@components/common/Container'
 import Section from '@components/common/Section'
 import Button from '@components/common/Button'
+import { useContactForm } from '@/hooks/useContactForm'
 import companyInfo from '@data/companyInfo.json'
 import {
   ContactContent,
@@ -44,7 +45,7 @@ const Contact: React.FC = () => {
     message: ''
   })
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { isSubmitting, submitForm, error, servicos } = useContactForm()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -54,16 +55,37 @@ const Contact: React.FC = () => {
     }))
   }
 
+  const getServiceId = (serviceName: string): number => {
+    // Mapear nomes dos serviços para IDs
+    const serviceMap: { [key: string]: number } = {
+      'Contabilidade Geral': 1,
+      'Abertura de Empresa': 2,
+      'Departamento Pessoal': 3,
+      'Fiscal e Tributário': 4,
+      'Consultoria Empresarial': 5,
+      'MEI e Simples Nacional': 6,
+      'Outros': 7
+    }
+    return serviceMap[serviceName] || 1
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitting(true)
 
-    // Simular envio do formulário
-    try {
-      // Aqui você implementaria a lógica de envio real
-      await new Promise(resolve => setTimeout(resolve, 2000))
+    // Preparar dados para a API
+    const apiData = {
+      nome: formData.name,
+      email: formData.email,
+      telefone: formData.phone,
+      empresa: formData.company,
+      servico_id: getServiceId(formData.service),
+      mensagem: formData.message
+    }
 
-      // Criar mensagem para WhatsApp
+    const success = await submitForm(apiData)
+
+    if (success) {
+      // Criar mensagem para WhatsApp como backup/confirmação
       const message = `Olá! Gostaria de solicitar informações sobre os serviços contábeis.\n\n` +
         `Nome: ${formData.name}\n` +
         `Email: ${formData.email}\n` +
@@ -84,10 +106,10 @@ const Contact: React.FC = () => {
         service: '',
         message: ''
       })
-    } catch (error) {
-      console.error('Erro ao enviar formulário:', error)
-    } finally {
-      setIsSubmitting(false)
+
+      alert('Mensagem enviada com sucesso! Você será redirecionado para o WhatsApp.')
+    } else {
+      alert('Erro ao enviar mensagem. Tente novamente ou entre em contato pelo WhatsApp.')
     }
   }
 
@@ -258,9 +280,10 @@ const Contact: React.FC = () => {
                     onChange={handleInputChange}
                   >
                     <option value="">Selecione um serviço</option>
-                    {serviceOptions.map((service) => (
-                      <option key={service} value={service}>
-                        {service}
+
+                    {servicos.map((service) => (
+                      <option key={service.id} value={service.id}>
+                        {service.nome}
                       </option>
                     ))}
                   </FormInput>
@@ -278,6 +301,20 @@ const Contact: React.FC = () => {
                     placeholder="Descreva como podemos ajudá-lo..."
                   />
                 </FormGroup>
+
+                {error && (
+                  <div style={{
+                    color: '#ef4444',
+                    fontSize: '14px',
+                    marginBottom: '16px',
+                    padding: '12px',
+                    backgroundColor: '#fef2f2',
+                    border: '1px solid #fecaca',
+                    borderRadius: '8px'
+                  }}>
+                    ⚠️ {error}
+                  </div>
+                )}
 
                 <Button
                   type="submit"
