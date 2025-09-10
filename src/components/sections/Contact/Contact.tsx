@@ -86,16 +86,16 @@ const Contact: React.FC = () => {
 
     if (success) {
       // Criar mensagem para WhatsApp como backup/confirmação
-      const message = `Olá! Gostaria de solicitar informações sobre os serviços contábeis.\n\n` +
-        `Nome: ${formData.name}\n` +
-        `Email: ${formData.email}\n` +
-        `Telefone: ${formData.phone}\n` +
-        `Empresa: ${formData.company}\n` +
-        `Serviço: ${formData.service}\n` +
-        `Mensagem: ${formData.message}`
+      // const message = `Olá! Gostaria de solicitar informações sobre os serviços contábeis.\n\n` +
+      //   `Nome: ${formData.name}\n` +
+      //   `Email: ${formData.email}\n` +
+      //   `Telefone: ${formData.phone}\n` +
+      //   `Empresa: ${formData.company}\n` +
+      //   `Serviço: ${formData.service}\n` +
+      //   `Mensagem: ${formData.message}`
 
-      const whatsappUrl = `https://wa.me/${companyInfo.phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`
-      window.open(whatsappUrl, '_blank')
+      // const whatsappUrl = `https://wa.me/${companyInfo.phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`
+      // window.open(whatsappUrl, '_blank')
 
       // Limpar formulário
       setFormData({
@@ -107,7 +107,7 @@ const Contact: React.FC = () => {
         message: ''
       })
 
-      alert('Mensagem enviada com sucesso! Você será redirecionado para o WhatsApp.')
+      alert('Mensagem enviada com sucesso! Obrigado por entrar em contato conosco.')
     } else {
       alert('Erro ao enviar mensagem. Tente novamente ou entre em contato pelo WhatsApp.')
     }
