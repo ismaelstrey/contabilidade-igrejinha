@@ -159,15 +159,15 @@ const Contact: React.FC = () => {
     }
   ]
 
-  const serviceOptions = [
-    'Contabilidade Geral',
-    'Abertura de Empresa',
-    'Departamento Pessoal',
-    'Fiscal e Tributário',
-    'Consultoria Empresarial',
-    'MEI e Simples Nacional',
-    'Outros'
-  ]
+  // const serviceOptions = [
+  //   'Contabilidade Geral',
+  //   'Abertura de Empresa',
+  //   'Departamento Pessoal',
+  //   'Fiscal e Tributário',
+  //   'Consultoria Empresarial',
+  //   'MEI e Simples Nacional',
+  //   'Outros'
+  // ]
 
   return (
     <Section id="contact">
