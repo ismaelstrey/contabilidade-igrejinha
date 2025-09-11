@@ -311,7 +311,7 @@ const Contact: React.FC = () => {
                     marginBottom: '16px',
                     padding: '12px',
                     backgroundColor: theme.colors?.error?.light || '#fef2f2',
-                    border: `1px solid ${theme.colors?.error?.lighter || '#fecaca'}`,
+                    border: `1px solid ${theme.colors?.error?.light || '#fecaca'}`,
                     borderRadius: '8px'
                   }}>
                     ⚠️ {error}

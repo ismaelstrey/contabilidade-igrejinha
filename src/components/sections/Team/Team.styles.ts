@@ -84,7 +84,7 @@ export const TeamTitle = styled.h2`
   font-size: ${theme.typography.fontSize['4xl']};
   font-weight: ${theme.typography.fontWeight.bold};
   background: ${({ theme }: { theme: DefaultTheme }) => 
-    `linear-gradient(135deg, ${theme.colors?.primary?.main || '#6366f1'} 0%, ${theme.colors?.primary?.light || '#8b5cf6'} 50%, ${theme.colors?.accent?.main || '#ec4899'} 100%)`};
+    `linear-gradient(135deg, ${theme.colors?.primary?.main || '#6366f1'} 0%, ${theme.colors?.primary?.light || '#8b5cf6'} 50%, ${theme.colors?.accent?.orange || '#f97316'} 100%)`};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -186,8 +186,8 @@ export const TeamPhoto = styled.div.withConfig({
   border: 4px solid transparent;
   background: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) => 
     $themeMode === 'dark'
-      ? `linear-gradient(135deg, ${theme.colors?.primary?.main || '#6366f1'}, ${theme.colors?.primary?.light || '#8b5cf6'}, ${theme.colors?.accent?.main || '#ec4899'}) border-box`
-      : `linear-gradient(135deg, ${theme.colors?.primary?.main || '#6366f1'}, ${theme.colors?.primary?.light || '#8b5cf6'}, ${theme.colors?.accent?.main || '#ec4899'}) border-box`};
+      ? `linear-gradient(135deg, ${theme.colors?.primary?.main || '#6366f1'}, ${theme.colors?.primary?.light || '#8b5cf6'}, ${theme.colors?.accent?.orange || '#f97316'}) border-box`
+      : `linear-gradient(135deg, ${theme.colors?.primary?.main || '#6366f1'}, ${theme.colors?.primary?.light || '#8b5cf6'}, ${theme.colors?.accent?.orange || '#f97316'}) border-box`};
   background-clip: padding-box;
   position: relative;
   transition: all 0.3s ease;
@@ -198,7 +198,7 @@ export const TeamPhoto = styled.div.withConfig({
     inset: -4px;
     padding: 4px;
     background: ${({ theme }: { theme: DefaultTheme }) => 
-      `linear-gradient(135deg, ${theme.colors?.primary?.main || '#6366f1'}, ${theme.colors?.primary?.light || '#8b5cf6'}, ${theme.colors?.accent?.main || '#ec4899'})`};
+      `linear-gradient(135deg, ${theme.colors?.primary?.main || '#6366f1'}, ${theme.colors?.primary?.light || '#8b5cf6'}, ${theme.colors?.accent?.orange || '#f97316'})`};
     border-radius: inherit;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: xor;
@@ -273,7 +273,7 @@ export const TeamPosition = styled.p.withConfig({
   letter-spacing: 1px;
   background: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) => 
     $themeMode === 'dark' 
-      ? `linear-gradient(135deg, ${theme.colors?.primary?.light || '#a78bfa'} 0%, ${theme.colors?.accent?.main || '#ec4899'} 100%)`
+      ? `linear-gradient(135deg, ${theme.colors?.primary?.light || '#a78bfa'} 0%, ${theme.colors?.accent?.orange || '#f97316'} 100%)`
       : `linear-gradient(135deg, ${theme.colors?.primary?.main || '#6366f1'} 0%, ${theme.colors?.primary?.light || '#8b5cf6'} 100%)`};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
