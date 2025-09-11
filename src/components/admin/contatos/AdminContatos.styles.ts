@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { DefaultTheme } from 'styled-components';
 import { motion } from 'framer-motion';
 
 // Container principal
@@ -8,7 +8,7 @@ export const ContatosContainer = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   min-height: 100vh;
-  background-color: #f8fafc;
+  background-color: ${({ theme }) => theme.colors.background.default};
 `;
 
 // Header
@@ -23,7 +23,7 @@ export const ContatosHeader = styled.div`
 export const ContatosTitle = styled.h1`
   font-size: 1.875rem;
   font-weight: 700;
-  color: #1f2937;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin: 0;
 `;
 
@@ -34,11 +34,11 @@ export const ContatosStats = styled.div`
 `;
 
 export const StatCard = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -47,12 +47,12 @@ export const StatCard = styled.div`
 export const StatNumber = styled.span`
   font-weight: 600;
   font-size: 1.125rem;
-  color: #1f2937;
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 export const StatLabel = styled.span`
   font-size: 0.875rem;
-  color: #6b7280;
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 export const RefreshButton = styled.button`
@@ -60,7 +60,7 @@ export const RefreshButton = styled.button`
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background-color: #3b82f6;
+  background-color: ${({ theme }) => theme.colors.primary.main};
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -69,7 +69,7 @@ export const RefreshButton = styled.button`
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: #2563eb;
+    background-color: ${({ theme }) => theme.colors.primary.dark};
   }
 
   &:disabled {
@@ -80,11 +80,11 @@ export const RefreshButton = styled.button`
 
 // Filtros
 export const FiltersContainer = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   padding: 1.5rem;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
 `;
 
 export const FiltersContent = styled.div`
@@ -107,7 +107,7 @@ export const SearchIcon = styled.div`
   left: 0.75rem;
   top: 50%;
   transform: translateY(-50%);
-  color: #9ca3af;
+  color: ${({ theme }) => theme.colors.text.muted};
   width: 1.25rem;
   height: 1.25rem;
   display: flex;
@@ -118,7 +118,7 @@ export const SearchIcon = styled.div`
 export const SearchInput = styled.input`
   width: 100%;
   padding: 0.5rem 1rem 0.5rem 2.5rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   border-radius: 0.5rem;
   font-size: 0.875rem;
   transition: all 0.2s;
@@ -126,12 +126,12 @@ export const SearchInput = styled.input`
   &:focus {
     outline: none;
     ring: 2px;
-    ring-color: #3b82f6;
+    ring-color: ${({ theme }) => theme.colors.primary.main};
     border-color: transparent;
   }
 
   &::placeholder {
-    color: #9ca3af;
+    color: ${({ theme }) => theme.colors.text.muted};
   }
 `;
 
@@ -142,10 +142,10 @@ export const FiltersActions = styled.div`
 
 export const FilterSelect = styled.select`
   padding: 0.5rem 1rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   border-radius: 0.5rem;
   font-size: 0.875rem;
-  background: white;
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   cursor: pointer;
   transition: all 0.2s;
 
@@ -159,7 +159,7 @@ export const FilterSelect = styled.select`
 
 // Ações em lote
 export const BulkActionsContainer = styled(motion.div)`
-  background-color: #eff6ff;
+  background-color: ${({ theme }) => theme.colors.primary.light || '#eff6ff'};
   padding: 1rem;
   border-radius: 0.5rem;
   border: 1px solid #bfdbfe;
@@ -172,7 +172,7 @@ export const BulkActionsContent = styled.div`
 `;
 
 export const BulkActionsText = styled.span`
-  color: #1e40af;
+  color: ${({ theme }) => theme.colors.primary.dark};
   font-weight: 500;
 `;
 
@@ -216,10 +216,10 @@ export const BulkActionButton = styled.button<{ $variant: 'read' | 'responded' |
 
 // Tabela
 export const TableContainer = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   overflow: hidden;
 `;
 
@@ -233,7 +233,7 @@ export const Table = styled.table`
 `;
 
 export const TableHead = styled.thead`
-  background-color: #f9fafb;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
 `;
 
 export const TableHeaderRow = styled.tr``;
@@ -243,21 +243,21 @@ export const TableHeader = styled.th`
   text-align: left;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #6b7280;
+  color: ${({ theme }) => theme.colors.text.secondary};
   text-transform: uppercase;
   letter-spacing: 0.05em;
 `;
 
 export const TableBody = styled.tbody`
-  background: white;
-  divide-y: 1px solid #e5e7eb;
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
+  divide-y: 1px solid ${({ theme }) => theme.colors.border.light};
 `;
 
 export const TableRow = styled(motion.tr)`
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: #f9fafb;
+    background-color: ${({ theme }) => theme.colors.background.secondary};
   }
 `;
 
@@ -276,7 +276,7 @@ export const ContactAvatar = styled.div`
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background-color: #d1d5db;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -289,12 +289,12 @@ export const ContactDetails = styled.div`
 export const ContactName = styled.div`
   font-size: 0.875rem;
   font-weight: 500;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 export const ContactEmail = styled.div`
   font-size: 0.875rem;
-  color: #6b7280;
+  color: ${({ theme }) => theme.colors.text.secondary};
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -312,7 +312,7 @@ export const SubjectContainer = styled.div``;
 
 export const SubjectTitle = styled.div`
   font-size: 0.875rem;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin-bottom: 0.25rem;
 `;
 
@@ -359,7 +359,7 @@ export const StatusSelect = styled.select<{ $status: string }>`
       default:
         return `
           background-color: #f3f4f6;
-          color: #374151;
+          color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.text.primary};
         `;
     }
   }}
@@ -406,7 +406,7 @@ export const ActionButton = styled.button<{ $variant: 'view' | 'delete' }>`
         `;
       case 'delete':
         return `
-          color: #dc2626;
+          color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.error?.main || '#dc2626'};
           &:hover { color: #b91c1c; }
         `;
       default:
@@ -417,12 +417,12 @@ export const ActionButton = styled.button<{ $variant: 'view' | 'delete' }>`
 
 // Paginação
 export const PaginationContainer = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   padding: 0.75rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid ${({ theme }) => theme.colors.border.light};
 `;
 
 export const PaginationMobile = styled.div`
@@ -448,7 +448,7 @@ export const PaginationDesktop = styled.div`
 
 export const PaginationInfo = styled.p`
   font-size: 0.875rem;
-  color: #374151;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin: 0;
 `;
 
@@ -466,7 +466,7 @@ export const PaginationButton = styled.button<{ $active?: boolean }>`
   display: inline-flex;
   align-items: center;
   padding: 0.5rem 1rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -479,15 +479,16 @@ export const PaginationButton = styled.button<{ $active?: boolean }>`
 
   ${props => props.$active ? `
     z-index: 10;
-    background-color: #eff6ff;
-    border-color: #3b82f6;
-    color: #2563eb;
+    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.primary.light || '#eff6ff'};
+    border-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.primary.main};
+
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.primary.main};
   ` : `
-    background-color: white;
-    color: #6b7280;
+    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.background.paper || theme.colors.background.default};
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.text.secondary};
     
     &:hover:not(:disabled) {
-      background-color: #f9fafb;
+      background-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.background.secondary};
     }
   `}
 `;
@@ -505,7 +506,7 @@ export const ModalOverlay = styled(motion.div)`
 `;
 
 export const ModalContent = styled(motion.div)`
-  background: white;
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   border-radius: 12px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   max-width: 800px;
@@ -529,11 +530,11 @@ export const ModalHeader = styled.div`
 export const ModalTitle = styled.h2`
   font-size: 1.25rem;
   font-weight: 700;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 export const ModalCloseButton = styled.button`
-  color: #9ca3af;
+  color: ${({ theme }) => theme.colors.text.muted};
   font-size: 1.5rem;
   background: none;
   border: none;
@@ -541,7 +542,7 @@ export const ModalCloseButton = styled.button`
   transition: color 0.2s;
 
   &:hover {
-    color: #4b5563;
+    color: ${({ theme }) => theme.colors.text.secondary};
   }
 `;
 
@@ -570,17 +571,17 @@ export const ModalLabel = styled.label`
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin-bottom: 0.25rem;
 `;
 
 export const ModalValue = styled.p`
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin: 0;
 `;
 
 export const ModalMessageContainer = styled.div`
-  background-color: #f9fafb;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
   padding: 1rem;
   border-radius: 8px;
 `;
@@ -597,7 +598,7 @@ export const ModalFooter = styled.div`
   gap: 0.75rem;
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid ${({ theme }) => theme.colors.border.light};
 `;
 
 export const ModalButton = styled.button<{ $variant: 'primary' | 'secondary' }>`
@@ -608,20 +609,20 @@ export const ModalButton = styled.button<{ $variant: 'primary' | 'secondary' }>`
   cursor: pointer;
 
   ${props => props.$variant === 'primary' ? `
-    background-color: #059669;
+    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.primary.main};
     color: white;
     border: none;
 
     &:hover {
-      background-color: #047857;
+      background-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.primary.dark};
     }
   ` : `
-    background-color: white;
-    color: #374151;
-    border: 1px solid #d1d5db;
+    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.background.paper || theme.colors.background.default};
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.text.primary};
+    border: 1px solid ${({ theme }: { theme: DefaultTheme }) => theme.colors.border.light};
 
     &:hover {
-      background-color: #f9fafb;
+      background-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.background.secondary};
     }
   `}
 `;
@@ -642,7 +643,7 @@ export const ErrorContent = styled.div`
 `;
 
 export const ErrorText = styled.span`
-  color: #b91c1c;
+  color: ${({ theme }) => theme.colors.error?.main || '#b91c1c'};
   margin-left: 0.5rem;
 `;
 
@@ -655,18 +656,18 @@ export const ErrorCloseButton = styled.button`
   transition: color 0.2s;
 
   &:hover {
-    color: #b91c1c;
+    color: ${({ theme }) => theme.colors.error?.dark || '#b91c1c'};
   }
 `;
 
 // Checkbox personalizado
 export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   border-radius: 0.25rem;
-  border: 1px solid #d1d5db;
-  color: #2563eb;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
+  color: ${({ theme }) => theme.colors.primary.main};
   
   &:focus {
     ring: 2px;
-    ring-color: #3b82f6;
+    ring-color: ${({ theme }) => theme.colors.primary.main};
   }
 `;

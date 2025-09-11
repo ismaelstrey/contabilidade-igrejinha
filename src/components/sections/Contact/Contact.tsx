@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useTheme } from 'styled-components'
 import Container from '@components/common/Container'
 import Section from '@components/common/Section'
 import Button from '@components/common/Button'
@@ -46,6 +47,7 @@ const Contact: React.FC = () => {
   })
 
   const { isSubmitting, submitForm, error, servicos } = useContactForm()
+  const theme = useTheme()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -304,12 +306,12 @@ const Contact: React.FC = () => {
 
                 {error && (
                   <div style={{
-                    color: '#ef4444',
+                    color: theme.colors?.error?.main || '#ef4444',
                     fontSize: '14px',
                     marginBottom: '16px',
                     padding: '12px',
-                    backgroundColor: '#fef2f2',
-                    border: '1px solid #fecaca',
+                    backgroundColor: theme.colors?.error?.light || '#fef2f2',
+                    border: `1px solid ${theme.colors?.error?.lighter || '#fecaca'}`,
                     borderRadius: '8px'
                   }}>
                     ⚠️ {error}

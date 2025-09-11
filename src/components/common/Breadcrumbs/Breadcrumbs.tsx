@@ -13,20 +13,20 @@ interface BreadcrumbsProps {
   items: BreadcrumbItem[]
 }
 
-const BreadcrumbsContainer = styled(motion.nav)<{ $themeMode: 'light' | 'dark' }>`
+const BreadcrumbsContainer = styled(motion.nav) <{ $themeMode: 'light' | 'dark' }>`
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 2rem;
   padding: 12px 16px;
-  background: ${({ $themeMode }) => 
-    $themeMode === 'dark' 
-      ? 'linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.6) 100%)'
-      : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'
+  background: ${({ $themeMode, theme }) =>
+    $themeMode === 'dark'
+      ? `linear-gradient(135deg, ${theme.colors?.background?.dark || 'rgba(30, 41, 59, 0.8)'} 0%, ${theme.colors?.background?.darker || 'rgba(51, 65, 85, 0.6)'} 100%)`
+      : `linear-gradient(135deg, ${theme.colors?.background?.light || '#f8fafc'} 0%, ${theme.colors?.border?.light || '#e2e8f0'} 100%)`
   };
   border-radius: 12px;
-  border: 1px solid ${({ $themeMode }) => 
-    $themeMode === 'dark' ? 'rgba(71, 85, 105, 0.3)' : '#e2e8f0'
+  border: 1px solid ${({ $themeMode, theme }) =>
+    $themeMode === 'dark' ? theme.colors?.border?.dark || 'rgba(71, 85, 105, 0.3)' : theme.colors?.border?.light || '#e2e8f0'
   };
   backdrop-filter: blur(10px);
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
@@ -63,7 +63,7 @@ const HomeIcon = styled.span`
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
   const { themeMode } = useTheme()
-  
+
   if (!items || items.length === 0) return null
 
   return (
@@ -76,7 +76,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
       {items.map((item, index) => (
         <React.Fragment key={index}>
           {index === 0 && <HomeIcon>🏠</HomeIcon>}
-          
+
           {index < items.length - 1 ? (
             <BreadcrumbLink to={item.url}>
               {item.name}
@@ -84,7 +84,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
           ) : (
             <BreadcrumbText>{item.name}</BreadcrumbText>
           )}
-          
+
           {index < items.length - 1 && (
             <Separator>›</Separator>
           )}

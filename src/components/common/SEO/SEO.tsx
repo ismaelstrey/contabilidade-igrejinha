@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
+import { useTheme } from '@/contexts/ThemeContext'
 
 interface SEOProps {
   title?: string
@@ -34,6 +35,7 @@ const SEO: React.FC<SEOProps> = ({
   article,
   breadcrumbs
 }) => {
+  const { themeMode } = useTheme()
   const isArticle = type === 'article' && article
   return (
     <Helmet>
@@ -43,7 +45,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="keywords" content={keywords} />
       <meta name="robots" content="index, follow" />
       <meta name="author" content="Contabiligrejinha" />
-      <meta name="theme-color" content="#2563eb" />
+      <meta name="theme-color" content={themeMode === 'dark' ? '#1f2937' : '#2563eb'} />
       
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />

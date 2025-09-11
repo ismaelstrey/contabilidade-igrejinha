@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 import { motion } from 'framer-motion'
 
 // Container principal
@@ -23,7 +23,7 @@ export const LoadingContent = styled.div`
 
 export const LoadingItem = styled.div<{ width?: string }>`
   height: ${props => props.width === 'header' ? '2rem' : props.width === 'search' ? '2.5rem' : '4rem'};
-  background-color: #e5e7eb;
+  background-color: ${({ theme }) => theme.colors.border.light};
   border-radius: 0.5rem;
   width: ${props => props.width === 'header' ? '25%' : '100%'};
 `
@@ -43,40 +43,40 @@ export const HeaderContent = styled.div`
 export const Title = styled.h1`
   font-size: 1.5rem;
   font-weight: 700;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
   line-height: 2rem;
 `
 
 export const Subtitle = styled.p`
-  color: #4b5563;
+  color: ${({ theme }) => theme.colors.text.secondary};
   margin-top: 0.25rem;
 `
 
 export const CreateButton = styled.button`
   padding: 0.5rem 1rem;
-  background-color: #4f46e5;
+  background-color: ${({ theme }) => theme.colors.primary?.main || '#4f46e5'};
   color: white;
   border-radius: 0.5rem;
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;
-  
+
   &:hover {
-    background-color: #4338ca;
+    background-color: ${({ theme }) => theme.colors.primary?.dark || '#4338ca'};
   }
-  
+
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #a5b4fc;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary?.light || '#a5b4fc'};
   }
 `
 
 // Filtros
 export const FiltersSection = styled.div`
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   border-radius: 0.5rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   padding: 1rem;
 `
 
@@ -101,13 +101,15 @@ export const SearchInput = styled.input`
   padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   border-radius: 0.5rem;
-  
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
+  color: ${({ theme }) => theme.colors.text.primary};
+
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #a5b4fc;
-    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary?.light || '#a5b4fc'};
+    border-color: ${({ theme }) => theme.colors.primary?.main || '#4f46e5'};
   }
 `
 
@@ -123,24 +125,26 @@ export const SearchIcon = styled.div`
   svg {
     width: 1.25rem;
     height: 1.25rem;
-    color: #9ca3af;
+    color: ${({ theme }) => theme.colors.text.muted};
   }
 `
 
 export const RoleSelect = styled.select`
   width: 100%;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   border-radius: 0.5rem;
-  
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
+  color: ${({ theme }) => theme.colors.text.primary};
+
   @media (min-width: 640px) {
     width: 12rem;
   }
-  
+
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #a5b4fc;
-    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary?.light || '#a5b4fc'};
+    border-color: ${({ theme }) => theme.colors.primary?.main || '#4f46e5'};
   }
 `
 
@@ -157,30 +161,30 @@ export const BatchActions = styled.div`
 
 export const BatchText = styled.span`
   font-size: 0.875rem;
-  color: #3730a3;
+  color: ${({ theme }) => theme.colors.primary?.dark || '#3730a3'};
 `
 
 export const BatchDeleteButton = styled.button`
   padding: 0.25rem 0.75rem;
-  background-color: #dc2626;
+  background-color: ${({ theme }) => theme.colors.error?.main || '#dc2626'};
   color: white;
   font-size: 0.875rem;
   border-radius: 0.25rem;
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;
-  
+
   &:hover {
-    background-color: #b91c1c;
+    background-color: ${({ theme }) => theme.colors.error?.dark || '#b91c1c'};
   }
 `
 
 // Tabela
 export const TableContainer = styled.div`
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default});
   border-radius: 0.5rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   overflow: hidden;
 `
 
@@ -193,12 +197,12 @@ export const Table = styled.table`
 `
 
 export const TableHead = styled.thead`
-  background-color: #f9fafb;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
 `
 
 export const TableRow = styled(motion.tr)`
   &:hover {
-    background-color: #f9fafb;
+    background-color: ${({ theme }) => theme.colors.background.secondary};
   }
 `
 
@@ -207,7 +211,7 @@ export const TableHeader = styled.th`
   text-align: left;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #6b7280;
+  color: ${({ theme }) => theme.colors.text.secondary};
   text-transform: uppercase;
   letter-spacing: 0.05em;
 `
@@ -218,20 +222,20 @@ export const TableCell = styled.td`
 `
 
 export const TableBody = styled.tbody`
-  background-color: white;
-  
+  background-color: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
+
   tr:not(:last-child) {
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border.light};
   }
 `
 
 export const Checkbox = styled.input`
   border-radius: 0.25rem;
-  border-color: #d1d5db;
-  color: #4f46e5;
-  
+  border-color: ${({ theme }) => theme.colors.border.light};
+  color: ${({ theme }) => theme.colors.primary?.main || '#4f46e5'};
+
   &:focus {
-    box-shadow: 0 0 0 2px #a5b4fc;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary?.light || '#a5b4fc'};
   }
 `
 
@@ -249,11 +253,11 @@ export const UserAvatar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   span {
     font-size: 0.875rem;
     font-weight: 500;
-    color: #6366f1;
+    color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
 `
 
@@ -264,43 +268,48 @@ export const UserDetails = styled.div`
 export const UserName = styled.div`
   font-size: 0.875rem;
   font-weight: 500;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
 `
 
 export const UserEmail = styled.div`
   font-size: 0.875rem;
-  color: #6b7280;
+  color: ${({ theme }) => theme.colors.text.secondary};
 `
 
 // Badges
+const getRoleColors = (role: 'admin' | 'user' | 'viewer', theme: DefaultTheme) => {
+  switch (role) {
+    case 'admin':
+      return `
+        background-color: ${theme.colors.warning?.background || '#fef3c7'};
+        color: ${theme.colors.warning?.dark || '#92400e'};
+      `
+    case 'user':
+      return `
+        background-color: ${theme.colors.primary?.background || '#dbeafe'};
+        color: ${theme.colors.primary?.dark || '#1e40af'};
+      `
+    case 'viewer':
+      return `
+        background-color: ${theme.colors.background.secondary};
+        color: ${theme.colors.text.secondary};
+      `
+    default:
+      return `
+        background-color: ${theme.colors.background.muted || '#f3f4f6'};
+        color: ${theme.colors.text.muted};
+      `
+  }
+}
+
 export const RoleBadge = styled.span<{ role: 'admin' | 'user' | 'viewer' }>`
   display: inline-flex;
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
   font-weight: 600;
   border-radius: 9999px;
-  
-  ${props => {
-    switch (props.role) {
-      case 'admin':
-        return `
-          background-color: #f3e8ff;
-          color: #7c3aed;
-        `
-      case 'user':
-        return `
-          background-color: #dbeafe;
-          color: #1d4ed8;
-        `
-      case 'viewer':
-        return `
-          background-color: #f3f4f6;
-          color: #374151;
-        `
-      default:
-        return ''
-    }
-  }}
+
+  ${props => getRoleColors(props.role, props.theme)}
 `
 
 export const StatusBadge = styled.button<{ active: boolean }>`
@@ -312,20 +321,20 @@ export const StatusBadge = styled.button<{ active: boolean }>`
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;
-  
+
   ${props => props.active ? `
-    background-color: #d1fae5;
-    color: #065f46;
-    
+    background-color: ${props.theme.colors.success?.background || '#d1fae5'};
+    color: ${props.theme.colors.success?.dark || '#065f46'};
+
     &:hover {
-      background-color: #a7f3d0;
+      background-color: ${props.theme.colors.success?.light || '#a7f3d0'};
     }
   ` : `
-    background-color: #fee2e2;
-    color: #991b1b;
-    
+    background-color: ${props.theme.colors.error?.main || '#fee2e2'};
+    color: ${props.theme.colors.error?.dark || '#991b1b'};
+
     &:hover {
-      background-color: #fecaca;
+      background-color: ${props.theme.colors.error?.light || '#fecaca'};
     }
   `}
 `
@@ -344,28 +353,28 @@ export const ActionButton = styled.button<{ variant?: 'edit' | 'delete' }>`
   background: none;
   cursor: pointer;
   transition: color 0.2s;
-  
+
   ${props => props.variant === 'delete' ? `
-    color: #dc2626;
-    
+    color: ${props.theme.colors.error?.main || '#dc2626'};
+
     &:hover {
-      color: #991b1b;
+      color: ${props.theme.colors.error?.dark || '#991b1b'};
     }
   ` : `
-    color: #6366f1;
-    
+    color: ${props.theme.colors.primary?.main || '#6366f1'};
+
     &:hover {
-      color: #4338ca;
+      color: ${props.theme.colors.primary?.dark || '#4338ca'};
     }
   `}
 `
 
 // Paginação
 export const PaginationContainer = styled.div`
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   padding: 0.75rem 1rem;
-  border-top: 1px solid #e5e7eb;
-  
+  border-top: 1px solid ${({ theme }) => theme.colors.border.light};
+
   @media (min-width: 640px) {
     padding: 0.75rem 1.5rem;
   }
@@ -478,8 +487,8 @@ export const PaginationNav = styled.nav`
 
 export const PaginationInfo = styled.p`
   font-size: 0.875rem;
-  color: #374151;
-  
+  color: ${({ theme }) => theme.colors.text.secondary};
+
   span {
     font-weight: 500;
   }
@@ -498,7 +507,7 @@ export const ModalOverlay = styled(motion.div)`
 `;
 
 export const ModalContent = styled(motion.div)`
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   border-radius: 0.5rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   max-width: 28rem;
@@ -507,13 +516,13 @@ export const ModalContent = styled(motion.div)`
 
 export const ModalHeader = styled.div`
   padding: 1.5rem 1.5rem 1rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border.light};
 `;
 
 export const ModalTitle = styled.h3`
   font-size: 1.125rem;
   font-weight: 500;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin: 0;
 `;
 
@@ -533,40 +542,43 @@ export const ModalLabel = styled.label`
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: ${({ theme }) => theme.colors.text.secondary};
   margin-bottom: 0.25rem;
 `;
 
 export const ModalInput = styled.input`
   width: 100%;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   border-radius: 0.375rem;
   font-size: 0.875rem;
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
+  color: ${({ theme }) => theme.colors.text.primary};
   transition: all 0.2s;
 
   &:focus {
     outline: none;
     ring: 2px;
-    ring-color: #6366f1;
-    border-color: #6366f1;
+    ring-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
+    border-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
 `;
 
 export const ModalSelect = styled.select`
   width: 100%;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   border-radius: 0.375rem;
   font-size: 0.875rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
+  color: ${({ theme }) => theme.colors.text.primary};
   transition: all 0.2s;
 
   &:focus {
     outline: none;
     ring: 2px;
-    ring-color: #6366f1;
-    border-color: #6366f1;
+    ring-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
+    border-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
 `;
 
@@ -579,19 +591,19 @@ export const ModalCheckboxContainer = styled.div`
 export const ModalCheckbox = styled.input`
   width: 1rem;
   height: 1rem;
-  color: #6366f1;
-  border: 1px solid #d1d5db;
+  color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   border-radius: 0.25rem;
 
   &:focus {
     ring: 2px;
-    ring-color: #6366f1;
+    ring-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
 `;
 
 export const ModalCheckboxLabel = styled.label`
   font-size: 0.875rem;
-  color: #374151;
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 export const ModalFooter = styled.div`
@@ -611,11 +623,11 @@ export const ModalButton = styled.button<{ variant: 'primary' | 'secondary' }>`
 
   ${props => props.variant === 'primary' ? `
     color: white;
-    background-color: #6366f1;
+    background-color: ${props.theme.colors.primary?.main || '#6366f1'};
     border: 1px solid transparent;
 
     &:hover:not(:disabled) {
-      background-color: #5855eb;
+      background-color: ${props.theme.colors.primary?.dark || '#5855eb'};
     }
 
     &:disabled {
@@ -623,19 +635,19 @@ export const ModalButton = styled.button<{ variant: 'primary' | 'secondary' }>`
       cursor: not-allowed;
     }
   ` : `
-    color: #374151;
-    background-color: white;
-    border: 1px solid #d1d5db;
+    color: ${props.theme.colors.text.secondary};
+    background-color: ${props.theme.colors.background.paper || 'white'};
+    border: 1px solid ${props.theme.colors.border.light};
 
     &:hover {
-      background-color: #f9fafb;
+      background-color: ${props.theme.colors.background.secondary};
     }
   `}
 
   &:focus {
     outline: none;
     ring: 2px;
-    ring-color: #6366f1;
+    ring-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
 `;
 
@@ -644,8 +656,8 @@ export const ErrorMessage = styled.div`
   position: fixed;
   bottom: 1rem;
   right: 1rem;
-  background-color: #fef2f2;
-  border: 1px solid #fecaca;
+  background-color: ${({ theme }) => theme.colors.error?.main || '#fef2f2'};
+  border: 1px solid ${({ theme }) => theme.colors.error?.dark || '#fecaca'};
   border-radius: 0.5rem;
   padding: 1rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -660,7 +672,7 @@ export const ErrorContent = styled.div`
 
 export const ErrorText = styled.p`
   font-size: 0.875rem;
-  color: #991b1b;
+  color: ${({ theme }) => theme.colors.error?.dark || '#991b1b'};
   margin: 0;
 `;
 
@@ -670,11 +682,11 @@ export const ErrorCloseButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  color: #dc2626;
+  color: ${({ theme }) => theme.colors.error?.main || '#dc2626'};
   transition: color 0.2s;
 
   &:hover {
-    color: #991b1b;
+    color: ${({ theme }) => theme.colors.error?.dark || '#991b1b'};
   }
 
   svg {

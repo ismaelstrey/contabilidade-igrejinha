@@ -10,8 +10,8 @@ const ToggleButton = styled(motion.button)`
   height: 30px;
   background: ${({ theme }) => 
     theme.mode === 'dark' 
-      ? 'linear-gradient(135deg, #1f2937 0%, #374151 100%)'
-      : 'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)'
+      ? `linear-gradient(135deg, ${theme.colors?.background?.dark || '#1f2937'} 0%, ${theme.colors?.background?.darker || '#374151'} 100%)`
+      : `linear-gradient(135deg, ${theme.colors?.background?.light || '#f3f4f6'} 0%, ${theme.colors?.border?.light || '#e5e7eb'} 100%)`
   };
   border: 2px solid ${({ theme }) => theme.colors.border.light};
   border-radius: ${({ theme }) => theme.borderRadius.full};
@@ -40,8 +40,8 @@ const ToggleCircle = styled(motion.div)`
   height: 22px;
   background: ${({ theme }) => 
     theme.mode === 'dark'
-      ? 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)'
-      : 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)'
+      ? `linear-gradient(135deg, ${theme.colors?.warning?.light || '#fbbf24'} 0%, ${theme.colors?.warning?.main || '#f59e0b'} 100%)`
+      : `linear-gradient(135deg, ${theme.colors?.primary?.light || '#60a5fa'} 0%, ${theme.colors?.primary?.main || '#3b82f6'} 100%)`
   };
   border-radius: 50%;
   display: flex;
@@ -57,8 +57,8 @@ const ToggleCircle = styled(motion.div)`
     height: 12px;
     background: ${({ theme }) => 
       theme.mode === 'dark'
-        ? '#fbbf24'
-        : '#ffffff'
+        ? theme.colors?.warning?.light || '#fbbf24'
+        : theme.colors?.neutral?.white || '#ffffff'
     };
     border-radius: 50%;
     opacity: 0.8;
@@ -79,18 +79,18 @@ const SunIcon = styled.div`
     transform: translate(-50%, -50%);
     width: 8px;
     height: 8px;
-    background: #ffffff;
+    background: ${({ theme }) => theme.colors?.neutral?.white || '#ffffff'};
     border-radius: 50%;
     box-shadow: 
-      0 0 0 2px #ffffff,
-      12px 0 0 -10px #ffffff,
-      -12px 0 0 -10px #ffffff,
-      0 12px 0 -10px #ffffff,
-      0 -12px 0 -10px #ffffff,
-      8px 8px 0 -10px #ffffff,
-      -8px -8px 0 -10px #ffffff,
-      8px -8px 0 -10px #ffffff,
-      -8px 8px 0 -10px #ffffff;
+      0 0 0 2px ${({ theme }) => theme.colors?.neutral?.white || '#ffffff'},
+      12px 0 0 -10px ${({ theme }) => theme.colors?.neutral?.white || '#ffffff'},
+      -12px 0 0 -10px ${({ theme }) => theme.colors?.neutral?.white || '#ffffff'},
+      0 12px 0 -10px ${({ theme }) => theme.colors?.neutral?.white || '#ffffff'},
+      0 -12px 0 -10px ${({ theme }) => theme.colors?.neutral?.white || '#ffffff'},
+      8px 8px 0 -10px ${({ theme }) => theme.colors?.neutral?.white || '#ffffff'},
+      -8px -8px 0 -10px ${({ theme }) => theme.colors?.neutral?.white || '#ffffff'},
+      8px -8px 0 -10px ${({ theme }) => theme.colors?.neutral?.white || '#ffffff'},
+      -8px 8px 0 -10px ${({ theme }) => theme.colors?.neutral?.white || '#ffffff'};
   }
 `
 
@@ -107,9 +107,9 @@ const MoonIcon = styled.div`
     left: 2px;
     width: 10px;
     height: 10px;
-    background: #1f2937;
+    background: ${({ theme }) => theme.colors?.background?.dark || '#1f2937'};
     border-radius: 50%;
-    box-shadow: 2px -2px 0 0 #1f2937;
+    box-shadow: 2px -2px 0 0 ${({ theme }) => theme.colors?.background?.dark || '#1f2937'};
   }
 `
 

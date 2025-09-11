@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, DefaultTheme } from 'styled-components';
 
 // Animação de loading
 const spin = keyframes`
@@ -18,15 +18,15 @@ const LoadingContainer = styled.div`
 const Spinner = styled.div`
   width: 40px;
   height: 40px;
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #007bff;
+  border: 3px solid ${({ theme }: { theme: DefaultTheme }) => theme.colors?.border?.light || '#f3f3f3'};
+  border-top: 3px solid ${({ theme }: { theme: DefaultTheme }) => theme.colors?.primary?.main || '#007bff'};
   border-radius: 50%;
   animation: ${spin} 1s linear infinite;
 `;
 
 const LoadingText = styled.p`
   margin-left: 1rem;
-  color: #666;
+  color: ${({ theme }: { theme: DefaultTheme }) => theme.colors?.text?.secondary || '#666'};
   font-size: 0.9rem;
 `;
 

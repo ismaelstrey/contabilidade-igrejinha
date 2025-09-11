@@ -6,8 +6,9 @@ import { motion } from 'framer-motion'
  */
 export const LayoutContainer = styled.div`
   min-height: 100vh;
-  background-color: #f9fafb;
+  background-color: ${({ theme }) => theme.colors.background.default};
   position: relative;
+  transition: background-color 0.2s ease;
 `
 
 /**
@@ -18,6 +19,7 @@ export const SidebarOverlay = styled(motion.div)`
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 40;
+  transition: opacity 0.3s ease;
   
   @media (min-width: 1024px) {
     display: none;
@@ -74,6 +76,8 @@ export const MainContentContainer = styled.div`
 export const MainContent = styled.main`
   flex: 1;
   padding: 1rem;
+  background-color: ${({ theme }) => theme.colors.background.default};
+  transition: background-color 0.2s ease;
   
   @media (min-width: 1024px) {
     padding: 1.5rem;

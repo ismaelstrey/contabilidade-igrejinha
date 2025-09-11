@@ -16,18 +16,18 @@ export const Header = styled.div`
 export const Title = styled.h1`
   font-size: 1.875rem;
   font-weight: 700;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin-bottom: 0.5rem;
 `
 
 export const Subtitle = styled.p`
-  color: #6b7280;
+  color: ${({ theme }) => theme.colors.text.secondary};
   font-size: 1rem;
 `
 
 // Seção de filtros e ações
 export const FiltersSection = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   padding: 1.5rem;
@@ -56,41 +56,44 @@ export const SearchContainer = styled.div`
     transform: translateY(-50%);
     width: 1.25rem;
     height: 1.25rem;
-    color: #9ca3af;
+    color: ${({ theme }) => theme.colors.text.muted};
   }
 `
 
 export const SearchInput = styled.input`
   width: 100%;
   padding: 0.5rem 0.75rem 0.5rem 2.5rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   border-radius: 0.375rem;
   font-size: 0.875rem;
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
+  color: ${({ theme }) => theme.colors.text.primary};
   
   &:focus {
     outline: none;
     ring: 2px;
-    ring-color: #6366f1;
-    border-color: #6366f1;
+    ring-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
+    border-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
   
   &::placeholder {
-    color: #9ca3af;
+    color: ${({ theme }) => theme.colors.text.muted};
   }
 `
 
 export const CategorySelect = styled.select`
   padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   border-radius: 0.375rem;
   font-size: 0.875rem;
-  background: white;
-  
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
+  color: ${({ theme }) => theme.colors.text.primary};
+
   &:focus {
     outline: none;
     ring: 2px;
-    ring-color: #6366f1;
-    border-color: #6366f1;
+    ring-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
+    border-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
 `
 
@@ -98,7 +101,7 @@ export const CreateButton = styled.button`
   display: inline-flex;
   align-items: center;
   padding: 0.5rem 1rem;
-  background: #6366f1;
+  background: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   color: white;
   border: none;
   border-radius: 0.375rem;
@@ -106,17 +109,17 @@ export const CreateButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
-  
+
   &:hover {
-    background: #4f46e5;
+    background: ${({ theme }) => theme.colors.primary?.dark || '#4f46e5'};
   }
-  
+
   &:focus {
     outline: none;
     ring: 2px;
-    ring-color: #6366f1;
+    ring-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
-  
+
   svg {
     margin-right: 0.5rem;
     width: 1.25rem;
@@ -129,7 +132,7 @@ export const BulkActions = styled.div<{ show: boolean }>`
   display: ${props => props.show ? 'flex' : 'none'};
   align-items: center;
   justify-content: space-between;
-  background: #f3f4f6;
+  background: ${({ theme }) => theme.colors.background.secondary};
   padding: 0.75rem 1rem;
   border-radius: 0.375rem;
   margin-bottom: 1rem;
@@ -137,7 +140,7 @@ export const BulkActions = styled.div<{ show: boolean }>`
 
 export const BulkActionsText = styled.span`
   font-size: 0.875rem;
-  color: #374151;
+  color: ${({ theme }) => theme.colors.text.secondary};
 `
 
 export const BulkActionsButtons = styled.div`
@@ -145,7 +148,7 @@ export const BulkActionsButtons = styled.div`
   gap: 0.5rem;
 `
 
-export const BulkActionButton = styled.button<{ variant?: 'danger' }>`
+export const BulkActionButton = styled.button<{ variant?: 'danger' }>` 
   display: inline-flex;
   align-items: center;
   padding: 0.375rem 0.75rem;
@@ -156,20 +159,20 @@ export const BulkActionButton = styled.button<{ variant?: 'danger' }>`
   transition: all 0.2s;
   
   ${props => props.variant === 'danger' ? `
-    background: #dc2626;
+    background: ${props.theme.colors.error?.main || '#dc2626'};
     color: white;
-    border: 1px solid #dc2626;
+    border: 1px solid ${props.theme.colors.error?.main || '#dc2626'};
     
     &:hover {
-      background: #b91c1c;
+      background: ${props.theme.colors.error?.dark || '#b91c1c'};
     }
   ` : `
-    background: white;
-    color: #374151;
-    border: 1px solid #d1d5db;
+    background: ${props.theme.colors.background.paper || 'white'};
+    color: ${props.theme.colors.text.secondary};
+    border: 1px solid ${props.theme.colors.border.light};
     
     &:hover {
-      background: #f9fafb;
+      background: ${props.theme.colors.background.secondary};
     }
   `}
   
@@ -218,13 +221,13 @@ export const ServicesGrid = styled.div`
 `
 
 // Card de serviço
-export const ServiceCard = styled(motion.div)<{ selected?: boolean }>`
-  background: white;
+export const ServiceCard = styled(motion.div) <{ selected?: boolean }>` 
+  background: ${({ theme }) => theme.colors.background.paper || 'white'};
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   overflow: hidden;
   transition: all 0.2s;
-  border: 2px solid ${props => props.selected ? '#6366f1' : 'transparent'};
+  border: 2px solid ${props => props.selected ? (props.theme.colors.primary?.main || '#6366f1') : 'transparent'};
   
   &:hover {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -259,14 +262,14 @@ export const ServiceInfo = styled.div`
 export const ServiceName = styled.h3`
   font-size: 1.125rem;
   font-weight: 600;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin-bottom: 0.25rem;
 `
 
 export const ServiceCategory = styled.span`
   display: inline-block;
-  background: #e0e7ff;
-  color: #3730a3;
+  background: ${({ theme }) => theme.colors.primary?.light || '#e0e7ff'};
+  color: ${({ theme }) => theme.colors.primary?.dark || '#3730a3'};
   padding: 0.125rem 0.5rem;
   border-radius: 9999px;
   font-size: 0.75rem;
@@ -275,7 +278,7 @@ export const ServiceCategory = styled.span`
 `
 
 export const ServiceDescription = styled.p`
-  color: #6b7280;
+  color: ${({ theme }) => theme.colors.text.secondary};
   font-size: 0.875rem;
   line-height: 1.5;
   margin-bottom: 0.75rem;
@@ -284,7 +287,7 @@ export const ServiceDescription = styled.p`
 export const ServicePrice = styled.div`
   font-size: 1.25rem;
   font-weight: 700;
-  color: #059669;
+  color: ${({ theme }) => theme.colors.primary?.main || '#059669'};
 `
 
 export const ServiceBadges = styled.div`
@@ -343,13 +346,13 @@ export const ServiceBadge = styled.span<{ variant: 'active' | 'inactive' | 'feat
 
 export const ServiceActions = styled.div`
   padding: 1rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid ${({ theme }) => theme.colors.border.light};
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
 
-export const ServiceActionButton = styled.button<{ variant?: 'danger' }>`
+export const ServiceActionButton = styled.button<{ variant?: 'danger' }>` 
   display: inline-flex;
   align-items: center;
   padding: 0.375rem 0.75rem;
@@ -361,19 +364,19 @@ export const ServiceActionButton = styled.button<{ variant?: 'danger' }>`
   
   ${props => props.variant === 'danger' ? `
     background: #fee2e2;
-    color: #991b1b;
+    color: ${props.theme.colors.error?.dark || '#991b1b'};
     border: 1px solid #fecaca;
     
     &:hover {
-      background: #fecaca;
+      background: ${props.theme.colors.error?.light || '#fecaca'};
     }
   ` : `
-    background: #f3f4f6;
-    color: #374151;
-    border: 1px solid #d1d5db;
+    background: ${props.theme.colors.background.secondary};
+    color: ${props.theme.colors.text.secondary};
+    border: 1px solid ${props.theme.colors.border.light};
     
     &:hover {
-      background: #e5e7eb;
+      background: ${props.theme.colors.background.secondary || '#e5e7eb'};
     }
   `}
   
@@ -393,20 +396,20 @@ export const EmptyState = styled.div`
     margin: 0 auto 0.5rem;
     width: 3rem;
     height: 3rem;
-    color: #9ca3af;
+    color: ${({ theme }) => theme.colors.text.muted};
   }
   
   h3 {
     margin-top: 0.5rem;
     font-size: 0.875rem;
     font-weight: 500;
-    color: #111827;
+    color: ${({ theme }) => theme.colors.text.primary};
   }
   
   p {
     margin-top: 0.25rem;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: ${({ theme }) => theme.colors.text.secondary};
   }
 `
 
@@ -415,7 +418,7 @@ export const EmptyStateButton = styled.button`
   align-items: center;
   margin-top: 1.5rem;
   padding: 0.5rem 1rem;
-  background: #6366f1;
+  background: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   color: white;
   border: none;
   border-radius: 0.375rem;
@@ -426,7 +429,7 @@ export const EmptyStateButton = styled.button`
   transition: background-color 0.2s;
   
   &:hover {
-    background: #4f46e5;
+    background: ${({ theme }) => theme.colors.primary?.dark || '#4f46e5'};
   }
   
   svg {
@@ -453,7 +456,7 @@ export const ErrorMessage = styled.div`
   svg {
     width: 1.25rem;
     height: 1.25rem;
-    color: #f87171;
+    color: ${({ theme }) => theme.colors.error?.main || '#f87171'};
     flex-shrink: 0;
   }
 `
@@ -463,7 +466,7 @@ export const ErrorMessageContent = styled.div`
   
   p {
     font-size: 0.875rem;
-    color: #991b1b;
+    color: ${({ theme }) => theme.colors.error?.dark || '#991b1b'};
   }
 `
 
@@ -477,11 +480,11 @@ export const ErrorMessageClose = styled.button`
   svg {
     width: 1.25rem;
     height: 1.25rem;
-    color: #f87171;
+    color: ${({ theme }) => theme.colors.error?.main || '#f87171'};
     transition: color 0.2s;
     
     &:hover {
-      color: #dc2626;
+      color: ${({ theme }) => theme.colors.error?.dark || '#dc2626'};
     }
   }
 `
@@ -499,7 +502,7 @@ export const ModalOverlay = styled(motion.div)`
 `
 
 export const ModalContent = styled(motion.div)`
-  background: white;
+  background: ${({ theme }) => theme.colors.background.paper || 'white'};
   border-radius: 0.5rem;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   max-width: 42rem;
@@ -510,12 +513,12 @@ export const ModalContent = styled(motion.div)`
 
 export const ModalHeader = styled.div`
   padding: 1.5rem 1.5rem 1rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border.light};
   
   h3 {
     font-size: 1.125rem;
     font-weight: 500;
-    color: #111827;
+    color: ${({ theme }) => theme.colors.text.primary};
   }
 `
 
@@ -546,51 +549,55 @@ export const ModalLabel = styled.label`
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: ${({ theme }) => theme.colors.text.secondary};
   margin-bottom: 0.25rem;
 `
 
 export const ModalInput = styled.input<{ hasError?: boolean }>`
   width: 100%;
   padding: 0.5rem 0.75rem;
-  border: 1px solid ${props => props.hasError ? '#fca5a5' : '#d1d5db'};
+  border: 1px solid ${props => props.hasError ? (props.theme.colors.error?.main || '#fca5a5') : props.theme.colors.border.light};
   border-radius: 0.375rem;
   font-size: 0.875rem;
+  background: ${({ theme }) => theme.colors.background.paper || 'white'};
+  color: ${({ theme }) => theme.colors.text.primary};
   
   &:focus {
     outline: none;
     ring: 2px;
-    ring-color: #6366f1;
-    border-color: #6366f1;
+    ring-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
+    border-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
   
   &::placeholder {
-    color: #9ca3af;
+    color: ${({ theme }) => theme.colors.text.muted};
   }
 `
 
 export const ModalTextarea = styled.textarea<{ hasError?: boolean }>`
   width: 100%;
   padding: 0.5rem 0.75rem;
-  border: 1px solid ${props => props.hasError ? '#fca5a5' : '#d1d5db'};
+  border: 1px solid ${props => props.hasError ? (props.theme.colors.error?.main || '#fca5a5') : props.theme.colors.border.light};
   border-radius: 0.375rem;
   font-size: 0.875rem;
   resize: vertical;
+  background: ${({ theme }) => theme.colors.background.paper || 'white'};
+  color: ${({ theme }) => theme.colors.text.primary};
   
   &:focus {
     outline: none;
     ring: 2px;
-    ring-color: #6366f1;
-    border-color: #6366f1;
+    ring-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
+    border-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
   
   &::placeholder {
-    color: #9ca3af;
+    color: ${({ theme }) => theme.colors.text.muted};
   }
 `
 
 export const ModalError = styled.p`
-  color: #dc2626;
+  color: ${({ theme }) => theme.colors.error?.main || '#dc2626'};
   font-size: 0.875rem;
   margin-top: 0.25rem;
 `
@@ -609,19 +616,19 @@ export const ModalCheckboxGroup = styled.div`
     width: 1rem;
     height: 1rem;
     border-radius: 0.25rem;
-    border: 1px solid #d1d5db;
-    color: #6366f1;
+    border: 1px solid ${({ theme }) => theme.colors.border.light};
+    color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
     
     &:focus {
       ring: 2px;
-      ring-color: #6366f1;
+      ring-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
     }
   }
   
   label {
     margin-left: 0.5rem;
     font-size: 0.875rem;
-    color: #374151;
+    color: ${({ theme }) => theme.colors.text.secondary};
   }
 `
 
@@ -630,7 +637,7 @@ export const ModalFooter = styled.div`
   justify-content: flex-end;
   gap: 0.75rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid ${({ theme }) => theme.colors.border.light};
 `
 
 export const ModalButton = styled.button<{ variant?: 'primary' | 'secondary' }>`
@@ -644,7 +651,7 @@ export const ModalButton = styled.button<{ variant?: 'primary' | 'secondary' }>`
   &:focus {
     outline: none;
     ring: 2px;
-    ring-color: #6366f1;
+    ring-color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
   
   &:disabled {
@@ -653,20 +660,20 @@ export const ModalButton = styled.button<{ variant?: 'primary' | 'secondary' }>`
   }
   
   ${props => props.variant === 'primary' ? `
-    background: #6366f1;
+    background: ${props.theme.colors.primary?.main || '#6366f1'};
     color: white;
     border: 1px solid transparent;
     
     &:hover:not(:disabled) {
-      background: #4f46e5;
+      background: ${props.theme.colors.primary?.dark || '#4f46e5'};
     }
   ` : `
-    background: white;
-    color: #374151;
-    border: 1px solid #d1d5db;
+    background: ${props.theme.colors.background.paper || 'white'};
+    color: ${props.theme.colors.text.secondary};
+    border: 1px solid ${props.theme.colors.border.light};
     
     &:hover:not(:disabled) {
-      background: #f9fafb;
+      background: ${props.theme.colors.background.secondary};
     }
   `}
 `

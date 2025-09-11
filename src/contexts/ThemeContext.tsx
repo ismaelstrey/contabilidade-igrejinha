@@ -87,23 +87,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const currentTheme = {
     ...theme,
     mode: themeMode,
-    colors: {
-      ...theme.colors,
-      // Cores que mudam baseado no tema
-      text: {
-        primary: themeMode === 'dark' ? '#f9fafb' : '#111827',
-        secondary: themeMode === 'dark' ? '#d1d5db' : '#6b7280',
-        muted: themeMode === 'dark' ? '#9ca3af' : '#9ca3af'
-      },
-      background: {
-        paper: themeMode === 'dark' ? '#1f2937' : '#ffffff',
-        main: themeMode === 'dark' ? '#111827' : '#ffffff',
-        secondary: themeMode === 'dark' ? '#374151' : '#f9fafb'
-      },
-      border: {
-        light: themeMode === 'dark' ? '#374151' : '#e5e7eb'
-      }
-    }
+    colors: themeMode === 'dark' ? theme.darkColors : theme.colors
   }
 
   return (

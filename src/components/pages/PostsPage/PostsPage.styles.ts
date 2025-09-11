@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 import { motion } from 'framer-motion'
 
 interface ThemeProps {
@@ -9,10 +9,10 @@ export const PageContainer = styled.div<ThemeProps>`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: ${({ theme, $themeMode }) => 
+  background: ${({ theme, $themeMode }: { theme: DefaultTheme; $themeMode?: 'light' | 'dark' }) => 
     $themeMode === 'dark' 
-      ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)'
-      : theme.colors.background.paper};
+      ? `linear-gradient(135deg, ${theme.colors?.background?.darker || '#0f172a'} 0%, ${theme.colors?.background?.dark || '#1e293b'} 50%, ${theme.colors?.background?.paper || '#334155'} 100%)`
+      : theme.colors?.background?.paper || '#ffffff'};
   transition: ${({ theme }) => theme.transitions.normal};
   position: relative;
   
@@ -63,7 +63,7 @@ export const PostsHeader = styled.div`
     transform: translateX(-50%);
     width: 60px;
     height: 2px;
-    background: #64748b;
+    background: ${({ theme }: { theme: DefaultTheme }) => theme.colors?.border?.dark || '#64748b'};
     border-radius: 1px;
   }
 `
@@ -83,8 +83,8 @@ export const PostsTitle = styled.h1`
 
 export const PostsSubtitle = styled.p<ThemeProps>`
   font-size: 1.125rem;
-  color: ${({ theme, $themeMode }) => 
-    $themeMode === 'dark' ? '#94a3b8' : theme.colors.text.secondary};
+  color: ${({ theme, $themeMode }: { theme: DefaultTheme; $themeMode?: 'light' | 'dark' }) => 
+    $themeMode === 'dark' ? theme.colors?.text?.muted || '#94a3b8' : theme.colors?.text?.secondary || '#6b7280'};
   text-align: center;
   max-width: 600px;
   margin: 0 auto;
@@ -120,8 +120,8 @@ export const PostCard = styled(motion.article)<ThemeProps>`
     $themeMode === 'dark'
       ? '0 2px 8px rgba(0, 0, 0, 0.3)'
       : '0 1px 3px rgba(0, 0, 0, 0.1)'};
-  border: 1px solid ${({ $themeMode }) => 
-    $themeMode === 'dark' ? 'rgba(148, 163, 184, 0.1)' : '#e2e8f0'};
+  border: 1px solid ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) => 
+    $themeMode === 'dark' ? theme.colors?.border?.dark || 'rgba(148, 163, 184, 0.1)' : theme.colors?.border?.light || '#e2e8f0'};
   position: relative;
   cursor: pointer;
   backdrop-filter: ${({ $themeMode }) => 
@@ -134,8 +134,8 @@ export const PostCard = styled(motion.article)<ThemeProps>`
       $themeMode === 'dark'
         ? '0 4px 12px rgba(0, 0, 0, 0.4)'
         : '0 4px 12px rgba(0, 0, 0, 0.15)'};
-    border-color: ${({ $themeMode }) => 
-      $themeMode === 'dark' ? 'rgba(148, 163, 184, 0.2)' : '#cbd5e1'};
+    border-color: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) => 
+      $themeMode === 'dark' ? theme.colors?.border?.light || 'rgba(148, 163, 184, 0.2)' : theme.colors?.border?.dark || '#cbd5e1'};
   }
 `
 
@@ -154,8 +154,8 @@ export const PostTitle = styled.h2`
 
 export const PostExcerpt = styled.p<ThemeProps>`
   font-size: ${({ theme }) => theme.typography.fontSize.md};
-  color: ${({ theme, $themeMode }) => 
-    $themeMode === 'dark' ? '#cbd5e1' : theme.colors.text.secondary};
+  color: ${({ theme, $themeMode }: { theme: DefaultTheme; $themeMode?: 'light' | 'dark' }) => 
+    $themeMode === 'dark' ? theme.colors?.text?.secondary || '#cbd5e1' : theme.colors?.text?.secondary || '#6b7280'};
   line-height: 1.7;
   margin-bottom: ${({ theme }) => theme.spacing.lg};
   display: -webkit-box;
@@ -180,15 +180,15 @@ export const PostMeta = styled.div<ThemeProps>`
 `
 
 export const PostDate = styled.span<ThemeProps>`
-  color: ${({ theme, $themeMode }) => 
-    $themeMode === 'dark' ? '#94a3b8' : theme.colors.text.muted};
+  color: ${({ theme, $themeMode }: { theme: DefaultTheme; $themeMode?: 'light' | 'dark' }) => 
+    $themeMode === 'dark' ? theme.colors?.text?.muted || '#94a3b8' : theme.colors?.text?.muted || '#9ca3af'};
   font-size: 0.875rem;
   font-weight: 500;
 `
 
 export const PostCategory = styled.span`
-  background: #f1f5f9;
-  color: #475569;
+  background: ${({ theme }: { theme: DefaultTheme }) => theme.colors?.background?.light || '#f1f5f9'};
+  color: ${({ theme }: { theme: DefaultTheme }) => theme.colors?.text?.secondary || '#475569'};
   padding: 0.25rem 0.75rem;
   border-radius: 6px;
   font-size: 0.75rem;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 import { motion } from 'framer-motion'
 
 /**
@@ -76,8 +76,8 @@ export const ErrorContainer = styled.div`
 `
 
 export const ErrorContent = styled.div`
-  background-color: #fef2f2;
-  border: 1px solid #fecaca;
+  background-color: ${({ theme }) => theme.colors.error?.light || '#fef2f2'};
+  border: 1px solid ${({ theme }) => theme.colors.error?.light || '#fecaca'};
   border-radius: 0.5rem;
   padding: 1rem;
 `
@@ -90,7 +90,7 @@ export const ErrorInner = styled.div`
 export const ErrorIcon = styled.svg`
   width: 1.25rem;
   height: 1.25rem;
-  color: #f87171;
+  color: ${({ theme }) => theme.colors.error?.light || '#f87171'};
   flex-shrink: 0;
 `
 
@@ -101,13 +101,13 @@ export const ErrorTextContainer = styled.div`
 export const ErrorTitle = styled.h3`
   font-size: 0.875rem;
   font-weight: 500;
-  color: #991b1b;
+  color: ${({ theme }) => theme.colors.error?.dark || '#991b1b'};
   margin: 0;
 `
 
 export const ErrorMessage = styled.p`
   font-size: 0.875rem;
-  color: #b91c1c;
+  color: ${({ theme }) => theme.colors.error?.main || '#b91c1c'};
   margin: 0.25rem 0 0 0;
 `
 
@@ -202,13 +202,13 @@ interface StatCardContainerProps {
 }
 
 export const StatCardContainer = styled(motion.div)<StatCardContainerProps>`
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   border: 1px solid ${({ theme }) => theme.colors.border.light};
   padding: 1.5rem;
-  ${({ $urgent }) => $urgent && `
-    box-shadow: 0 0 0 2px #fecaca;
+  ${({ $urgent, theme }) => $urgent && `
+    box-shadow: 0 0 0 2px ${theme.colors.error?.light || '#fecaca'};
   `}
 `
 
@@ -244,24 +244,24 @@ interface StatCardChangeProps {
 export const StatCardChange = styled.p<StatCardChangeProps>`
   font-size: 0.875rem;
   margin: 0.25rem 0 0 0;
-  color: ${({ $positive }) => $positive ? '#059669' : '#dc2626'};
+  color: ${({ $positive, theme }) => $positive ? (theme.colors.secondary?.main || '#059669') : (theme.colors.error?.main || '#dc2626')};
 `
 
 interface StatCardIconContainerProps {
   $color: 'blue' | 'green' | 'yellow' | 'red'
 }
 
-const iconColors = {
-  blue: 'background-color: #dbeafe; color: #2563eb;',
-  green: 'background-color: #dcfce7; color: #16a34a;',
-  yellow: 'background-color: #fef3c7; color: #d97706;',
-  red: 'background-color: #fee2e2; color: #dc2626;'
-}
+const getIconColors = (theme: DefaultTheme) => ({
+  blue: `background-color: ${theme.colors.primary?.light || '#dbeafe'}; color: ${theme.colors.primary?.main || '#2563eb'};`,
+  green: `background-color: ${theme.colors.secondary?.light || '#dcfce7'}; color: ${theme.colors.secondary?.main || '#16a34a'};`,
+  yellow: `background-color: ${theme.colors.accent?.yellow || '#fef3c7'}; color: ${theme.colors.accent?.yellow || '#d97706'};`,
+  red: `background-color: ${theme.colors.error?.light || '#fee2e2'}; color: ${theme.colors.error?.main || '#dc2626'};`
+})
 
 export const StatCardIconContainer = styled.div<StatCardIconContainerProps>`
   padding: 0.75rem;
   border-radius: 0.5rem;
-  ${({ $color }) => iconColors[$color]}
+  ${({ $color, theme }) => getIconColors(theme)[$color]}
 `
 
 export const StatCardIcon = styled.svg`
@@ -273,7 +273,7 @@ export const StatCardIcon = styled.svg`
  * Cards de conteúdo
  */
 export const ContentCard = styled(motion.div)`
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   border: 1px solid ${({ theme }) => theme.colors.border.light};
@@ -312,17 +312,23 @@ interface ServiceIndicatorProps {
   $index: number
 }
 
-const getServiceColor = (index: number) => {
-  if (index === 0) return '#6366f1'
-  if (index === 1) return '#3b82f6'
-  return '#9ca3af'
+const getServiceColor = (index: number, theme: DefaultTheme) => {
+  const colors = [
+    theme.colors.primary?.main || '#3b82f6',
+    theme.colors.secondary?.main || '#10b981',
+    theme.colors.accent?.orange || '#f59e0b',
+    theme.colors.error?.main || '#ef4444',
+    theme.colors.secondary?.main || '#8b5cf6',
+    theme.colors.primary?.main || '#06b6d4'
+  ]
+  return colors[index % colors.length]
 }
 
 export const ServiceIndicator = styled.div<ServiceIndicatorProps>`
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 50%;
-  background-color: ${({ $index }) => getServiceColor($index)};
+  background-color: ${({ $index, theme }) => getServiceColor($index, theme)};
 `
 
 export const ServiceName = styled.span`
@@ -349,16 +355,16 @@ interface ActivityIconContainerProps {
   $type: 'user' | 'contact' | 'service'
 }
 
-const activityColors = {
-  user: 'background-color: #dbeafe; color: #2563eb;',
-  contact: 'background-color: #dcfce7; color: #16a34a;',
-  service: 'background-color: #fef3c7; color: #d97706;'
-}
+const getActivityColors = (theme: DefaultTheme) => ({
+  user: `background-color: ${theme.colors.primary?.light || '#dbeafe'}; color: ${theme.colors.primary?.main || '#2563eb'};`,
+  contact: `background-color: ${theme.colors.secondary?.light || '#dcfce7'}; color: ${theme.colors.secondary?.main || '#16a34a'};`,
+  service: `background-color: ${theme.colors.accent?.yellow || '#fef3c7'}; color: ${theme.colors.accent?.yellow || '#d97706'};`
+})
 
 export const ActivityIconContainer = styled.div<ActivityIconContainerProps>`
   padding: 0.5rem;
   border-radius: 50%;
-  ${({ $type }) => activityColors[$type]}
+  ${({ $type, theme }) => getActivityColors(theme)[$type]}
 `
 
 export const ActivityIcon = styled.svg`

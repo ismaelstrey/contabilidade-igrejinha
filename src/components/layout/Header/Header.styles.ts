@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css, DefaultTheme } from 'styled-components'
 import { theme } from '@/styles/theme'
 
 interface HeaderContainerProps {
@@ -13,14 +13,14 @@ export const HeaderContainer = styled.header.withConfig({
   left: 0;
   right: 0;
   z-index: 1000;
-  background: ${({ theme, isScrolled }) => 
+  background: ${({ theme, isScrolled }: { theme: DefaultTheme; isScrolled: boolean }) => 
     isScrolled 
       ? theme.mode === 'dark' 
-        ? 'rgba(31, 41, 55, 0.95)' 
-        : 'rgba(255, 255, 255, 0.95)'
+        ? theme.colors?.background?.dark || 'rgba(31, 41, 55, 0.95)' 
+        : theme.colors?.background?.paper || 'rgba(255, 255, 255, 0.95)'
       : theme.mode === 'dark'
-        ? 'rgba(31, 41, 55, 0.9)'
-        : 'rgba(255, 255, 255, 0.9)'
+        ? theme.colors?.background?.darker || 'rgba(31, 41, 55, 0.9)'
+        : theme.colors?.background?.light || 'rgba(255, 255, 255, 0.9)'
   };
   backdrop-filter: blur(10px);
   border-bottom: 1px solid ${({ theme, isScrolled }) => 

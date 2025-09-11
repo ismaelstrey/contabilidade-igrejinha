@@ -6,13 +6,7 @@ type BaseTheme = typeof theme
 
 interface ExtendedTheme extends BaseTheme {
   mode: ThemeMode
-  colors: BaseTheme['colors'] & {
-    background: {
-      paper: string
-      main: string
-      secondary: string
-    }
-  }
+  colors: BaseTheme['colors'] | BaseTheme['darkColors']
 }
 
 declare module 'styled-components' {

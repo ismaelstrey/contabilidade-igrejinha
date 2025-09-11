@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 import { motion } from 'framer-motion'
 
 /**
@@ -8,14 +8,14 @@ interface StatCardContainerProps {
   $urgent?: boolean
 }
 
-export const StatCardContainer = styled(motion.div)<StatCardContainerProps>`
-  background-color: white;
+export const StatCardContainer = styled(motion.div) <StatCardContainerProps>`
+  background-color: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   border: 1px solid ${({ theme }) => theme.colors.border.light};
   padding: 1.5rem;
-  ${({ $urgent }) => $urgent && `
-    box-shadow: 0 0 0 2px #fecaca;
+  ${({ $urgent, theme }) => $urgent && `
+    box-shadow: 0 0 0 2px ${theme.colors.error?.light || '#fecaca'};
   `}
 `
 
@@ -51,24 +51,24 @@ interface StatCardChangeProps {
 export const StatCardChange = styled.p<StatCardChangeProps>`
   font-size: 0.875rem;
   margin: 0.25rem 0 0 0;
-  color: ${({ $positive }) => $positive ? '#059669' : '#dc2626'};
+  color: ${({ $positive, theme }) => $positive ? '#059669' : (theme.colors.error?.main || '#dc2626')};
 `
 
 interface StatCardIconContainerProps {
   $color: 'blue' | 'green' | 'yellow' | 'red'
 }
 
-const iconColors = {
-  blue: 'background-color: #dbeafe; color: #2563eb;',
-  green: 'background-color: #dcfce7; color: #16a34a;',
-  yellow: 'background-color: #fef3c7; color: #d97706;',
-  red: 'background-color: #fee2e2; color: #dc2626;'
-}
+const getIconColors = (theme: DefaultTheme) => ({
+  blue: `background-color: ${theme.colors.primary?.light || '#dbeafe'}; color: ${theme.colors.primary?.main || '#2563eb'};`,
+  green: `background-color: #dcfce7; color: #16a34a;`,
+  yellow: `background-color: #fef3c7; color: #d97706;`,
+  red: `background-color: ${theme.colors.error?.light || '#fee2e2'}; color: ${theme.colors.error?.main || '#dc2626'};`
+})
 
 export const StatCardIconContainer = styled.div<StatCardIconContainerProps>`
   padding: 0.75rem;
   border-radius: 0.5rem;
-  ${({ $color }) => iconColors[$color]}
+  ${({ $color, theme }) => getIconColors(theme)[$color]}
 `
 
 export const StatCardIcon = styled.svg`

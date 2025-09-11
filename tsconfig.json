@@ -29,7 +29,8 @@
       "@data/*": ["./src/data/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@utils/*": ["./src/utils/*"],
-      "@types/*": ["./src/types/*"]
+      "@types/*": ["./src/types/*"],
+      "@contexts/*": ["./src/contexts/*"]
     }
   },
   "include": ["src", "vite-env.d.ts"],

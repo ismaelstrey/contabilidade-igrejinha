@@ -1,17 +1,32 @@
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 import { Link } from 'react-router-dom'
 
 /**
  * Container principal da sidebar
  */
-export const SidebarContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+export const SidebarContainer = styled.aside`
+  width: 16rem;
+  background-color: ${({ theme }) => theme.colors.background.sidebar || theme.colors.background.secondary};
+  color: ${({ theme }) => theme.colors.text.primary};
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 20;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #e5e7eb;
+  border-right: 1px solid ${({ theme }) => theme.colors.border.light};
+  
+  &.open {
+    transform: translateX(0);
+  }
+  
+  @media (min-width: 1024px) {
+    position: relative;
+    transform: translateX(0);
+  }
 `
 
 /**
@@ -19,7 +34,7 @@ export const SidebarContainer = styled.div`
  */
 export const SidebarHeader = styled.div`
   padding: 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border.light};
 `
 
 /**
@@ -73,7 +88,7 @@ export const LogoInfo = styled.div`
 export const LogoTitle = styled.h2`
   font-size: 1.125rem;
   font-weight: 600;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin: 0;
 `
 
@@ -82,7 +97,7 @@ export const LogoTitle = styled.h2`
  */
 export const LogoSubtitle = styled.p`
   font-size: 0.75rem;
-  color: #6b7280;
+  color: ${({ theme }) => theme.colors.text.muted};
   margin: 0;
 `
 
@@ -92,15 +107,15 @@ export const LogoSubtitle = styled.p`
 export const CloseButton = styled.button`
   padding: 0.25rem;
   border-radius: 0.375rem;
-  color: #9ca3af;
+  color: ${({ theme }) => theme.colors.text.muted};
   background: none;
   border: none;
   cursor: pointer;
   transition: all 0.2s;
   
   &:hover {
-    color: #4b5563;
-    background-color: #f3f4f6;
+    color: ${({ theme }) => theme.colors.text.secondary};
+    background-color: ${({ theme }) => theme.colors.background.secondary};
   }
   
   svg {
@@ -131,7 +146,7 @@ interface NavItemProps {
   $isActive: boolean
 }
 
-export const NavItem = styled(Link)<NavItemProps>`
+export const NavItem = styled(Link) <NavItemProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -143,15 +158,16 @@ export const NavItem = styled(Link)<NavItemProps>`
   transition: all 0.2s;
   
   ${({ $isActive }) => $isActive ? `
-    background-color: #e0e7ff;
-    color: #3730a3;
-    border-right: 2px solid #4f46e5;
+    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.primary.light};
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.primary.main};
+    border-right: 2px solid ${({ theme }: { theme: DefaultTheme }) => theme.colors.primary.main};
   ` : `
-    color: #4b5563;
+    color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.text.muted};
+    background-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.background.secondary};
     
     &:hover {
-      background-color: #f3f4f6;
-      color: #111827;
+      background-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.background.secondary};
+      color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.text.secondary};
     }
   `}
 `
@@ -171,19 +187,20 @@ export const NavItemContent = styled.div`
 export const NavItemIcon = styled.span<{ $isActive: boolean }>`
   transition: color 0.2s;
   
-  ${({ $isActive }) => $isActive ? `
-    color: #4f46e5;
+  ${({ $isActive, theme }) => $isActive ? `
+    color: ${theme.colors.primary.main};
   ` : `
-    color: #9ca3af;
+    color: ${theme.colors.text.muted};
     
     ${NavItem}:hover & {
-      color: #4b5563;
+      color: ${theme.colors.text.secondary};
     }
   `}
   
   svg {
     width: 1.25rem;
     height: 1.25rem;
+    color: inherit;
   }
 `
 
@@ -251,7 +268,7 @@ export const UserData = styled.div`
 export const UserName = styled.p`
   font-size: 0.875rem;
   font-weight: 500;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -263,7 +280,7 @@ export const UserName = styled.p`
  */
 export const UserEmail = styled.p`
   font-size: 0.75rem;
-  color: #6b7280;
+  color: ${({ theme }) => theme.colors.text.muted};
   margin: 0;
   white-space: nowrap;
   overflow: hidden;

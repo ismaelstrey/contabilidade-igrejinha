@@ -10,7 +10,10 @@ export const LoginPageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+  background: ${({ theme }) => theme.colors.background.default};
+  background-image: linear-gradient(135deg, 
+    ${({ theme }) => theme.colors.background.default} 0%, 
+    ${({ theme }) => theme.colors.background.secondary} 100%);
   padding: 3rem 1rem;
 
   @media (max-width: 640px) {
@@ -75,7 +78,7 @@ export const LoginSubtitle = styled.p`
  * Responsável pela estrutura e estilo do formulário
  */
 export const LoginForm = styled(motion.form)`
-  background: white;
+  background: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   padding: 2rem;
   border-radius: 0.75rem;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -89,9 +92,9 @@ export const LoginForm = styled(motion.form)`
  * Responsável pela exibição de mensagens de erro
  */
 export const ErrorContainer = styled(motion.div)`
-  background-color: #fef2f2;
-  border: 1px solid #fecaca;
-  color: #dc2626;
+  background-color: ${({ theme }) => theme.colors.error?.light || '#fef2f2'};
+  border: 1px solid ${({ theme }) => theme.colors.error?.light || '#fecaca'};
+  color: ${({ theme }) => theme.colors.error?.main || '#dc2626'};
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   display: flex;
@@ -152,16 +155,16 @@ export const StyledInput = styled.input<StyledInputProps>`
   width: 100%;
   padding: 0.75rem;
   padding-right: ${props => props.type === 'password' ? '2.5rem' : '0.75rem'};
-  border: 1px solid ${props => props.hasError ? '#fca5a5' : '#d1d5db'};
+  border: 1px solid ${props => props.hasError ? (props.theme.colors.error?.light || '#fca5a5') : props.theme.colors.border.light};
   border-radius: 0.5rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   font-size: 1rem;
-  background-color: ${props => props.hasError ? '#fef2f2' : 'white'};
+  background-color: ${props => props.hasError ? (props.theme.colors.error?.light || '#fef2f2') : (props.theme.colors.background.paper || props.theme.colors.background.default)};
   color: ${({ theme }) => theme.colors.text.primary};
   transition: all 0.2s ease-in-out;
 
   &::placeholder {
-    color: #9ca3af;
+    color: ${({ theme }) => theme.colors.text.muted};
   }
 
   &:focus {
@@ -171,8 +174,8 @@ export const StyledInput = styled.input<StyledInputProps>`
   }
 
   &:disabled {
-    background-color: #f9fafb;
-    color: #6b7280;
+    background-color: ${({ theme }) => theme.colors.background.secondary};
+    color: ${({ theme }) => theme.colors.text.muted};
     cursor: not-allowed;
   }
 `
@@ -189,14 +192,14 @@ export const PasswordToggleButton = styled.button`
   padding: 0 0.75rem;
   display: flex;
   align-items: center;
-  color: #9ca3af;
+  color: ${({ theme }) => theme.colors.text.muted};
   background: none;
   border: none;
   cursor: pointer;
   transition: color 0.2s ease-in-out;
 
   &:hover {
-    color: #6b7280;
+    color: ${({ theme }) => theme.colors.text.secondary};
   }
 
   &:disabled {
@@ -217,7 +220,7 @@ export const PasswordToggleIcon = styled.svg`
 export const FieldError = styled.p`
   margin-top: 0.25rem;
   font-size: 0.875rem;
-  color: #dc2626;
+  color: ${({ theme }) => theme.colors.error?.main || '#dc2626'};
 `
 
 /**

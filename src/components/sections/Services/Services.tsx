@@ -21,7 +21,7 @@ import {
 
 const Services: React.FC = () => {
   const { themeMode } = useTheme()
-  
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
@@ -41,8 +41,8 @@ const Services: React.FC = () => {
   }
 
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 60,
       scale: 0.8,
       rotateX: -15
@@ -60,7 +60,7 @@ const Services: React.FC = () => {
       }
     }
   }
-  
+
   const floatingVariants = {
     animate: {
       y: [-5, 5, -5],
@@ -101,16 +101,16 @@ const Services: React.FC = () => {
               key={service.id}
               as={motion.div}
               variants={cardVariants}
-              whileHover={{ 
+              whileHover={{
                 y: -12,
                 scale: 1.03,
                 rotateY: 5,
-                boxShadow: themeMode === 'dark' 
-                  ? '0 25px 50px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(59, 130, 246, 0.3)'
+                boxShadow: themeMode === 'dark'
+                  ? '0 30px 60px rgba(0, 0, 0, 0.6), 0 15px 30px rgba(59, 130, 246, 0.4), 0 5px 15px rgba(139, 92, 246, 0.3)'
                   : '0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(37, 99, 235, 0.2)'
               }}
               whileTap={{ scale: 0.98 }}
-              transition={{ 
+              transition={{
                 duration: 0.4,
                 type: 'spring',
                 stiffness: 300,
@@ -124,14 +124,14 @@ const Services: React.FC = () => {
               <motion.div
                 variants={floatingVariants}
                 animate="animate"
-                style={{ 
+                style={{
                   animationDelay: `${index * 0.2}s`,
                   display: 'inline-block'
                 }}
               >
                 <ServiceIcon>{service.icon}</ServiceIcon>
               </motion.div>
-              
+
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -140,7 +140,7 @@ const Services: React.FC = () => {
               >
                 <ServiceTitle>{service.title}</ServiceTitle>
               </motion.div>
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -151,7 +151,7 @@ const Services: React.FC = () => {
                   {service.description}
                 </ServiceDescription>
               </motion.div>
-              
+
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -164,21 +164,21 @@ const Services: React.FC = () => {
                       key={featureIndex}
                       initial={{ opacity: 0, x: -30 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ 
-                        delay: 0.7 + index * 0.1 + featureIndex * 0.1, 
+                      transition={{
+                        delay: 0.7 + index * 0.1 + featureIndex * 0.1,
                         duration: 0.5,
                         type: 'spring',
                         stiffness: 200
                       }}
                       viewport={{ once: true }}
-                      whileHover={{ 
+                      whileHover={{
                         x: 8,
                         transition: { duration: 0.2 }
                       }}
                     >
                       <ServiceFeature>
                         <motion.span
-                          whileHover={{ 
+                          whileHover={{
                             scale: 1.2,
                             rotate: 360,
                             transition: { duration: 0.3 }
@@ -192,19 +192,19 @@ const Services: React.FC = () => {
                   ))}
                 </ServiceFeatures>
               </motion.div>
-              
+
               {service.price && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ 
-                    delay: 0.8 + index * 0.1, 
+                  transition={{
+                    delay: 0.8 + index * 0.1,
                     duration: 0.6,
                     type: 'spring',
                     stiffness: 150
                   }}
                   viewport={{ once: true }}
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.05,
                     transition: { duration: 0.2 }
                   }}
@@ -212,18 +212,18 @@ const Services: React.FC = () => {
                   <ServicePrice>{service.price}</ServicePrice>
                 </motion.div>
               )}
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  delay: 1.0 + index * 0.1, 
+                transition={{
+                  delay: 1.0 + index * 0.1,
                   duration: 0.6,
                   type: 'spring',
                   stiffness: 120
                 }}
                 viewport={{ once: true }}
-                whileHover={{ 
+                whileHover={{
                   y: -3,
                   transition: { duration: 0.2 }
                 }}

@@ -6,12 +6,13 @@ import { Link } from 'react-router-dom'
  * Container principal do header
  */
 export const HeaderContainer = styled.header`
-  background-color: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+  background-color: ${({ theme }) => theme.colors.background.paper};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border.light};
   padding: 1rem 1.5rem;
   position: sticky;
   top: 0;
   z-index: 10;
+  transition: all 0.2s ease;
 `
 
 /**
@@ -38,20 +39,20 @@ export const HeaderLeft = styled.div`
 export const MobileMenuButton = styled.button`
   padding: 0.5rem;
   border-radius: 0.375rem;
-  color: #9ca3af;
+  color: ${({ theme }) => theme.colors.text.muted};
   background: none;
   border: none;
   cursor: pointer;
   transition: all 0.2s;
   
   &:hover {
-    color: #4b5563;
-    background-color: #f3f4f6;
+    color: ${({ theme }) => theme.colors.text.secondary};
+    background-color: ${({ theme }) => theme.colors.background.secondary};
   }
   
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #6366f1;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary.main};
   }
   
   @media (min-width: 1024px) {
@@ -94,12 +95,12 @@ export const BreadcrumbItem = styled.li`
  * Link do breadcrumb
  */
 export const BreadcrumbLink = styled(Link)`
-  color: #9ca3af;
+  color: ${({ theme }) => theme.colors.text.muted};
   text-decoration: none;
   transition: color 0.2s;
   
   &:hover {
-    color: #4b5563;
+    color: ${({ theme }) => theme.colors.text.secondary};
   }
 `
 
@@ -109,7 +110,7 @@ export const BreadcrumbLink = styled(Link)`
 export const BreadcrumbSeparator = styled.svg`
   width: 1.25rem;
   height: 1.25rem;
-  color: #9ca3af;
+  color: ${({ theme }) => theme.colors.text.muted};
 `
 
 /**
@@ -119,7 +120,7 @@ export const PageTitle = styled.span`
   margin-left: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
 `
 
 /**
@@ -149,19 +150,20 @@ export const SearchContainer = styled.div`
 export const SearchInput = styled.input`
   width: 16rem;
   padding: 0.5rem 1rem 0.5rem 2.5rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   border-radius: 0.5rem;
   font-size: 0.875rem;
-  background: white;
+  background: ${({ theme }) => theme.colors.background.paper};
+  color: ${({ theme }) => theme.colors.text.primary};
   
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #6366f1;
-    border-color: #6366f1;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary.main};
+    border-color: ${({ theme }) => theme.colors.primary.main};
   }
   
   &::placeholder {
-    color: #9ca3af;
+    color: ${({ theme }) => theme.colors.text.muted};
   }
 `
 
@@ -181,7 +183,7 @@ export const SearchIcon = styled.div`
   svg {
     width: 1.25rem;
     height: 1.25rem;
-    color: #9ca3af;
+    color: ${({ theme }) => theme.colors.text.muted};
   }
 `
 
@@ -197,7 +199,7 @@ export const NotificationsContainer = styled.div`
  */
 export const NotificationsButton = styled.button`
   padding: 0.5rem;
-  color: #9ca3af;
+  color: ${({ theme }) => theme.colors.text.muted};
   background: none;
   border: none;
   border-radius: 0.5rem;
@@ -206,13 +208,13 @@ export const NotificationsButton = styled.button`
   transition: all 0.2s;
   
   &:hover {
-    color: #4b5563;
-    background-color: #f3f4f6;
+    color: ${({ theme }) => theme.colors.text.secondary};
+    background-color: ${({ theme }) => theme.colors.background.secondary};
   }
   
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #6366f1;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary.main};
   }
 `
 
@@ -225,13 +227,14 @@ export const NotificationBadge = styled.span`
   right: -0.25rem;
   height: 1.25rem;
   width: 1.25rem;
-  background-color: #ef4444;
+  background-color: ${({ theme }) => theme.colors.error?.main || '#ef4444'};
   color: white;
   font-size: 0.75rem;
   border-radius: 9999px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 2px solid ${({ theme }) => theme.colors.background.paper};
 `
 
 /**
@@ -242,10 +245,10 @@ export const NotificationsDropdown = styled(motion.div)`
   right: 0;
   margin-top: 0.5rem;
   width: 20rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   z-index: 50;
 `
 
@@ -254,12 +257,12 @@ export const NotificationsDropdown = styled(motion.div)`
  */
 export const NotificationsHeader = styled.div`
   padding: 1rem;
-  border-bottom: 1px solid #e5e7eb;
-  
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border.light};
+
   h3 {
     font-size: 1.125rem;
     font-weight: 500;
-    color: #111827;
+    color: ${({ theme }) => theme.colors.text.primary};
     margin: 0;
   }
 `
@@ -281,13 +284,13 @@ interface NotificationItemProps {
 
 export const NotificationItem = styled.div<NotificationItemProps>`
   padding: 1rem;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border.light};
   cursor: pointer;
   transition: background-color 0.2s;
-  background-color: ${({ $unread }) => $unread ? '#eff6ff' : 'white'};
-  
+  background-color: ${({ $unread, theme }) => $unread ? (theme.colors.primary?.light || '#eff6ff') : (theme.colors.background.paper || theme.colors.background.default)};
+
   &:hover {
-    background-color: #f9fafb;
+    background-color: ${({ theme }) => theme.colors.background.secondary};
   }
 `
 
@@ -312,7 +315,7 @@ export const NotificationIndicator = styled.div<NotificationIndicatorProps>`
   height: 0.5rem;
   border-radius: 9999px;
   margin-top: 0.5rem;
-  background-color: ${({ $unread }) => $unread ? '#3b82f6' : '#d1d5db'};
+  background-color: ${({ $unread, theme }) => $unread ? (theme.colors.primary?.main || '#3b82f6') : (theme.colors.border.light || '#d1d5db')};
 `
 
 /**
@@ -328,7 +331,7 @@ export const NotificationText = styled.div`
 export const NotificationTitle = styled.p`
   font-size: 0.875rem;
   font-weight: 500;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin: 0;
 `
 
@@ -337,7 +340,7 @@ export const NotificationTitle = styled.p`
  */
 export const NotificationMessage = styled.p`
   font-size: 0.875rem;
-  color: #4b5563;
+  color: ${({ theme }) => theme.colors.text.secondary};
   margin: 0.25rem 0 0 0;
 `
 
@@ -346,7 +349,7 @@ export const NotificationMessage = styled.p`
  */
 export const NotificationTime = styled.p`
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: ${({ theme }) => theme.colors.text.muted};
   margin: 0.25rem 0 0 0;
 `
 
@@ -355,12 +358,12 @@ export const NotificationTime = styled.p`
  */
 export const NotificationsFooter = styled.div`
   padding: 0.75rem;
-  border-top: 1px solid #e5e7eb;
-  
+  border-top: 1px solid ${({ theme }) => theme.colors.border.light};
+
   button {
     width: 100%;
     font-size: 0.875rem;
-    color: #6366f1;
+    color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
     font-weight: 500;
     background: none;
     border: none;
@@ -368,7 +371,7 @@ export const NotificationsFooter = styled.div`
     transition: color 0.2s;
     
     &:hover {
-      color: #4f46e5;
+      color: ${({ theme }) => theme.colors.primary?.dark || '#4f46e5'};
     }
   }
 `
@@ -393,14 +396,14 @@ export const UserMenuButton = styled.button`
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;
-  
+
   &:hover {
-    background-color: #f3f4f6;
+    background-color: ${({ theme }) => theme.colors.background.secondary};
   }
-  
+
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #6366f1;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
 `
 
@@ -410,16 +413,16 @@ export const UserMenuButton = styled.button`
 export const UserAvatar = styled.div`
   width: 2rem;
   height: 2rem;
-  background-color: #e0e7ff;
+  background-color: ${({ theme }) => theme.colors.primary?.light || '#e0e7ff'};
   border-radius: 9999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   span {
     font-size: 0.875rem;
     font-weight: 500;
-    color: #6366f1;
+    color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
   }
 `
 
@@ -441,7 +444,7 @@ export const UserInfo = styled.div`
 export const UserName = styled.p`
   font-size: 0.875rem;
   font-weight: 500;
-  color: #111827;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin: 0;
 `
 
@@ -450,7 +453,7 @@ export const UserName = styled.p`
  */
 export const UserRole = styled.p`
   font-size: 0.75rem;
-  color: #6b7280;
+  color: ${({ theme }) => theme.colors.text.secondary};
   margin: 0;
   text-transform: capitalize;
 `
@@ -463,10 +466,10 @@ export const UserMenuDropdown = styled(motion.div)`
   right: 0;
   margin-top: 0.5rem;
   width: 12rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background.paper || theme.colors.background.default};
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   z-index: 50;
 `
 
@@ -485,14 +488,14 @@ export const UserMenuItem = styled(Link)`
   align-items: center;
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
-  color: #374151;
+  color: ${({ theme }) => theme.colors.text.secondary};
   text-decoration: none;
   transition: background-color 0.2s;
-  
+
   &:hover {
-    background-color: #f3f4f6;
+    background-color: ${({ theme }) => theme.colors.background.secondary};
   }
-  
+
   svg {
     width: 1rem;
     height: 1rem;
@@ -506,7 +509,7 @@ export const UserMenuItem = styled(Link)`
 export const MenuSeparator = styled.hr`
   margin: 0.25rem 0;
   border: none;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid ${({ theme }) => theme.colors.border.light};
 `
 
 /**
@@ -518,16 +521,16 @@ export const LogoutButton = styled.button`
   width: 100%;
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
-  color: #dc2626;
+  color: ${({ theme }) => theme.colors.error?.main || '#dc2626'};
   background: none;
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;
-  
+
   &:hover {
-    background-color: #fef2f2;
+    background-color: ${({ theme }) => theme.colors.error?.light || '#fef2f2'};
   }
-  
+
   svg {
     width: 1rem;
     height: 1rem;

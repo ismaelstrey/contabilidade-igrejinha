@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 import { theme } from '@/styles/theme'
 
 export const SectionHeader = styled.div`
@@ -14,11 +14,11 @@ export const SectionHeader = styled.div`
     transform: translateX(-50%);
     width: 100px;
     height: 4px;
-    background: ${({ theme }) => 
-      theme.mode === 'dark'
-        ? 'linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4)'
-        : 'linear-gradient(90deg, #2563eb, #7c3aed, #0891b2)'
-    };
+    background: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) =>
+    $themeMode === 'dark'
+      ? `linear-gradient(90deg, ${theme.colors?.primary?.light || '#60a5fa'}, ${theme.colors?.warning?.light || '#fbbf24'}, ${theme.colors?.success?.light || '#34d399'})`
+      : `linear-gradient(90deg, ${theme.colors?.primary?.dark || '#2563eb'}, ${theme.colors?.primary?.light || '#7c3aed'}, ${theme.colors?.info?.dark || '#0891b2'})`
+  };
     border-radius: 2px;
     animation: shimmer 3s ease-in-out infinite;
   }
@@ -32,10 +32,10 @@ export const SectionHeader = styled.div`
 export const SectionSubtitle = styled.p`
   font-size: ${theme.typography.fontSize.lg};
   font-weight: ${theme.typography.fontWeight.medium};
-  background: ${({ theme }) => 
-    theme.mode === 'dark'
-      ? 'linear-gradient(135deg, #60a5fa, #a78bfa, #34d399)'
-      : 'linear-gradient(135deg, #2563eb, #7c3aed, #059669)'
+  background: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) =>
+    $themeMode === 'dark'
+      ? `linear-gradient(135deg, ${theme.colors?.primary?.light || '#60a5fa'}, ${theme.colors?.warning?.light || '#fbbf24'}, ${theme.colors?.success?.light || '#34d399'})`
+      : `linear-gradient(135deg, ${theme.colors?.primary?.dark || '#2563eb'}, ${theme.colors?.primary?.light || '#7c3aed'}, ${theme.colors?.success?.dark || '#059669'})`
   };
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -70,11 +70,11 @@ export const SectionTitle = styled.h2`
     transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background: ${({ theme }) => 
-      theme.mode === 'dark'
-        ? 'linear-gradient(90deg, #f59e0b, #ef4444, #8b5cf6)'
-        : 'linear-gradient(90deg, #f97316, #dc2626, #7c3aed)'
-    };
+    background: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) =>
+    $themeMode === 'dark'
+      ? `linear-gradient(90deg, ${theme.colors?.warning?.light || '#fbbf24'}, ${theme.colors?.error?.light || '#fca5a5'}, ${theme.colors?.primary?.light || '#60a5fa'})`
+      : `linear-gradient(90deg, ${theme.colors?.warning?.dark || '#f97316'}, ${theme.colors?.error?.dark || '#dc2626'}, ${theme.colors?.primary?.light || '#7c3aed'})`
+  };
     animation: expandLine 2s ease-out forwards;
   }
   
@@ -95,19 +95,19 @@ export const ServicesGrid = styled.div`
 `
 
 export const ServiceCard = styled.div`
-  background: ${({ theme }) => 
-    theme.mode === 'dark'
-      ? 'linear-gradient(145deg, #1f2937 0%, #374151 100%)'
-      : 'linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)'
+  background: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) =>
+    $themeMode === 'dark'
+      ? `linear-gradient(145deg, ${theme.colors?.background?.dark || '#1f2937'} 0%, ${theme.colors?.background?.secondary || '#374151'} 50%, ${theme.colors?.background?.dark || '#1f2937'} 100%)`
+      : `linear-gradient(145deg, ${theme.colors?.background?.light || '#ffffff'} 0%, ${theme.colors?.background?.paper || '#f8fafc'} 100%)`
   };
   border-radius: ${theme.borderRadius.xl};
   padding: ${theme.spacing.xl};
-  box-shadow: ${({ theme }) => 
+  box-shadow: ${({ theme }) =>
     theme.mode === 'dark'
       ? '0 10px 30px rgba(0, 0, 0, 0.3), 0 1px 8px rgba(0, 0, 0, 0.2)'
       : '0 10px 30px rgba(0, 0, 0, 0.1), 0 1px 8px rgba(0, 0, 0, 0.05)'
   };
-  border: 1px solid ${({ theme }) => 
+  border: 1px solid ${({ theme }) =>
     theme.mode === 'dark' ? 'rgba(75, 85, 99, 0.3)' : theme.colors.neutral.gray100
   };
   transition: all ${theme.transitions.normal};
@@ -124,11 +124,10 @@ export const ServiceCard = styled.div`
     left: 0;
     right: 0;
     height: 4px;
-    background: ${({ theme }) => 
-      theme.mode === 'dark'
-        ? 'linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4, #10b981)'
-        : 'linear-gradient(90deg, #2563eb, #7c3aed, #0891b2, #059669)'
-    };
+    background: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) =>
+    $themeMode === 'dark'
+      ? `linear-gradient(90deg, ${theme.colors?.primary?.light || '#60a5fa'}, ${theme.colors?.warning?.light || '#fbbf24'}, ${theme.colors?.success?.light || '#34d399'}, ${theme.colors?.primary?.light || '#60a5fa'})`
+      : `linear-gradient(90deg, ${theme.colors?.primary?.dark || '#2563eb'}, ${theme.colors?.primary?.light || '#7c3aed'}, ${theme.colors?.info?.dark || '#0891b2'}, ${theme.colors?.success?.dark || '#059669'})`};
     background-size: 200% 100%;
     animation: gradientMove 3s ease-in-out infinite;
   }
@@ -140,24 +139,24 @@ export const ServiceCard = styled.div`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: ${({ theme }) => 
-      theme.mode === 'dark'
-        ? 'linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent)'
-        : 'linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05), transparent)'
-    };
+    background: ${({ theme }) =>
+    theme.mode === 'dark'
+      ? 'linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.15), rgba(251, 191, 36, 0.1), transparent)'
+      : 'linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05), transparent)'
+  };
     transition: left 0.6s ease;
   }
   
   &:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: ${({ theme }) => 
-      theme.mode === 'dark'
-        ? '0 20px 40px rgba(0, 0, 0, 0.4), 0 8px 16px rgba(59, 130, 246, 0.2)'
-        : '0 20px 40px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(37, 99, 235, 0.1)'
-    };
-    border-color: ${({ theme }) => 
-      theme.mode === 'dark' ? 'rgba(59, 130, 246, 0.5)' : theme.colors.primary.light
-    };
+    box-shadow: ${({ theme }) =>
+    theme.mode === 'dark'
+      ? '0 25px 50px rgba(0, 0, 0, 0.5), 0 12px 24px rgba(59, 130, 246, 0.3), 0 6px 12px rgba(251, 191, 36, 0.2)'
+      : '0 20px 40px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(37, 99, 235, 0.1)'
+  };
+    border-color: ${({ theme }) =>
+    theme.mode === 'dark' ? 'rgba(59, 130, 246, 0.5)' : theme.colors.primary.light
+  };
     
     &::after {
       left: 100%;
@@ -174,7 +173,7 @@ export const ServiceIcon = styled.div`
   font-size: 3rem;
   margin-bottom: ${theme.spacing.md};
   text-align: center;
-  color: ${({ theme }) => 
+  color: ${({ theme }) =>
     theme.mode === 'dark'
       ? theme.colors.text.primary
       : theme.colors.primary.main
@@ -191,11 +190,11 @@ export const ServiceIcon = styled.div`
     transform: translate(-50%, -50%);
     width: 80px;
     height: 80px;
-    background: ${({ theme }) => 
-      theme.mode === 'dark'
-        ? 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)'
-        : 'radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%)'
-    };
+    background: ${({ theme }) =>
+    theme.mode === 'dark'
+      ? 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, rgba(251, 191, 36, 0.1) 50%, transparent 70%)'
+      : 'radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%)'
+  };
     border-radius: 50%;
     z-index: -1;
     animation: pulse 2s ease-in-out infinite;
@@ -217,11 +216,10 @@ export const ServiceTitle = styled.h3`
   transition: all ${theme.transitions.normal};
   
   &:hover {
-    background: ${({ theme }) => 
-      theme.mode === 'dark'
-        ? 'linear-gradient(135deg, #fbbf24, #f59e0b)'
-        : 'linear-gradient(135deg, #f97316, #ea580c)'
-    };
+    background: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) =>
+    $themeMode === 'dark'
+      ? `linear-gradient(135deg, ${theme.colors?.warning?.light || '#fbbf24'}, ${theme.colors?.warning?.main || '#f59e0b'})`
+      : `linear-gradient(135deg, ${theme.colors?.warning?.dark || '#f97316'}, ${theme.colors?.warning?.darker || '#ea580c'})`};
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -246,11 +244,10 @@ export const ServiceDescription = styled.p`
     transform: translateX(-50%);
     width: 30px;
     height: 1px;
-    background: ${({ theme }) => 
-      theme.mode === 'dark'
-        ? 'linear-gradient(90deg, transparent, #60a5fa, transparent)'
-        : 'linear-gradient(90deg, transparent, #3b82f6, transparent)'
-    };
+    background: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) =>
+    $themeMode === 'dark'
+      ? `linear-gradient(90deg, transparent, ${theme.colors?.primary?.light || '#60a5fa'}, transparent)`
+      : `linear-gradient(90deg, transparent, ${theme.colors?.primary?.main || '#3b82f6'}, transparent)`};
   }
 `
 
@@ -266,11 +263,11 @@ export const ServiceFeatures = styled.ul`
     left: 0;
     right: 0;
     height: 1px;
-    background: ${({ theme }) => 
-      theme.mode === 'dark'
-        ? 'linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent)'
-        : 'linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.2), transparent)'
-    };
+    background: ${({ theme }) =>
+    theme.mode === 'dark'
+      ? 'linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent)'
+      : 'linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.2), transparent)'
+  };
   }
 `
 
@@ -287,20 +284,19 @@ export const ServiceFeature = styled.li`
   position: relative;
   
   &:hover {
-    background: ${({ theme }) => 
-      theme.mode === 'dark'
-        ? 'rgba(59, 130, 246, 0.1)'
-        : 'rgba(37, 99, 235, 0.05)'
-    };
+    background: ${({ theme }) =>
+    theme.mode === 'dark'
+      ? 'rgba(59, 130, 246, 0.1)'
+      : 'rgba(37, 99, 235, 0.05)'
+  };
     transform: translateX(4px);
   }
   
   span {
-    background: ${({ theme }) => 
-      theme.mode === 'dark'
-        ? 'linear-gradient(135deg, #10b981, #34d399)'
-        : 'linear-gradient(135deg, #059669, #10b981)'
-    };
+    background: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) =>
+    $themeMode === 'dark'
+      ? `linear-gradient(135deg, ${theme.colors?.success?.main || '#10b981'}, ${theme.colors?.success?.light || '#34d399'})`
+      : `linear-gradient(135deg, ${theme.colors?.success?.dark || '#059669'}, ${theme.colors?.success?.main || '#10b981'})`};
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -316,11 +312,11 @@ export const ServiceFeature = styled.li`
       transform: translate(-50%, -50%);
       width: 16px;
       height: 16px;
-      background: ${({ theme }) => 
-        theme.mode === 'dark'
-          ? 'radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%)'
-          : 'radial-gradient(circle, rgba(5, 150, 105, 0.1) 0%, transparent 70%)'
-      };
+      background: ${({ theme }) =>
+    theme.mode === 'dark'
+      ? 'radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%)'
+      : 'radial-gradient(circle, rgba(5, 150, 105, 0.1) 0%, transparent 70%)'
+  };
       border-radius: 50%;
       z-index: -1;
     }
@@ -330,24 +326,23 @@ export const ServiceFeature = styled.li`
 export const ServicePrice = styled.div`
   font-size: ${theme.typography.fontSize.lg};
   font-weight: ${theme.typography.fontWeight.semibold};
-  background: ${({ theme }) => 
-    theme.mode === 'dark'
-      ? 'linear-gradient(135deg, #fbbf24, #f59e0b)'
-      : 'linear-gradient(135deg, #f97316, #ea580c)'
-  };
+  background: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) =>
+    $themeMode === 'dark'
+      ? `linear-gradient(135deg, ${theme.colors?.warning?.light || '#fbbf24'}, ${theme.colors?.warning?.main || '#f59e0b'})`
+      : `linear-gradient(135deg, ${theme.colors?.warning?.dark || '#f97316'}, ${theme.colors?.warning?.darker || '#ea580c'})`};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-align: center;
   margin-bottom: ${theme.spacing.md};
   padding: ${theme.spacing.sm};
-  background-color: ${({ theme }) => 
+  background-color: ${({ theme }) =>
     theme.mode === 'dark'
       ? 'rgba(251, 191, 36, 0.1)'
       : 'rgba(249, 115, 22, 0.1)'
   };
   border-radius: ${theme.borderRadius.md};
-  border: 1px solid ${({ theme }) => 
+  border: 1px solid ${({ theme }) =>
     theme.mode === 'dark'
       ? 'rgba(251, 191, 36, 0.2)'
       : 'rgba(249, 115, 22, 0.2)'
@@ -362,11 +357,11 @@ export const ServicePrice = styled.div`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: ${({ theme }) => 
-      theme.mode === 'dark'
-        ? 'linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent)'
-        : 'linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.1), transparent)'
-    };
+    background: ${({ theme }) =>
+    theme.mode === 'dark'
+      ? 'linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent)'
+      : 'linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.1), transparent)'
+  };
     animation: shimmerPrice 3s ease-in-out infinite;
   }
   

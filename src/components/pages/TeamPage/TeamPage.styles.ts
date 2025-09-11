@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 
 interface ThemeProps {
   $themeMode?: 'light' | 'dark'
@@ -8,10 +8,10 @@ export const PageContainer = styled.div<ThemeProps>`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: ${({ theme, $themeMode }) => 
+  background: ${({ theme, $themeMode }: { theme: DefaultTheme; $themeMode?: 'light' | 'dark' }) => 
     $themeMode === 'dark' 
-      ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)'
-      : theme.colors.background.paper};
+      ? `linear-gradient(135deg, ${theme.colors?.background?.darker || '#0f172a'} 0%, ${theme.colors?.background?.dark || '#1e293b'} 50%, ${theme.colors?.background?.paper || '#334155'} 100%)`
+      : theme.colors?.background?.paper || '#ffffff'};
   transition: ${({ theme }) => theme.transitions.normal};
   position: relative;
   
