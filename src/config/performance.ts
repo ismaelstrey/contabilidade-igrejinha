@@ -182,7 +182,7 @@ export const BUNDLE_CONFIG = {
   ANALYZE_CHUNKS: true,
   
   // Relatório de bundle
-  GENERATE_REPORT: process.env.NODE_ENV === 'production',
+  GENERATE_REPORT: import.meta.env.PROD,
   
   // Threshold para warnings
   WARNING_THRESHOLD: 250 // KB

@@ -63,6 +63,7 @@ export default LazyLoader;
 export { LoadingFallback };
 
 // Hook para criar componentes lazy
+// eslint-disable-next-line react-refresh/only-export-components
 export const createLazyComponent = <T extends React.ComponentType<any>>(
   importFn: () => Promise<{ default: T }>
 ) => {
@@ -70,6 +71,7 @@ export const createLazyComponent = <T extends React.ComponentType<any>>(
 };
 
 // Utilitário para preload de componentes
+// eslint-disable-next-line react-refresh/only-export-components
 export const preloadComponent = <T extends React.ComponentType<any>>(
   importFn: () => Promise<{ default: T }>
 ) => {
@@ -79,6 +81,7 @@ export const preloadComponent = <T extends React.ComponentType<any>>(
 };
 
 // Hook para lazy loading com preload condicional
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLazyComponent = <T extends React.ComponentType<any>>(
   importFn: () => Promise<{ default: T }>,
   shouldPreload: boolean = false

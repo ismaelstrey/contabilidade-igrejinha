@@ -17,6 +17,15 @@ declare global {
   }
 }
 
+// Declaração para IntersectionObserverInit se não estiver disponível
+declare global {
+  interface IntersectionObserverInit {
+    root?: Element | Document | null;
+    rootMargin?: string;
+    threshold?: number | number[];
+  }
+}
+
 interface UsePerformanceOptimizationReturn {
   metrics: PerformanceMetrics;
   isLoading: boolean;
@@ -43,7 +52,7 @@ export const usePerformanceOptimization = (): UsePerformanceOptimizationReturn =
     }
 
     // Log para desenvolvimento
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       console.log(`Performance Metric - ${name}: ${value}ms`);
     }
   }, []);
@@ -54,7 +63,7 @@ export const usePerformanceOptimization = (): UsePerformanceOptimizationReturn =
       try {
         // Simular métricas de performance sem web-vitals
         // Em produção, você pode instalar: npm install web-vitals
-        
+
         // Simular LCP usando PerformanceObserver
         if ('PerformanceObserver' in window) {
           const observer = new PerformanceObserver((list) => {
@@ -64,14 +73,14 @@ export const usePerformanceOptimization = (): UsePerformanceOptimizationReturn =
                 const value = entry.startTime;
                 setMetrics(prev => ({ ...prev, lcp: value }));
                 reportMetric('LCP', value);
-                
+
                 if (value > PERFORMANCE_MONITORING.TARGETS.LCP) {
                   console.warn(`LCP acima do target: ${value}ms (target: ${PERFORMANCE_MONITORING.TARGETS.LCP}ms)`);
                 }
               }
             });
           });
-          
+
           try {
             observer.observe({ entryTypes: ['largest-contentful-paint'] });
           } catch (e) {
@@ -87,7 +96,7 @@ export const usePerformanceOptimization = (): UsePerformanceOptimizationReturn =
     };
 
     // Observar apenas em produção ou quando explicitamente habilitado
-    if (process.env.NODE_ENV === 'production' || process.env.VITE_MONITOR_PERFORMANCE === 'true') {
+    if (import.meta.env.PROD || import.meta.env.VITE_MONITOR_PERFORMANCE === 'true') {
       observePerformance();
     } else {
       setIsLoading(false);
@@ -102,12 +111,12 @@ export const usePerformanceOptimization = (): UsePerformanceOptimizationReturn =
           list.getEntries().forEach((entry) => {
             if (entry.entryType === 'resource') {
               const resourceEntry = entry as PerformanceResourceTiming;
-              
+
               // Monitorar recursos grandes
               if (resourceEntry.transferSize > 100000) { // > 100KB
                 console.warn(`Recurso grande detectado: ${resourceEntry.name} (${Math.round(resourceEntry.transferSize / 1024)}KB)`);
               }
-              
+
               // Monitorar recursos lentos
               if (resourceEntry.duration > 1000) { // > 1s
                 console.warn(`Recurso lento detectado: ${resourceEntry.name} (${Math.round(resourceEntry.duration)}ms)`);
@@ -115,14 +124,14 @@ export const usePerformanceOptimization = (): UsePerformanceOptimizationReturn =
             }
           });
         });
-        
+
         observer.observe({ entryTypes: ['resource'] });
-        
+
         return () => observer.disconnect();
       }
     };
 
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       const cleanup = observeResourceTiming();
       return cleanup;
     }
@@ -140,7 +149,7 @@ export const usePerformanceOptimization = (): UsePerformanceOptimizationReturn =
             }
           });
         });
-        
+
         try {
           observer.observe({ entryTypes: ['longtask'] });
           return () => observer.disconnect();
@@ -163,6 +172,7 @@ export const usePerformanceOptimization = (): UsePerformanceOptimizationReturn =
 };
 
 // Hook para lazy loading de imagens
+// eslint-disable-next-line no-undef
 export const useLazyImage = (src: string, options?: IntersectionObserverInit) => {
   const [imageSrc, setImageSrc] = useState<string>('');
   const [isLoaded, setIsLoaded] = useState(false);
@@ -184,9 +194,9 @@ export const useLazyImage = (src: string, options?: IntersectionObserverInit) =>
           ...options
         }
       );
-      
+
       observer.observe(node);
-      
+
       return () => observer.disconnect();
     }
   }, [src, options]);
@@ -211,7 +221,7 @@ export const useResourcePreload = (resources: string[]) => {
       const link = document.createElement('link');
       link.rel = 'preload';
       link.href = resource;
-      
+
       // Determinar o tipo do recurso
       if (resource.endsWith('.woff2') || resource.endsWith('.woff')) {
         link.as = 'font';
@@ -224,7 +234,7 @@ export const useResourcePreload = (resources: string[]) => {
       } else if (resource.match(/\.(jpg|jpeg|png|webp|avif)$/)) {
         link.as = 'image';
       }
-      
+
       document.head.appendChild(link);
     });
   }, [resources]);
