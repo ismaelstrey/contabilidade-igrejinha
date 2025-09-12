@@ -362,7 +362,11 @@ const getActivityColors = (theme: DefaultTheme) => ({
 })
 
 export const ActivityIconContainer = styled.div<ActivityIconContainerProps>`
-  padding: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   ${({ $type, theme }) => getActivityColors(theme)[$type]}
 `
