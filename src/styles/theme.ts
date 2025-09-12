@@ -59,6 +59,10 @@ export const theme = {
       light: '#f9fafb',
       darker: '#1f2937'
     },
+    foreground: {
+      default: '#001514',
+      muted: '#6b7280'
+    },
     border: {
       light: '#e5e7eb',
       medium: '#d1d5db',
@@ -128,6 +132,10 @@ export const theme = {
       dark: '#111827',
       light: '#f9fafb',
       darker: '#1f2937'
+    },
+    foreground: {
+      default: '#FEFEE3',
+      muted: '#d1d5db'
     },
     border: {
       light: '#374151',

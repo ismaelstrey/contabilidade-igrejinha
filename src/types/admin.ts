@@ -10,6 +10,7 @@ export interface AdminUser {
   nome: string
   email: string
   role: 'admin' | 'user' | 'viewer'
+  avatar?: string
   ativo: boolean
   createdAt: string
   updatedAt: string

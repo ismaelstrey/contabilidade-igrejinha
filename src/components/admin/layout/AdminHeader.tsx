@@ -41,8 +41,11 @@ import {
   UserMenuList,
   UserMenuItem,
   MenuSeparator,
+  ThemeToggleButton,
   LogoutButton
 } from './AdminHeader.styles'
+import { IoIosNotifications } from 'react-icons/io'
+import { SlArrowLeft } from 'react-icons/sl'
 
 /**
  * Props do componente AdminHeader
@@ -117,9 +120,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ user, onMenuClick, onLogout }
         <HeaderLeft>
           {/* Botão Menu Mobile */}
           <MobileMenuButton onClick={onMenuClick}>
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <SlArrowLeft />
           </MobileMenuButton>
 
           {/* Breadcrumbs */}
@@ -162,11 +163,10 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ user, onMenuClick, onLogout }
           {/* Notificações */}
           <NotificationsContainer ref={notificationsRef}>
             <NotificationsButton
+              title='Notificações'
               onClick={() => setNotificationsOpen(!notificationsOpen)}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-              </svg>
+              <IoIosNotifications size={24} />
               {unreadCount > 0 && (
                 <NotificationBadge>
                   {unreadCount}
@@ -219,20 +219,20 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ user, onMenuClick, onLogout }
           </NotificationsContainer>
 
           {/* Toggle Dark Mode */}
-          <NotificationsButton
+          <ThemeToggleButton
             onClick={toggleTheme}
             title={themeMode === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro'}
           >
             {themeMode === 'dark' ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
             ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
               </svg>
             )}
-          </NotificationsButton>
+          </ThemeToggleButton>
 
           {/* Menu do Usuário */}
           <UserMenuContainer ref={userMenuRef}>
@@ -240,8 +240,18 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ user, onMenuClick, onLogout }
               onClick={() => setUserMenuOpen(!userMenuOpen)}
             >
               <UserAvatar>
-                <span>
-                  {user?.nome.charAt(0).toUpperCase()}
+                {user?.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt={user.nome}
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling?.setAttribute('style', 'display: flex');
+                    }}
+                  />
+                ) : null}
+                <span style={{ display: user?.avatar ? 'none' : 'flex' }}>
+                  {user?.nome ? user.nome.charAt(0).toUpperCase() : 'U'}
                 </span>
               </UserAvatar>
               <UserInfo>

@@ -115,12 +115,14 @@ export const SearchInput = styled.input`
 
 export const SearchIcon = styled.div`
   position: absolute;
-  inset-y: 0;
-  left: 0;
-  padding-left: 0.75rem;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
+  justify-content: center;
   pointer-events: none;
+  z-index: 1;
   
   svg {
     width: 1.25rem;

@@ -12,7 +12,9 @@ export const HeaderContainer = styled.header`
   position: sticky;
   top: 0;
   z-index: 10;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 `
 
 /**
@@ -205,16 +207,20 @@ export const NotificationsButton = styled.button`
   border-radius: 0.5rem;
   cursor: pointer;
   position: relative;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   
   &:hover {
-    color: ${({ theme }) => theme.colors.text.secondary};
-    background-color: ${({ theme }) => theme.colors.background.secondary};
+    color: ${({ theme }) => theme.colors.text.primary};
+    transform: translateY(-1px);
   }
   
   &:focus {
     outline: none;
     box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary.main};
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
 `
 
@@ -411,18 +417,50 @@ export const UserMenuButton = styled.button`
  * Avatar do usuário
  */
 export const UserAvatar = styled.div`
-  width: 2rem;
-  height: 2rem;
-  background-color: ${({ theme }) => theme.colors.primary?.light || '#e0e7ff'};
-  border-radius: 9999px;
+  width: 2.5rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  max-width: 2.5rem;
+  max-height: 2.5rem;
+  background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary?.main || '#6366f1'}, ${({ theme }) => theme.colors.primary?.light || '#e0e7ff'});
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 2px solid ${({ theme }) => theme.colors.background.paper};
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
 
   span {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: ${({ theme }) => theme.colors.primary?.main || '#6366f1'};
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-transform: uppercase;
+    border-radius: 50%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    flex-shrink: 0;
   }
 `
 
@@ -510,6 +548,40 @@ export const MenuSeparator = styled.hr`
   margin: 0.25rem 0;
   border: none;
   border-top: 1px solid ${({ theme }) => theme.colors.border.light};
+`
+
+/**
+ * Botão de toggle de tema
+ */
+export const ThemeToggleButton = styled.button`
+  padding: 0.5rem;
+  color: ${({ theme }) => theme.colors.text.muted};
+  background: none;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: ${({ theme }) => theme.colors.text.primary}; 
+    transform: rotate(180deg);
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary.main};
+  }
+  
+  &:active {
+    transform: rotate(180deg) scale(0.95);
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: all 0.3s ease;
+  }
 `
 
 /**

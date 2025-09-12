@@ -71,11 +71,11 @@ export const TabButton = styled.button<TabButtonProps>`
   display: flex;
   align-items: center;
   padding: 0.5rem 0.25rem;
-  border-bottom: 2px solid ${({ $isActive, theme }) => 
+  border-bottom: 2px solid ${({ $isActive, theme }) =>
     $isActive ? theme.colors.primary.main : 'transparent'};
   font-medium: 500;
   font-size: 0.875rem;
-  color: ${({ $isActive, theme }) => 
+  color: ${({ $isActive, theme }) =>
     $isActive ? theme.colors.primary.main : theme.colors.text.secondary};
   background: none;
   border-top: none;
@@ -313,8 +313,8 @@ export const PermissionTags = styled.div`
 
 export const PermissionTag = styled.span`
   padding: 0.25rem 0.5rem;
-  background: ${({ theme }) => theme.colors.primary.light};
-  color: ${({ theme }) => theme.colors.primary.dark};
+  background: ${({ theme }) => theme.colors.background.default};
+  color: ${({ theme }) => theme.colors.text.secondary};
   font-size: 0.75rem;
   border-radius: 9999px;
 `;
@@ -417,7 +417,7 @@ interface ToggleSwitchProps {
 export const ToggleSwitch = styled.div<ToggleSwitchProps>`
   width: 2.75rem;
   height: 1.5rem;
-  background: ${({ $checked, theme }) => 
+  background: ${({ $checked, theme }) =>
     $checked ? theme.colors.primary.main : theme.colors.background.muted};
   border-radius: 9999px;
   position: relative;
