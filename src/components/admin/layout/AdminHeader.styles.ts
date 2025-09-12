@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { SlArrowDown } from 'react-icons/sl'
 
 /**
  * Container principal do header
@@ -242,7 +243,19 @@ export const NotificationBadge = styled.span`
   justify-content: center;
   border: 2px solid ${({ theme }) => theme.colors.background.paper};
 `
-
+export const ShowIcomUserDetails = styled(SlArrowDown) <{ isActive?: boolean }>`
+  width: 1.25rem;
+  height: 1.25rem;
+  color: ${({ theme }) => theme.colors.text.muted};
+  transition: transform 0.2s ease;
+  transform: ${({ isActive }) => isActive ? 'rotate(180deg)' : 'rotate(0)'};
+  &:hover {
+    color: ${({ theme }) => theme.colors.text.secondary};
+  }
+    :active {
+      transform: rotate(180deg);
+    }
+`
 /**
  * Dropdown das notificações
  */

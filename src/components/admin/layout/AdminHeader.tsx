@@ -42,7 +42,8 @@ import {
   UserMenuItem,
   MenuSeparator,
   ThemeToggleButton,
-  LogoutButton
+  LogoutButton,
+  ShowIcomUserDetails
 } from './AdminHeader.styles'
 import { IoIosNotifications } from 'react-icons/io'
 import { SlArrowLeft } from 'react-icons/sl'
@@ -258,9 +259,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ user, onMenuClick, onLogout }
                 <UserName>{user?.nome}</UserName>
                 <UserRole>{user?.role}</UserRole>
               </UserInfo>
-              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              <ShowIcomUserDetails isActive={userMenuOpen} />
             </UserMenuButton>
 
             {/* Dropdown Menu do Usuário */}
