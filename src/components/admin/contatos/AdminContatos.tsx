@@ -11,7 +11,13 @@ import {
   ContatosContainer,
   ContatosHeader,
   ContatosTitle,
+  HeaderDescription,
+  HeaderActions,
   RefreshButton,
+  ExportButton,
+  LoadingContainer,
+  LoadingIcon,
+  LoadingText,
   ErrorContainer,
   ErrorContent,
   ErrorText,
@@ -158,11 +164,10 @@ const AdminContatos: React.FC<AdminContatosProps> = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <FiRefreshCw className="w-8 h-8 animate-spin text-blue-600" />
-        <span className="ml-2 text-gray-600">Carregando contatos...</span>
-
-      </div>
+      <LoadingContainer>
+        <LoadingIcon />
+        <LoadingText>Carregando contatos...</LoadingText>
+      </LoadingContainer>
     );
   }
 
@@ -172,20 +177,20 @@ const AdminContatos: React.FC<AdminContatosProps> = () => {
       <ContatosHeader>
         <div>
           <ContatosTitle>Gestão de Contatos</ContatosTitle>
-          <p className="text-gray-600">Gerencie os contatos recebidos pelo site</p>
+          <HeaderDescription>Gerencie os contatos recebidos pelo site</HeaderDescription>
         </div>
-        <div className="flex space-x-3">
+        <HeaderActions>
           <RefreshButton
             onClick={loadContatos}
           >
-            <FiRefreshCw className="w-4 h-4 mr-2" />
+            <FiRefreshCw />
             Atualizar
           </RefreshButton>
-          <button className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-            <FaDownload className="w-4 h-4 mr-2" />
+          <ExportButton>
+            <FaDownload />
             Exportar
-          </button>
-        </div>
+          </ExportButton>
+        </HeaderActions>
       </ContatosHeader>
 
       {/* Filtros */}

@@ -1,5 +1,6 @@
 import styled, { DefaultTheme } from 'styled-components';
 import { motion } from 'framer-motion';
+import { FiRefreshCw } from 'react-icons/fi';
 
 // Container principal
 export const ContatosContainer = styled.div`
@@ -25,6 +26,76 @@ export const ContatosTitle = styled.h1`
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text.primary};
   margin: 0;
+`;
+
+export const HeaderDescription = styled.p`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  margin: 0;
+  font-size: 0.875rem;
+`;
+
+export const HeaderActions = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+`;
+
+export const ExportButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: ${({ theme }) => theme.colors.success?.main || '#10b981'};
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.success?.dark || '#059669'};
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+`;
+
+// Loading Components
+export const LoadingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 16rem;
+  gap: 0.5rem;
+`;
+
+export const LoadingIcon = styled(FiRefreshCw)`
+  width: 2rem;
+  height: 2rem;
+  color: ${({ theme }) => theme.colors.primary.main};
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+export const LoadingText = styled.span`
+  margin-left: 0.5rem;
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 export const ContatosStats = styled.div`
@@ -75,6 +146,11 @@ export const RefreshButton = styled.button`
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
   }
 `;
 

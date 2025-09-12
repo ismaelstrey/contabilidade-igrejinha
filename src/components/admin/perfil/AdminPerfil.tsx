@@ -1,8 +1,26 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { useAdminAuth } from '../../../hooks/admin/useAdminAuth';
 import { AdminUser } from '../../../types/admin';
+import Button from '../../common/Button';
+import {
+  PerfilContainer,
+  PerfilHeader,
+  PerfilTitle,
+  ActionsContainer,
+  FormGrid,
+  FieldContainer,
+  FieldLabel,
+  StyledInput,
+  FieldValue,
+  ErrorMessage,
+  InfoSection,
+  SectionTitle,
+  StatusBadge,
+  LoadingContainer,
+  LoadingText,
+  LoadingSpinner
+} from './AdminPerfil.styles';
 
 interface AdminPerfilProps {
   className?: string;
@@ -92,125 +110,123 @@ const AdminPerfil: React.FC<AdminPerfilProps> = ({ className = '' }) => {
 
   if (!user) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-gray-500">Carregando perfil...</div>
-      </div>
+      <LoadingContainer>
+        <LoadingSpinner />
+        <LoadingText>Carregando perfil...</LoadingText>
+      </LoadingContainer>
     );
   }
 
   return (
-    <motion.div
+    <PerfilContainer
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`bg-white rounded-lg shadow-md p-6 ${className}`}
+      className={className}
     >
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Meu Perfil</h2>
-        {!isEditing ? (
-          <button
-            onClick={() => setIsEditing(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Editar Perfil
-          </button>
-        ) : (
-          <div className="flex gap-2">
-            <button
-              onClick={handleSave}
-              disabled={isLoading}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
+      <PerfilHeader>
+        <PerfilTitle>Meu Perfil</PerfilTitle>
+        <ActionsContainer>
+          {!isEditing ? (
+            <Button
+              variant="primary"
+              size="md"
+              onClick={() => setIsEditing(true)}
             >
-              {isLoading ? 'Salvando...' : 'Salvar'}
-            </button>
-            <button
-              onClick={handleCancel}
-              disabled={isLoading}
-              className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50"
-            >
-              Cancelar
-            </button>
-          </div>
-        )}
-      </div>
+              Editar Perfil
+            </Button>
+          ) : (
+            <>
+              <Button
+                variant="primary"
+                size="md"
+                onClick={handleSave}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Salvando...' : 'Salvar'}
+              </Button>
+              <Button
+                variant="secondary"
+                size="md"
+                onClick={handleCancel}
+                disabled={isLoading}
+              >
+                Cancelar
+              </Button>
+            </>
+          )}
+        </ActionsContainer>
+      </PerfilHeader>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <FormGrid>
         {/* Nome */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <FieldContainer>
+          <FieldLabel>
             Nome Completo
-          </label>
+          </FieldLabel>
           {isEditing ? (
-            <div>
-              <input
+            <>
+              <StyledInput
                 type="text"
                 value={formData.nome || ''}
                 onChange={(e) => handleInputChange('nome', e.target.value)}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.nome ? 'border-red-500' : 'border-gray-300'
-                }`}
+                $hasError={!!errors.nome}
                 placeholder="Digite seu nome completo"
               />
               {errors.nome && (
-                <p className="text-red-500 text-sm mt-1">{errors.nome}</p>
+                <ErrorMessage>{errors.nome}</ErrorMessage>
               )}
-            </div>
+            </>
           ) : (
-            <p className="text-gray-900 py-2">{user.nome || 'Não informado'}</p>
+            <FieldValue>{user.nome || 'Não informado'}</FieldValue>
           )}
-        </div>
+        </FieldContainer>
 
         {/* Email */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <FieldContainer>
+          <FieldLabel>
             Email
-          </label>
+          </FieldLabel>
           {isEditing ? (
-            <div>
-              <input
+            <>
+              <StyledInput
                 type="email"
                 value={formData.email || ''}
                 onChange={(e) => handleInputChange('email', e.target.value)}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.email ? 'border-red-500' : 'border-gray-300'
-                }`}
+                $hasError={!!errors.email}
                 placeholder="Digite seu email"
               />
               {errors.email && (
-                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                <ErrorMessage>{errors.email}</ErrorMessage>
               )}
-            </div>
+            </>
           ) : (
-            <p className="text-gray-900 py-2">{user.email || 'Não informado'}</p>
+            <FieldValue>{user.email || 'Não informado'}</FieldValue>
           )}
-        </div>
-
-
-      </div>
+        </FieldContainer>
+      </FormGrid>
 
       {/* Informações adicionais */}
-      <div className="mt-8 pt-6 border-t border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Informações da Conta</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+      <InfoSection>
+        <SectionTitle>Informações da Conta</SectionTitle>
+        <FormGrid>
+          <FieldContainer>
+            <FieldLabel>
               Função
-            </label>
-            <p className="text-gray-900 py-2">{user.role || 'Não definida'}</p>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            </FieldLabel>
+            <FieldValue>{user.role || 'Não definida'}</FieldValue>
+          </FieldContainer>
+          <FieldContainer>
+            <FieldLabel>
               Status
-            </label>
-            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-              user.ativo ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-            }`}>
+            </FieldLabel>
+            <StatusBadge $isActive={user.ativo}>
               {user.ativo ? 'Ativo' : 'Inativo'}
-            </span>
-          </div>
-        </div>
-      </div>
-    </motion.div>
+            </StatusBadge>
+          </FieldContainer>
+        </FormGrid>
+      </InfoSection>
+    </PerfilContainer>
   );
 };
 

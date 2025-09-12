@@ -8,6 +8,7 @@ import AdminUsuarios from '../components/admin/usuarios/AdminUsuarios';
 import AdminServicos from '../components/admin/servicos/AdminServicos';
 import AdminContatos from '../components/admin/contatos/AdminContatos';
 import AdminConfiguracoes from '../components/admin/configuracoes/AdminConfiguracoes';
+import AdminPerfil from '../components/admin/perfil/AdminPerfil';
 import { useAdminAuth } from '../hooks/admin/useAdminAuth';
 
 const AdminRoutes: React.FC = () => {
@@ -36,7 +37,7 @@ const AdminRoutes: React.FC = () => {
               <Routes>
                 {/* Dashboard */}
                 <Route
-                  path="/dashboard"
+                  path="dashboard"
                   element={
                     <AdminProtectedRoute requiredRole="admin">
                       <AdminDashboard />
@@ -46,7 +47,7 @@ const AdminRoutes: React.FC = () => {
 
                 {/* Gestão de Usuários */}
                 <Route
-                  path="/usuarios"
+                  path="usuarios"
                   element={
                     <AdminProtectedRoute requiredRole="admin">
                       <AdminUsuarios />
@@ -56,7 +57,7 @@ const AdminRoutes: React.FC = () => {
 
                 {/* Gestão de Serviços */}
                 <Route
-                  path="/servicos"
+                  path="servicos"
                   element={
                     <AdminProtectedRoute requiredRole="admin">
                       <AdminServicos />
@@ -66,7 +67,7 @@ const AdminRoutes: React.FC = () => {
 
                 {/* Gestão de Contatos */}
                 <Route
-                  path="/contatos"
+                  path="contatos"
                   element={
                     <AdminProtectedRoute requiredRole="admin">
                       <AdminContatos />
@@ -74,9 +75,28 @@ const AdminRoutes: React.FC = () => {
                   }
                 />
 
+                {/* Perfil */}
+                <Route
+                  path="perfil"
+                  element={
+                    <AdminProtectedRoute requiredRole="viewer">
+                      <AdminPerfil />
+                    </AdminProtectedRoute>
+                  }
+                />
+
+                <Route
+                  path="status"
+                  element={
+                    <AdminProtectedRoute requiredRole="admin">
+                      <div>Status</div>
+                    </AdminProtectedRoute>
+                  }
+                />
+
                 {/* Configurações */}
                 <Route
-                  path="/configuracoes"
+                  path="configuracoes"
                   element={
                     <AdminProtectedRoute requiredRole="admin">
                       <AdminConfiguracoes />
@@ -85,8 +105,8 @@ const AdminRoutes: React.FC = () => {
                 />
 
                 {/* Redirecionamento padrão */}
-                <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
-                <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
+                <Route index element={<Navigate to="dashboard" replace />} />
+                <Route path="*" element={<Navigate to="dashboard" replace />} />
               </Routes>
             </AdminLayout>
           </AdminProtectedRoute>

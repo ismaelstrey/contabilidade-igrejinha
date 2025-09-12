@@ -13,14 +13,8 @@ const ContactPage = React.lazy(() => import('@components/pages/ContactPage'))
 const PostsPage = React.lazy(() => import('@components/pages/PostsPage'))
 const PostPage = React.lazy(() => import('@components/pages/PostPage'))
 
-// Lazy loading para páginas administrativas
-const AdminLoginPage = React.lazy(() => import('@pages/admin/AdminLoginPage'))
-const AdminDashboardPage = React.lazy(() => import('@pages/admin/AdminDashboardPage'))
-const AdminUsuariosPage = React.lazy(() => import('@pages/admin/AdminUsuariosPage'))
-const AdminServicosPage = React.lazy(() => import('@pages/admin/AdminServicosPage'))
-const AdminContatosPage = React.lazy(() => import('@pages/admin/AdminContatosPage'))
-const AdminPerfilPage = React.lazy(() => import('@pages/admin/AdminPerfilPage'))
-const AdminProtectedRoute = React.lazy(() => import('@components/admin/auth/AdminProtectedRoute'))
+// Lazy loading para rotas administrativas
+const AdminRoutes = React.lazy(() => import('./routes/AdminRoutes'))
 
 // Componente de loading
 const PageLoader: React.FC = () => (
@@ -52,35 +46,7 @@ const App: React.FC = () => {
               <Route path="/posts/:slug" element={<PostPage />} />
               
               {/* Rotas administrativas */}
-              <Route path="/admin/login" element={<AdminLoginPage />} />
-              <Route path="/admin/dashboard" element={
-                <AdminProtectedRoute>
-                  <AdminDashboardPage />
-                </AdminProtectedRoute>
-              } />
-              <Route path="/admin/usuarios" element={
-                <AdminProtectedRoute>
-                  <AdminUsuariosPage />
-                </AdminProtectedRoute>
-              } />
-              <Route path="/admin/servicos" element={
-                <AdminProtectedRoute>
-                  <AdminServicosPage />
-                </AdminProtectedRoute>
-              } />
-              <Route path="/admin/contatos" element={
-                <AdminProtectedRoute>
-                  <AdminContatosPage />
-                </AdminProtectedRoute>
-              } />
-              <Route path="/admin/perfil" element={
-                <AdminProtectedRoute>
-                  <AdminPerfilPage />
-                </AdminProtectedRoute>
-              } />
-              
-              {/* Rota de redirecionamento para admin */}
-              <Route path="/admin" element={<AdminLoginPage />} />
+              <Route path="/admin/*" element={<AdminRoutes />} />
             </Routes>
           </Suspense>
         </AnimatePresence>
