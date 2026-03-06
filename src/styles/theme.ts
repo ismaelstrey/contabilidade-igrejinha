@@ -1,16 +1,16 @@
 export const theme = {
   colors: {
     primary: {
-      main: '#2563eb',
+      main: '#1d4ed8',
       light: '#3b82f6',
-      dark: '#1d4ed8',
-      gradient: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+      dark: '#1e3a8a',
+      gradient: 'linear-gradient(135deg, #1d4ed8 0%, #0f766e 100%)',
       background: '#dbeafe'
     },
     secondary: {
-      main: '#10b981',
-      light: '#34d399',
-      dark: '#059669'
+      main: '#0f766e',
+      light: '#14b8a6',
+      dark: '#115e59'
     },
     neutral: {
       white: '#ffffff',
@@ -26,47 +26,47 @@ export const theme = {
       gray900: '#111827'
     },
     accent: {
-      orange: '#f97316',
-      yellow: '#eab308',
-      red: '#ef4444'
+      orange: '#ea580c',
+      yellow: '#ca8a04',
+      red: '#dc2626'
     },
     warning: {
-      main: '#f59e0b',
-      light: '#fbbf24',
-      dark: '#f97316',
-      darker: '#ea580c',
+      main: '#d97706',
+      light: '#f59e0b',
+      dark: '#b45309',
+      darker: '#92400e',
       background: '#fef3c7'
     },
     success: {
-      main: '#10b981',
-      light: '#a7f3d0',
+      main: '#059669',
+      light: '#6ee7b7',
       dark: '#065f46',
       background: '#d1fae5'
     },
     text: {
-      primary: '#111827',
-      secondary: '#6b7280',
-      muted: '#9ca3af'
+      primary: '#0f172a',
+      secondary: '#475569',
+      muted: '#64748b'
     },
     background: {
-      default: '#f9fafb',
+      default: '#f8fafc',
       paper: '#ffffff',
-      secondary: '#f3f4f6',
+      secondary: '#f1f5f9',
       sidebar: '#ffffff',
       main: '#ffffff',
-      muted: '#f3f4f6',
-      dark: '#111827',
-      light: '#f9fafb',
-      darker: '#1f2937'
+      muted: '#e2e8f0',
+      dark: '#0f172a',
+      light: '#f8fafc',
+      darker: '#1e293b'
     },
     foreground: {
       default: '#001514',
       muted: '#6b7280'
     },
     border: {
-      light: '#e5e7eb',
-      medium: '#d1d5db',
-      dark: '#1f2937'
+      light: '#e2e8f0',
+      medium: '#cbd5e1',
+      dark: '#334155'
     },
     error: {
       main: '#ef4444',
@@ -75,28 +75,28 @@ export const theme = {
       error: '#fecaca'
     },
     info: {
-      main: '#06b6d4',
-      light: '#a5f3fc',
-      dark: '#0891b2',
+      main: '#0284c7',
+      light: '#bae6fd',
+      dark: '#0369a1',
       background: '#e0f2fe'
     }
   },
   darkColors: {
     primary: {
-      main: '#3b82f6',
-      light: '#60a5fa',
-      dark: '#2563eb',
-      gradient: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+      main: '#60a5fa',
+      light: '#93c5fd',
+      dark: '#3b82f6',
+      gradient: 'linear-gradient(135deg, #3b82f6 0%, #14b8a6 100%)',
       warning: '#f59e0b',
-      accent: '#f97316',
+      accent: '#fb923c',
       background: '#1e3a8a',
-      muted: '#374151',
-      error: '#fecaca'
+      muted: '#334155',
+      error: '#fca5a5'
     },
     secondary: {
-      main: '#10b981',
-      light: '#34d399',
-      dark: '#059669'
+      main: '#14b8a6',
+      light: '#2dd4bf',
+      dark: '#0f766e'
     },
     neutral: {
       white: '#ffffff',
@@ -112,35 +112,35 @@ export const theme = {
       gray900: '#111827'
     },
     accent: {
-      orange: '#f97316',
-      yellow: '#eab308',
-      red: '#ef4444'
+      orange: '#fb923c',
+      yellow: '#facc15',
+      red: '#f87171'
     },
     text: {
-      primary: '#f9fafb',
-      secondary: '#d1d5db',
-      muted: '#9ca3af'
+      primary: '#f8fafc',
+      secondary: '#cbd5e1',
+      muted: '#94a3b8'
     },
     background: {
-      default: '#111827',
-      paper: '#1f2937',
-      secondary: '#374151',
-      sidebar: '#1f2937',
-      main: '#111827',
-      primary: '#3b82f6',
-      muted: '#374151',
-      dark: '#111827',
-      light: '#f9fafb',
-      darker: '#1f2937'
+      default: '#020617',
+      paper: '#0f172a',
+      secondary: '#1e293b',
+      sidebar: '#0f172a',
+      main: '#020617',
+      primary: '#60a5fa',
+      muted: '#334155',
+      dark: '#020617',
+      light: '#f8fafc',
+      darker: '#0f172a'
     },
     foreground: {
-      default: '#FEFEE3',
-      muted: '#d1d5db'
+      default: '#f8fafc',
+      muted: '#cbd5e1'
     },
     border: {
-      light: '#374151',
-      medium: '#4b5563',
-      dark: '#1f2937'
+      light: '#334155',
+      medium: '#475569',
+      dark: '#1e293b'
     },
     error: {
       main: '#ef4444',
@@ -150,21 +150,21 @@ export const theme = {
     warning: {
       main: '#f59e0b',
       light: '#fbbf24',
-      dark: '#f97316',
-      darker: '#ea580c',
-      background: '#fef3c7'
+      dark: '#d97706',
+      darker: '#b45309',
+      background: '#78350f'
     },
     info: {
-      main: '#06b6d4',
-      light: '#a5f3fc',
-      dark: '#0891b2',
-      background: '#e0f2fe'
+      main: '#38bdf8',
+      light: '#7dd3fc',
+      dark: '#0ea5e9',
+      background: '#0c4a6e'
     },
     success: {
-      main: '#10b981',
-      light: '#a7f3d0',
-      dark: '#065f46',
-      background: '#d1fae5'
+      main: '#34d399',
+      light: '#6ee7b7',
+      dark: '#10b981',
+      background: '#064e3b'
     }
   },
   typography: {
