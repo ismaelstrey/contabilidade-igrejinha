@@ -22,7 +22,7 @@ export const HeaderContainer = styled.header.withConfig({
         ? theme.colors?.background?.darker || 'rgba(31, 41, 55, 0.9)'
         : theme.colors?.background?.light || 'rgba(255, 255, 255, 0.9)'
   };
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(18px);
   border-bottom: 1px solid ${({ theme, isScrolled }) => 
     isScrolled ? theme.colors.border.light : 'transparent'};
   transition: all ${theme.transitions.normal};
@@ -36,7 +36,8 @@ export const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: ${({ theme }) => theme.spacing.sm} 0;
+  min-height: 72px;
+  padding: ${({ theme }) => theme.spacing.xs} 0;
   
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: ${({ theme }) => theme.spacing.xs} 0;
@@ -44,13 +45,14 @@ export const Nav = styled.nav`
 `
 
 export const Logo = styled.button`
-  font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
   font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
   color: ${({ theme }) => theme.colors.primary.main};
   cursor: pointer;
   transition: color ${({ theme }) => theme.transitions.fast};
   background: none;
   border: none;
+  letter-spacing: 0;
   
   &:hover {
     color: ${({ theme }) => theme.colors.primary.dark};
@@ -64,7 +66,7 @@ export const Logo = styled.button`
 export const NavList = styled.ul`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.lg};
+  gap: ${({ theme }) => theme.spacing.md};
   
   @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
     display: none;
@@ -84,6 +86,7 @@ export const NavLink = styled.button`
   position: relative;
   background: none;
   border: none;
+  white-space: nowrap;
   
   &:hover {
     color: ${({ theme }) => theme.colors.primary.main};
@@ -117,18 +120,12 @@ export const ContactInfo = styled.div`
 
 export const MobileMenuButton = styled.button`
   display: none;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  justify-content: center;
   padding: ${({ theme }) => theme.spacing.xs};
   background: none;
   border: none;
-  
-  span {
-    width: 24px;
-    height: 2px;
-    background: ${({ theme }) => theme.colors.text.secondary};
-    transition: all ${({ theme }) => theme.transitions.fast};
-  }
+  color: ${({ theme }) => theme.colors.text.primary};
   
   @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
     display: flex;
@@ -142,7 +139,7 @@ export const MobileMenu = styled.div`
   
   ${NavLink} {
     display: block;
-    padding: ${({ theme }) => theme.spacing.xs} 0;
+    padding: ${({ theme }) => theme.spacing.sm} 0;
     border-bottom: 1px solid ${({ theme }) => theme.colors.border.light};
     
     &:last-of-type {

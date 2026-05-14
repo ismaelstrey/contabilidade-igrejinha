@@ -6,6 +6,7 @@ import Hero from '@components/sections/Hero'
 import Services from '@components/sections/Services'
 import About from '@components/sections/About'
 import Testimonials from '@components/sections/Testimonials'
+import Contact from '@components/sections/Contact'
 
 const Home: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const Home: React.FC = () => {
           <Services />
           <About />
           <Testimonials />
+          <Contact />
         </main>
         <Footer />
       </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Award, CheckCircle2 } from 'lucide-react'
 import Container from '@components/common/Container'
 import Section from '@components/common/Section'
 import Button from '@components/common/Button'
@@ -89,7 +90,9 @@ const About: React.FC = () => {
                 <AboutFeatures>
                   {aboutFeatures.map((feature, index) => (
                     <FeatureItem key={index}>
-                      <FeatureIcon>{feature.icon}</FeatureIcon>
+                      <FeatureIcon>
+                        <CheckCircle2 size={20} />
+                      </FeatureIcon>
                       <FeatureText>{feature.text}</FeatureText>
                     </FeatureItem>
                   ))}
@@ -100,7 +103,7 @@ const About: React.FC = () => {
                 <Button
                   variant="primary"
                   size="lg"
-                  href="/#contato"
+                  href="/#contact"
                   onClick={() => scrollToSection('contact')}
                 >
                   Fale Conosco
@@ -127,7 +130,7 @@ const About: React.FC = () => {
                     viewport={{ once: true }}
                     transition={{ delay: 0.2, duration: 0.4 }}
                   >
-                    <div>✅</div>
+                    <div><Award size={24} /></div>
                     <div>
                       <strong>Certificação CRC</strong>
                       <p>Profissionais qualificados</p>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import localServices from '@data/services.json'
 
 interface ContactFormData {
     nome: string
@@ -43,6 +44,20 @@ interface UseContactFormReturn {
     servicosError: string | null
 }
 
+const fallbackServicos: Servico[] = localServices.map((servico, index) => ({
+    id: index + 1,
+    nome: servico.title,
+    descricao: servico.description
+}))
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.contabilidadeigrejinha.com.br/api/v1'
+
+const isLocalDevelopment = (): boolean => {
+    if (typeof window === 'undefined') return false
+
+    return ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname)
+}
+
 /**
  * Hook personalizado para gerenciar o envio do formulário de contato
  * Envia os dados para a API da Contabilidade Igrejinha
@@ -51,7 +66,7 @@ interface UseContactFormReturn {
 export const useContactForm = (): UseContactFormReturn => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
-    const [servicos, setServicos] = useState<Servico[]>([])
+    const [servicos, setServicos] = useState<Servico[]>(fallbackServicos)
     const [isLoadingServicos, setIsLoadingServicos] = useState(false)
     const [servicosError, setServicosError] = useState<string | null>(null)
 
@@ -59,11 +74,17 @@ export const useContactForm = (): UseContactFormReturn => {
      * Busca a lista de serviços disponíveis da API
      */
     const fetchServicos = async (): Promise<void> => {
+        if (isLocalDevelopment()) {
+            setServicos(fallbackServicos)
+            setServicosError(null)
+            return
+        }
+
         setIsLoadingServicos(true)
         setServicosError(null)
 
         try {
-            const response = await fetch('https://api.contabilidadeigrejinha.com.br/api/v1/servicos')
+            const response = await fetch(`${API_BASE_URL}/servicos`)
 
             if (!response.ok) {
                 throw new Error(`Erro na requisição: ${response.status}`)
@@ -88,7 +109,7 @@ export const useContactForm = (): UseContactFormReturn => {
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'Erro desconhecido ao buscar serviços'
             setServicosError(errorMessage)
-            console.error('Erro ao buscar serviços:', err)
+            setServicos(fallbackServicos)
         } finally {
             setIsLoadingServicos(false)
         }
@@ -105,8 +126,14 @@ export const useContactForm = (): UseContactFormReturn => {
         setIsSubmitting(true)
         setError(null)
 
+        if (isLocalDevelopment()) {
+            setIsSubmitting(false)
+            setError('Envio pela API desativado no ambiente local para evitar bloqueio de CORS.')
+            return false
+        }
+
         try {
-            const response = await fetch('https://api.contabilidadeigrejinha.com.br/api/v1/contatos', {
+            const response = await fetch(`${API_BASE_URL}/contatos`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -128,7 +155,6 @@ export const useContactForm = (): UseContactFormReturn => {
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'Erro desconhecido'
             setError(errorMessage)
-            console.error('Erro ao enviar formulário:', err)
             return false
         } finally {
             setIsSubmitting(false)
