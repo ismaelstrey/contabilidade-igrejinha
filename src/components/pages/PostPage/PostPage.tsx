@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { ArrowLeft, CalendarDays, CheckCircle2, Clock3, FileText, Tag } from 'lucide-react'
 import SEO from '@components/common/SEO'
 import Breadcrumbs from '@components/common/Breadcrumbs'
 import Header from '@components/layout/Header'
@@ -8,15 +8,25 @@ import Footer from '@components/layout/Footer'
 import postsData from '@/data/posts.json'
 import { extractIdFromSlug } from '@/utils/slugify'
 import { useTheme } from '@/contexts/ThemeContext'
+import { PageContainer, MainContent } from '../PostsPage/PostsPage.styles'
 import {
-  PageContainer,
-  MainContent,
-  PostsContainer,
-  PostTitle,
-  PostMeta,
-  PostDate,
-  PostCategory
-} from '../PostsPage/PostsPage.styles'
+  ArticleShell,
+  BackLink,
+  ArticleHero,
+  HeroImage,
+  ArticleHeader,
+  ArticleMeta,
+  MetaItem,
+  CategoryPill,
+  ArticleTitle,
+  ArticleLead,
+  ArticleLayout,
+  ArticleBody,
+  ArticleAside,
+  AsideCard,
+  InsightList,
+  NotFoundCard
+} from './PostPage.styles'
 
 interface Post {
   id: number
@@ -28,12 +38,21 @@ interface Post {
   readTime: string
 }
 
+const postImages: Record<number, string> = {
+  2: '/images/blog/iva-dual-ibs-cbs.svg'
+}
+
+const articleInsights = [
+  'IBS substitui ICMS e ISS na esfera estadual e municipal.',
+  'CBS substitui PIS e Cofins na esfera federal.',
+  'A transição exige revisão de sistemas, créditos e rotinas fiscais.'
+]
+
 const PostPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>()
   const navigate = useNavigate()
   const { themeMode } = useTheme()
   
-  // Extrair ID do slug e encontrar o post
   const postId = slug ? extractIdFromSlug(slug) : null
   const post = postsData.find((p: Post) => p.id === postId)
   
@@ -46,12 +65,14 @@ const PostPage: React.FC = () => {
         />
         <PageContainer $themeMode={themeMode}>
           <Header />
-          <MainContent $themeMode={themeMode}>
-            <PostsContainer>
+          <MainContent>
+            <ArticleShell>
+              <NotFoundCard>
               <h1>Post não encontrado</h1>
               <p>O post que você está procurando não existe ou foi removido.</p>
               <button onClick={() => navigate('/posts')}>Voltar para posts</button>
-            </PostsContainer>
+              </NotFoundCard>
+            </ArticleShell>
           </MainContent>
           <Footer />
         </PageContainer>
@@ -69,6 +90,8 @@ const PostPage: React.FC = () => {
   }
 
   const currentUrl = `${window.location.origin}/posts/${slug}`
+  const articleImage = postImages[post.id] || '/images/blog/iva-dual-ibs-cbs.svg'
+  const paragraphs = post.content.split('\n\n').filter(Boolean)
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     { name: 'Posts', url: '/posts' },
@@ -94,10 +117,10 @@ const PostPage: React.FC = () => {
       />
       <PageContainer $themeMode={themeMode}>
         <Header />
-        <MainContent $themeMode={themeMode}>
-          <PostsContainer>
+        <MainContent>
+          <ArticleShell>
             <Breadcrumbs items={breadcrumbs} />
-            <motion.a 
+            <BackLink
               href="/posts"
               onClick={(e: React.MouseEvent) => {
                 e.preventDefault()
@@ -106,95 +129,81 @@ const PostPage: React.FC = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              whileHover={{ scale: 1.05, x: -5 }}
-              whileTap={{ scale: 0.95 }}
-              style={{
-                background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
-                border: 'none',
-                color: 'white',
-                fontSize: '16px',
-                cursor: 'pointer',
-                marginBottom: '2rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '12px 24px',
-                borderRadius: '50px',
-                fontWeight: '600',
-                boxShadow: '0 4px 15px rgba(37, 99, 235, 0.4)',
-                transition: 'all 0.3s ease',
-                textDecoration: 'none'
-              }}
             >
-              <span style={{ fontSize: '18px' }}>←</span>
+              <ArrowLeft size={17} />
               Voltar para posts
-            </motion.a>
+            </BackLink>
             
-            <motion.article
+            <ArticleHero
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <PostMeta $themeMode={themeMode} style={{ marginBottom: '2rem' }}>
-                  <PostDate $themeMode={themeMode}>
-                    <span style={{ marginRight: '8px', fontSize: '18px' }}>📅</span>
-                    {formatDate(post.date)}
-                  </PostDate>
-                  <PostCategory>
-                    <span style={{ marginRight: '4px', fontSize: '16px' }}>🏷️</span>
+              <HeroImage>
+                <img src={articleImage} alt={`Imagem editorial do artigo: ${post.title}`} />
+              </HeroImage>
+
+              <ArticleHeader>
+                <ArticleMeta>
+                  <CategoryPill>
+                    <Tag size={15} />
                     {post.category}
-                  </PostCategory>
-                </PostMeta>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <PostTitle as="h1" style={{ 
-                  fontSize: '2.8rem', 
-                  marginBottom: '2rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px'
-                }}>
-                  <span style={{ fontSize: '3rem' }}>📄</span>
+                  </CategoryPill>
+                  <MetaItem>
+                    <CalendarDays size={16} />
+                    {formatDate(post.date)}
+                  </MetaItem>
+                  <MetaItem>
+                    <Clock3 size={16} />
+                    {post.readTime} de leitura
+                  </MetaItem>
+                </ArticleMeta>
+
+                <ArticleTitle>
                   {post.title}
-                </PostTitle>
-              </motion.div>
-              
-              <motion.div 
+                </ArticleTitle>
+                <ArticleLead>{post.excerpt}</ArticleLead>
+              </ArticleHeader>
+            </ArticleHero>
+
+            <ArticleLayout>
+              <ArticleBody
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                style={{
-                  fontSize: '1.1rem',
-                  lineHeight: '1.8',
-                  color: themeMode === 'dark' ? '#e2e8f0' : '#1a202c',
-                  whiteSpace: 'pre-line',
-                  background: themeMode === 'dark' 
-                    ? 'linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.8) 100%)'
-                    : 'linear-gradient(135deg, #ffffff 0%, #fafbff 100%)',
-                  padding: '2rem',
-                  borderRadius: '16px',
-                  boxShadow: themeMode === 'dark'
-                    ? '0 4px 20px rgba(0, 0, 0, 0.3)'
-                    : '0 4px 20px rgba(0, 0, 0, 0.08)',
-                  border: themeMode === 'dark' ? '1px solid rgba(148, 163, 184, 0.2)' : '1px solid #e5e7eb',
-                  backdropFilter: themeMode === 'dark' ? 'blur(10px)' : 'none',
-                  transition: 'all 0.3s ease'
-                }}
+                transition={{ duration: 0.6, delay: 0.15 }}
               >
-                {post.content}
-              </motion.div>
-            </motion.article>
-          </PostsContainer>
+                {paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </ArticleBody>
+
+              <ArticleAside>
+                <AsideCard>
+                  <h2>Resumo do artigo</h2>
+                  <p>Uma visão prática sobre como o IVA Dual muda a rotina fiscal e exige preparação antecipada.</p>
+                </AsideCard>
+
+                <AsideCard>
+                  <h2>Pontos de atenção</h2>
+                  <InsightList>
+                    {articleInsights.map((insight) => (
+                      <li key={insight}>
+                        <CheckCircle2 size={16} />
+                        {insight}
+                      </li>
+                    ))}
+                  </InsightList>
+                </AsideCard>
+
+                <AsideCard>
+                  <h2>Categoria</h2>
+                  <p>
+                    <FileText size={16} /> {post.category}
+                  </p>
+                </AsideCard>
+              </ArticleAside>
+            </ArticleLayout>
+          </ArticleShell>
         </MainContent>
         <Footer />
       </PageContainer>
