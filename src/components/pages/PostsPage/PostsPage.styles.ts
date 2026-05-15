@@ -1,215 +1,373 @@
-import styled, { DefaultTheme } from 'styled-components'
+import styled from 'styled-components'
 import { motion } from 'framer-motion'
+import { theme } from '@/styles/theme'
 
 interface ThemeProps {
   $themeMode?: 'light' | 'dark'
 }
 
+interface CategoryButtonProps {
+  $isActive: boolean
+}
+
+interface CardVisualProps {
+  $variant: number
+}
+
+const cardVisuals = [
+  'linear-gradient(135deg, #0f766e 0%, #2563eb 100%)',
+  'linear-gradient(135deg, #475569 0%, #0f766e 100%)',
+  'linear-gradient(135deg, #1d4ed8 0%, #334155 100%)',
+  'linear-gradient(135deg, #0369a1 0%, #059669 100%)'
+]
+
 export const PageContainer = styled.div<ThemeProps>`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: ${({ theme, $themeMode }: { theme: DefaultTheme; $themeMode?: 'light' | 'dark' }) => 
-    $themeMode === 'dark' 
-      ? `linear-gradient(135deg, ${theme.colors?.background?.darker || '#0f172a'} 0%, ${theme.colors?.background?.dark || '#1e293b'} 50%, ${theme.colors?.background?.paper || '#334155'} 100%)`
-      : theme.colors?.background?.paper || '#ffffff'};
-  transition: ${({ theme }) => theme.transitions.normal};
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: ${({ $themeMode }) => 
-      $themeMode === 'dark'
-        ? 'radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%)'
-        : 'none'};
-    pointer-events: none;
-    z-index: 0;
-  }
+  background: ${({ theme }) =>
+    theme.mode === 'dark'
+      ? 'linear-gradient(135deg, #08111f 0%, #0f172a 58%, #10251f 100%)'
+      : 'linear-gradient(135deg, #f8fafc 0%, #ffffff 48%, #ecfdf5 100%)'};
 `
 
 export const MainContent = styled.main<ThemeProps>`
   flex: 1;
-  padding-top: ${({ theme }) => theme.spacing.xl};
-  position: relative;
-  z-index: 1;
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding-top: ${({ theme }) => theme.spacing.lg};
+  padding: 104px 0 72px;
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    padding: 92px 0 56px;
   }
 `
 
 export const PostsContainer = styled.div`
-  max-width: 1200px;
+  width: min(1180px, calc(100% - 2rem));
   margin: 0 auto;
-  padding: ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.md};
 `
 
-export const PostsHeader = styled.div`
-  margin-bottom: 3rem;
-  text-align: center;
-  padding: 1.5rem 0;
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 2px;
-    background: ${({ theme }: { theme: DefaultTheme }) => theme.colors?.border?.dark || '#64748b'};
-    border-radius: 1px;
-  }
+export const PostsHero = styled(motion.section)`
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: ${theme.spacing.xl};
+  padding: ${theme.spacing['2xl']} 0 ${theme.spacing.xl};
+`
+
+export const PostsHeroCopy = styled.div`
+  max-width: 820px;
+`
+
+export const Eyebrow = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: ${theme.spacing.xs};
+  margin-bottom: ${theme.spacing.md};
+  padding: 0.45rem 0.75rem;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
+  border-radius: ${theme.borderRadius.full};
+  background: ${({ theme }) => theme.colors.background.paper};
+  color: ${({ theme }) => theme.colors.primary.main};
+  font-size: ${theme.typography.fontSize.sm};
+  font-weight: ${theme.typography.fontWeight.semibold};
 `
 
 export const PostsTitle = styled.h1`
-  font-size: 2.5rem;
-  font-weight: 600;
+  max-width: 780px;
+  margin-bottom: ${theme.spacing.md};
   color: ${({ theme }) => theme.colors.text.primary};
-  margin-bottom: 1rem;
-  text-align: center;
-  letter-spacing: -0.025em;
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    font-size: 2rem;
+  font-size: ${theme.typography.fontSize['5xl']};
+  font-weight: ${theme.typography.fontWeight.bold};
+  line-height: 1;
+  letter-spacing: 0;
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    font-size: ${theme.typography.fontSize['4xl']};
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: ${theme.typography.fontSize['3xl']};
   }
 `
 
-export const PostsSubtitle = styled.p<ThemeProps>`
-  font-size: 1.125rem;
-  color: ${({ theme, $themeMode }: { theme: DefaultTheme; $themeMode?: 'light' | 'dark' }) => 
-    $themeMode === 'dark' ? theme.colors?.text?.muted || '#94a3b8' : theme.colors?.text?.secondary || '#6b7280'};
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-  font-weight: 400;
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    font-size: 1rem;
-    padding: 0 1rem;
-  }
-`
-
-export const PostsGrid = styled(motion.div)`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 1.5rem;
-  margin-top: 3rem;
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-`
-
-export const PostCard = styled(motion.article)<ThemeProps>`
-  background: ${({ theme, $themeMode }) => 
-    $themeMode === 'dark'
-      ? 'rgba(30, 41, 59, 0.6)'
-      : theme.colors.background.paper};
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: ${({ $themeMode }) => 
-    $themeMode === 'dark'
-      ? '0 2px 8px rgba(0, 0, 0, 0.3)'
-      : '0 1px 3px rgba(0, 0, 0, 0.1)'};
-  border: 1px solid ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) => 
-    $themeMode === 'dark' ? theme.colors?.border?.dark || 'rgba(148, 163, 184, 0.1)' : theme.colors?.border?.light || '#e2e8f0'};
-  position: relative;
-  cursor: pointer;
-  backdrop-filter: ${({ $themeMode }) => 
-    $themeMode === 'dark' ? 'blur(10px)' : 'none'};
-  transition: all 0.2s ease;
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: ${({ $themeMode }) => 
-      $themeMode === 'dark'
-        ? '0 4px 12px rgba(0, 0, 0, 0.4)'
-        : '0 4px 12px rgba(0, 0, 0, 0.15)'};
-    border-color: ${({ $themeMode, theme }: { $themeMode?: 'light' | 'dark'; theme: DefaultTheme }) => 
-      $themeMode === 'dark' ? theme.colors?.border?.light || 'rgba(148, 163, 184, 0.2)' : theme.colors?.border?.dark || '#cbd5e1'};
-  }
-`
-
-export const PostTitle = styled.h2`
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.text.primary};
-  margin-bottom: 0.75rem;
-  line-height: 1.4;
-  transition: color 0.2s ease;
-  
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary.main};
-  }
-`
-
-export const PostExcerpt = styled.p<ThemeProps>`
-  font-size: ${({ theme }) => theme.typography.fontSize.md};
-  color: ${({ theme, $themeMode }: { theme: DefaultTheme; $themeMode?: 'light' | 'dark' }) => 
-    $themeMode === 'dark' ? theme.colors?.text?.secondary || '#cbd5e1' : theme.colors?.text?.secondary || '#6b7280'};
+export const PostsSubtitle = styled.p`
+  max-width: 720px;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${theme.typography.fontSize.lg};
   line-height: 1.7;
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+`
+
+export const FeaturedPost = styled.article`
+  display: grid;
+  grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.15fr);
   overflow: hidden;
-  transition: ${({ theme }) => theme.transitions.normal};
+  margin-bottom: ${theme.spacing.xl};
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
+  border-radius: ${theme.borderRadius.xl};
+  background: ${({ theme }) => theme.colors.background.paper};
+  box-shadow: ${({ theme }) => theme.mode === 'dark' ? '0 24px 58px rgba(0, 0, 0, 0.32)' : '0 24px 58px rgba(15, 23, 42, 0.1)'};
+  cursor: pointer;
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    grid-template-columns: 1fr;
+  }
+`
+
+export const FeaturedVisual = styled.div`
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: ${theme.spacing.xl};
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.92), rgba(37, 99, 235, 0.86)),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.18) 0 1px, transparent 1px 18px);
+  color: #ffffff;
+
+  svg {
+    opacity: 0.92;
+  }
+
+  span {
+    width: fit-content;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    border-radius: ${theme.borderRadius.full};
+    background: rgba(255, 255, 255, 0.14);
+    font-size: ${theme.typography.fontSize.sm};
+    font-weight: ${theme.typography.fontWeight.bold};
+  }
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    min-height: 220px;
+  }
+`
+
+export const FeaturedContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: ${theme.spacing.xl};
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: ${theme.spacing.lg};
+  }
+`
+
+export const PostsToolbar = styled.div`
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+  gap: ${theme.spacing.md};
+  align-items: start;
+  margin-bottom: ${theme.spacing.xl};
+
+  @media (max-width: ${theme.breakpoints.desktop}) {
+    grid-template-columns: 1fr;
+  }
+`
+
+export const SearchBox = styled.label`
+  display: flex;
+  align-items: center;
+  gap: ${theme.spacing.sm};
+  min-height: 52px;
+  padding: 0 ${theme.spacing.md};
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
+  border-radius: ${theme.borderRadius.lg};
+  background: ${({ theme }) => theme.colors.background.paper};
+  color: ${({ theme }) => theme.colors.text.secondary};
+
+  input {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: ${({ theme }) => theme.colors.text.primary};
+    font-size: ${theme.typography.fontSize.base};
+  }
+`
+
+export const CategoryFilters = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${theme.spacing.xs};
+  align-items: center;
+
+  > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-right: ${theme.spacing.xs};
+    color: ${({ theme }) => theme.colors.text.secondary};
+    font-size: ${theme.typography.fontSize.sm};
+    font-weight: ${theme.typography.fontWeight.semibold};
+  }
+`
+
+export const CategoryButton = styled.button<CategoryButtonProps>`
+  min-height: 38px;
+  padding: 0 ${theme.spacing.sm};
+  border: 1px solid ${({ theme, $isActive }) => $isActive ? theme.colors.primary.main : theme.colors.border.light};
+  border-radius: ${theme.borderRadius.full};
+  background: ${({ theme, $isActive }) => $isActive ? theme.colors.primary.main : theme.colors.background.paper};
+  color: ${({ theme, $isActive }) => $isActive ? theme.colors.neutral.white : theme.colors.text.secondary};
+  font-size: ${theme.typography.fontSize.sm};
+  font-weight: ${theme.typography.fontWeight.semibold};
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.primary.main};
+    color: ${({ theme, $isActive }) => $isActive ? theme.colors.neutral.white : theme.colors.primary.main};
+  }
+`
+
+export const PostsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: ${theme.spacing.lg};
+
+  @media (max-width: ${theme.breakpoints.desktop}) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    grid-template-columns: 1fr;
+  }
+`
+
+export const PostCard = styled.article`
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 100%;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
+  border-radius: ${theme.borderRadius.lg};
+  background: ${({ theme }) => theme.colors.background.paper};
+  box-shadow: ${({ theme }) => theme.mode === 'dark' ? '0 18px 42px rgba(0, 0, 0, 0.24)' : '0 18px 42px rgba(15, 23, 42, 0.06)'};
+  cursor: pointer;
+  transition: transform ${theme.transitions.normal}, border-color ${theme.transitions.normal}, box-shadow ${theme.transitions.normal};
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: ${({ theme }) => theme.colors.primary.light};
+    box-shadow: ${({ theme }) => theme.mode === 'dark' ? '0 24px 54px rgba(0, 0, 0, 0.34)' : '0 24px 54px rgba(15, 23, 42, 0.1)'};
+  }
+`
+
+export const CardVisual = styled.div<CardVisualProps>`
+  min-height: 154px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: ${theme.spacing.md};
+  background: ${({ $variant }) => cardVisuals[$variant] || cardVisuals[0]};
+  color: #ffffff;
+
+  span {
+    max-width: 100%;
+    width: fit-content;
+    padding: 0.35rem 0.6rem;
+    border-radius: ${theme.borderRadius.full};
+    background: rgba(255, 255, 255, 0.16);
+    font-size: ${theme.typography.fontSize.xs};
+    font-weight: ${theme.typography.fontWeight.bold};
+  }
+`
+
+export const CardBody = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: ${theme.spacing.lg} ${theme.spacing.lg} 0;
 `
 
 export const PostMeta = styled.div<ThemeProps>`
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
   flex-wrap: wrap;
+  gap: ${theme.spacing.xs};
   align-items: center;
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: flex-start;
-  }
+  margin-bottom: ${theme.spacing.md};
 `
 
 export const PostDate = styled.span<ThemeProps>`
-  color: ${({ theme, $themeMode }: { theme: DefaultTheme; $themeMode?: 'light' | 'dark' }) => 
-    $themeMode === 'dark' ? theme.colors?.text?.muted || '#94a3b8' : theme.colors?.text?.muted || '#9ca3af'};
-  font-size: 0.875rem;
-  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${theme.typography.fontSize.sm};
+  font-weight: ${theme.typography.fontWeight.medium};
 `
 
 export const PostCategory = styled.span`
-  background: ${({ theme }: { theme: DefaultTheme }) => theme.colors?.background?.light || '#f1f5f9'};
-  color: ${({ theme }: { theme: DefaultTheme }) => theme.colors?.text?.secondary || '#475569'};
-  padding: 0.25rem 0.75rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 ${theme.spacing.xs};
+  border-radius: ${theme.borderRadius.full};
+  background: ${({ theme }) => theme.colors.primary.background || theme.colors.background.secondary};
+  color: ${({ theme }) => theme.colors.primary.main};
+  font-size: ${theme.typography.fontSize.xs};
+  font-weight: ${theme.typography.fontWeight.bold};
 `
 
-export const ReadMoreButton = styled(motion.button)`
-  background: transparent;
+export const PostTitle = styled.h2`
+  margin-bottom: ${theme.spacing.sm};
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${theme.typography.fontSize.xl};
+  font-weight: ${theme.typography.fontWeight.bold};
+  line-height: 1.25;
+`
+
+export const PostExcerpt = styled.p`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${theme.typography.fontSize.base};
+  line-height: 1.7;
+`
+
+export const CardFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${theme.spacing.md};
+  margin-top: auto;
+  padding: ${theme.spacing.lg};
+`
+
+export const ReadTime = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${theme.typography.fontSize.sm};
+  white-space: nowrap;
+`
+
+export const ReadMoreButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   color: ${({ theme }) => theme.colors.primary.main};
-  border: 1px solid ${({ theme }) => theme.colors.primary.main};
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  
+  font-size: ${theme.typography.fontSize.sm};
+  font-weight: ${theme.typography.fontWeight.bold};
+
   &:hover {
-    background: ${({ theme }) => theme.colors.primary.main};
-    color: white;
+    color: ${({ theme }) => theme.colors.primary.dark};
+  }
+`
+
+export const EmptyState = styled.div`
+  display: grid;
+  place-items: center;
+  gap: ${theme.spacing.xs};
+  padding: ${theme.spacing['2xl']};
+  border: 1px dashed ${({ theme }) => theme.colors.border.medium};
+  border-radius: ${theme.borderRadius.lg};
+  background: ${({ theme }) => theme.colors.background.paper};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  text-align: center;
+
+  strong {
+    color: ${({ theme }) => theme.colors.text.primary};
+    font-size: ${theme.typography.fontSize.lg};
+  }
+
+  p {
+    margin: 0;
   }
 `
