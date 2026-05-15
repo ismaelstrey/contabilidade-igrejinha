@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { FaDownload } from 'react-icons/fa';
-import { FiRefreshCw } from 'react-icons/fi';
-import { IoAlert } from 'react-icons/io5';
-import { AdminContato } from '../../../types/admin';
-import ContactFilters from './ContactFilters';
-import ContactActions from './ContactActions';
-import ContactTable from './ContactTable';
-import ContactModal from './ContactModal';
+import React, { useEffect, useState } from 'react'
+import { FaDownload } from 'react-icons/fa'
+import { FiRefreshCw } from 'react-icons/fi'
+import { IoAlert } from 'react-icons/io5'
+import { AdminContato } from '../../../types/admin'
+import ContactFilters from './ContactFilters'
+import ContactActions from './ContactActions'
+import ContactTable from './ContactTable'
+import ContactModal from './ContactModal'
+import { loadAdminContacts, updateAdminContactStatus } from '@/services/adminContactsService'
 import {
   ContatosContainer,
   ContatosHeader,
@@ -21,146 +22,115 @@ import {
   ErrorContainer,
   ErrorContent,
   ErrorText,
-  ErrorCloseButton
-} from './AdminContatos.styles';
+  ErrorCloseButton,
+} from './AdminContatos.styles'
 
-interface AdminContatosProps { }
+const itemsPerPage = 10
 
-const AdminContatos: React.FC<AdminContatosProps> = () => {
-  const [contatos, setContatos] = useState<AdminContato[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<'all' | 'novo' | 'lido' | 'respondido'>('all');
-  const [selectedContatos, setSelectedContatos] = useState<number[]>([]);
-  const [showDetails, setShowDetails] = useState<number | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+const AdminContatos: React.FC = () => {
+  const [contatos, setContatos] = useState<AdminContato[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [statusFilter, setStatusFilter] = useState<'all' | 'novo' | 'lido' | 'respondido'>('all')
+  const [selectedContatos, setSelectedContatos] = useState<number[]>([])
+  const [showDetails, setShowDetails] = useState<number | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
 
-  // Mock data - substituir pela integração com a API
-  const mockContatos: AdminContato[] = [
-    {
-      id: 1,
-      nome: 'João Silva',
-      email: 'joao@email.com',
-      telefone: '(11) 99999-9999',
-      assunto: 'Consultoria Contábil',
-      mensagem: 'Gostaria de saber mais sobre os serviços de consultoria contábil para minha empresa.',
-      status: 'novo',
-      dataContato: '2024-01-15T10:30:00Z',
-      servicoId: 1
-    },
-    {
-      id: 2,
-      nome: 'Maria Santos',
-      email: 'maria@empresa.com',
-      telefone: '(11) 88888-8888',
-      assunto: 'Abertura de Empresa',
-      mensagem: 'Preciso de ajuda para abrir minha empresa. Quais documentos são necessários?',
-      status: 'lido',
-      dataContato: '2024-01-14T14:20:00Z',
-      servicoId: 1
-    },
-    {
-      id: 3,
-      nome: 'Pedro Oliveira',
-      email: 'pedro@startup.com',
-      telefone: '(11) 77777-7777',
-      assunto: 'Planejamento Tributário',
-      mensagem: 'Nossa startup precisa de um planejamento tributário eficiente. Podem nos ajudar?',
-      status: 'respondido',
-      dataContato: '2024-01-13T09:15:00Z',
-      dataResposta: '2024-01-13T16:45:00Z',
-      servicoId: 1
+  const loadContatos = async (): Promise<void> => {
+    try {
+      setLoading(true)
+      setError(null)
+      setContatos(await loadAdminContacts())
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao carregar contatos')
+    } finally {
+      setLoading(false)
     }
-  ];
+  }
 
   useEffect(() => {
-    loadContatos();
-  }, []);
+    loadContatos()
+  }, [])
 
-  const loadContatos = async () => {
-    try {
-      setLoading(true);
-      // Simular chamada à API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setContatos(mockContatos);
-    } catch (err) {
-      setError('Erro ao carregar contatos');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const handleStatusChange = async (id: number, newStatus: AdminContato['status']): Promise<void> => {
+    const previousContatos = contatos
 
-  const handleStatusChange = async (id: number, newStatus: AdminContato['status']) => {
     try {
-      // Simular chamada à API
       setContatos(prev => prev.map(contato =>
         contato.id === id
           ? {
             ...contato,
             status: newStatus,
-            dataResposta: newStatus === 'respondido' ? new Date().toISOString() : contato.dataResposta
+            dataResposta: newStatus === 'respondido' ? new Date().toISOString() : contato.dataResposta,
           }
           : contato
-      ));
+      ))
+      await updateAdminContactStatus(id, newStatus)
     } catch (err) {
-      setError('Erro ao atualizar status do contato');
+      setContatos(previousContatos)
+      setError(err instanceof Error ? err.message : 'Erro ao atualizar status do contato')
     }
-  };
+  }
 
-  const handleDelete = async (id: number) => {
-    if (!confirm('Tem certeza que deseja excluir este contato?')) return;
+  const handleDelete = async (id: number): Promise<void> => {
+    if (!confirm('Tem certeza que deseja remover este contato da visualizacao local?')) return
+    setContatos(prev => prev.filter(contato => contato.id !== id))
+  }
 
-    try {
-      // Simular chamada à API
-      setContatos(prev => prev.filter(contato => contato.id !== id));
-    } catch (err) {
-      setError('Erro ao excluir contato');
+  const handleBulkAction = async (action: 'delete' | 'mark-read' | 'mark-responded'): Promise<void> => {
+    if (selectedContatos.length === 0) return
+
+    if (action === 'delete') {
+      setContatos(prev => prev.filter(contato => !selectedContatos.includes(contato.id)))
+      setSelectedContatos([])
+      return
     }
-  };
 
-  const handleBulkAction = async (action: 'delete' | 'mark-read' | 'mark-responded') => {
-    if (selectedContatos.length === 0) return;
-
-    try {
-      if (action === 'delete') {
-        if (!confirm(`Tem certeza que deseja excluir ${selectedContatos.length} contato(s)?`)) return;
-        setContatos(prev => prev.filter(contato => !selectedContatos.includes(contato.id)));
-      } else {
-        const newStatus = action === 'mark-read' ? 'lido' : 'respondido';
-        setContatos(prev => prev.map(contato =>
-          selectedContatos.includes(contato.id)
-            ? {
-              ...contato,
-              status: newStatus,
-              dataResposta: newStatus === 'respondido' ? new Date().toISOString() : contato.dataResposta
-            }
-            : contato
-        ));
-      }
-      setSelectedContatos([]);
-    } catch (err) {
-      setError('Erro ao executar ação em lote');
-    }
-  };
+    const newStatus = action === 'mark-read' ? 'lido' : 'respondido'
+    await Promise.all(selectedContatos.map(id => handleStatusChange(id, newStatus)))
+    setSelectedContatos([])
+  }
 
   const filteredContatos = contatos.filter(contato => {
-    const matchesSearch = contato.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contato.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (contato?.assunto && contato.assunto.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesStatus = statusFilter === 'all' || contato.status === statusFilter;
-    return matchesSearch && matchesStatus;
-  });
+    const search = searchTerm.toLowerCase()
+    const matchesSearch = contato.nome.toLowerCase().includes(search) ||
+      contato.email.toLowerCase().includes(search) ||
+      (contato.assunto || contato.empresa || '').toLowerCase().includes(search)
+    const matchesStatus = statusFilter === 'all' || contato.status === statusFilter
+    return matchesSearch && matchesStatus
+  })
 
   const paginatedContatos = filteredContatos.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+    currentPage * itemsPerPage,
+  )
 
-  const totalPages = Math.ceil(filteredContatos.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredContatos.length / itemsPerPage)
 
-
+  const exportContacts = (): void => {
+    const columns = ['nome', 'email', 'telefone', 'empresa', 'status', 'mensagem', 'data'] as const
+    const rows = filteredContatos.map(contato => ({
+      nome: contato.nome,
+      email: contato.email,
+      telefone: contato.telefone || '',
+      empresa: contato.empresa || '',
+      status: contato.status,
+      mensagem: contato.mensagem,
+      data: contato.dataContato || contato.createdAt || '',
+    }))
+    const csv = [
+      columns.join(';'),
+      ...rows.map(row => columns.map(column => `"${String(row[column]).replaceAll('"', '""')}"`).join(';')),
+    ].join('\n')
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `contatos-${new Date().toISOString().slice(0, 10)}.csv`
+    link.click()
+    URL.revokeObjectURL(url)
+  }
 
   if (loading) {
     return (
@@ -168,32 +138,28 @@ const AdminContatos: React.FC<AdminContatosProps> = () => {
         <LoadingIcon />
         <LoadingText>Carregando contatos...</LoadingText>
       </LoadingContainer>
-    );
+    )
   }
 
   return (
     <ContatosContainer>
-      {/* Header */}
       <ContatosHeader>
         <div>
-          <ContatosTitle>Gestão de Contatos</ContatosTitle>
-          <HeaderDescription>Gerencie os contatos recebidos pelo site</HeaderDescription>
+          <ContatosTitle>Gestao de Solicitacoes</ContatosTitle>
+          <HeaderDescription>Registro real dos formularios recebidos pelo site</HeaderDescription>
         </div>
         <HeaderActions>
-          <RefreshButton
-            onClick={loadContatos}
-          >
+          <RefreshButton onClick={loadContatos}>
             <FiRefreshCw />
             Atualizar
           </RefreshButton>
-          <ExportButton>
+          <ExportButton onClick={exportContacts} disabled={filteredContatos.length === 0}>
             <FaDownload />
             Exportar
           </ExportButton>
         </HeaderActions>
       </ContatosHeader>
 
-      {/* Filtros */}
       <ContactFilters
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
@@ -201,7 +167,6 @@ const AdminContatos: React.FC<AdminContatosProps> = () => {
         onStatusFilterChange={setStatusFilter}
       />
 
-      {/* Ações em lote */}
       <ContactActions
         selectedCount={selectedContatos.length}
         onMarkAsRead={() => handleBulkAction('mark-read')}
@@ -209,23 +174,14 @@ const AdminContatos: React.FC<AdminContatosProps> = () => {
         onDelete={() => handleBulkAction('delete')}
       />
 
-      {/* Lista de contatos */}
       <ContactTable
         contatos={paginatedContatos}
         selectedContatos={selectedContatos}
         onSelectAll={(checked) => {
-          if (checked) {
-            setSelectedContatos(paginatedContatos.map(c => c.id));
-          } else {
-            setSelectedContatos([]);
-          }
+          setSelectedContatos(checked ? paginatedContatos.map(contact => contact.id) : [])
         }}
         onSelectContact={(id, checked) => {
-          if (checked) {
-            setSelectedContatos(prev => [...prev, id]);
-          } else {
-            setSelectedContatos(prev => prev.filter(contactId => contactId !== id));
-          }
+          setSelectedContatos(prev => checked ? [...prev, id] : prev.filter(contactId => contactId !== id))
         }}
         onStatusChange={handleStatusChange}
         onDelete={handleDelete}
@@ -237,32 +193,23 @@ const AdminContatos: React.FC<AdminContatosProps> = () => {
         onPageChange={setCurrentPage}
       />
 
-      {/* Modal de detalhes */}
       <ContactModal
-        contato={contatos.find(c => c.id === showDetails) || null}
+        contato={contatos.find(contact => contact.id === showDetails) || null}
         isOpen={showDetails !== null}
         onClose={() => setShowDetails(null)}
       />
 
-      {/* Mensagem de erro */}
       {error && (
-        <ErrorContainer
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
+        <ErrorContainer initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <ErrorContent>
-            <IoAlert className="w-5 h-5 text-red-500 mr-2" />
+            <IoAlert />
             <ErrorText>{error}</ErrorText>
-            <ErrorCloseButton
-              onClick={() => setError(null)}
-            >
-              ×
-            </ErrorCloseButton>
+            <ErrorCloseButton onClick={() => setError(null)}>x</ErrorCloseButton>
           </ErrorContent>
         </ErrorContainer>
       )}
     </ContatosContainer>
-  );
-};
+  )
+}
 
-export default AdminContatos;
+export default AdminContatos

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   DashboardContainer,
   ChartsGrid,
@@ -6,171 +6,208 @@ import {
   ContentCard,
   ContentCardTitle,
   ContentCardList,
-  ActivityFooter,
-  ViewAllButton
+  WideGrid,
+  MetricList,
+  MetricRow,
+  MetricName,
+  MetricValue,
+  MetricBarTrack,
+  MetricBar,
+  StatusGrid,
+  StatusPill,
+  StatusLabel,
+  StatusValue,
+  ContactPreview,
+  ContactPreviewTitle,
+  ContactPreviewMeta,
 } from './AdminDashboard.styles'
 import StatCard from './StatCard'
-import ActivityItem from './ActivityItem'
 import ServicesChart from './ServicesChart'
-import ActiveUsersCard from './ActiveUsersCard'
 import DashboardHeader from './DashboardHeader'
 import LoadingState from './LoadingState'
 import ErrorState from './ErrorState'
-import { AdminStats } from '@/types/admin'
+import {
+  AdminDashboardSummary,
+  AnalyticsMetric,
+  loadDashboardSummary,
+} from '@/services/adminDashboardService'
 
-/**
- * Componente principal do dashboard administrativo
- * Exibe métricas, estatísticas e visão geral do sistema
- */
+const formatPathLabel = (value: string): string => {
+  if (value === '/') return 'Pagina inicial'
+  if (value === '/posts') return 'Lista de posts'
+
+  return value
+    .replace('/posts/', 'Post: ')
+    .replaceAll('-', ' ')
+    .replace(/\b\w/g, letter => letter.toUpperCase())
+}
+
+const formatDate = (value?: string): string => {
+  if (!value) return 'Sem data'
+
+  return new Intl.DateTimeFormat('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(value))
+}
+
+const statusLabel: Record<string, string> = {
+  novo: 'Novas',
+  em_andamento: 'Em andamento',
+  lido: 'Lidas',
+  respondido: 'Respondidas',
+  finalizado: 'Finalizadas',
+  arquivado: 'Arquivadas',
+}
+
+const MetricRanking: React.FC<{
+  title: string
+  items: AnalyticsMetric[]
+  emptyText: string
+}> = ({ title, items, emptyText }) => {
+  const max = useMemo(() => Math.max(...items.map(item => item.total), 1), [items])
+
+  return (
+    <ContentCard initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+      <ContentCardTitle>{title}</ContentCardTitle>
+      {items.length === 0 ? (
+        <ContactPreviewMeta>{emptyText}</ContactPreviewMeta>
+      ) : (
+        <MetricList>
+          {items.map(item => (
+            <MetricRow key={item.label}>
+              <MetricName title={item.label}>{formatPathLabel(item.label)}</MetricName>
+              <MetricValue>{item.total.toLocaleString('pt-BR')}</MetricValue>
+              <MetricBarTrack>
+                <MetricBar $percentage={(item.total / max) * 100} />
+              </MetricBarTrack>
+            </MetricRow>
+          ))}
+        </MetricList>
+      )}
+    </ContentCard>
+  )
+}
+
 const AdminDashboard: React.FC = () => {
-  const [stats, setStats] = useState<AdminStats | null>(null)
+  const [summary, setSummary] = useState<AdminDashboardSummary | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  /**
-   * Carrega as estatísticas do dashboard
-   */
-  useEffect(() => {
-    const loadStats = async () => {
-      try {
-        setLoading(true)
-        // TODO: Implementar chamada real para a API
-        // const response = await fetch('/api/admin/stats')
-        // const data = await response.json()
-
-        // Dados mockados temporariamente
-        const mockStats: AdminStats = {
-          totalUsuarios: 1247,
-          contatosHoje: 12,
-          contatosSemana: 12,
-          contatosMes: 12,
-          contatosRecentes: [],
-          usuariosRecentes: [],
-          servicosAtivos: 2,
-          totalServicos: 12,
-          totalContatos: 89,
-          contatosNaoLidos: 23,
-          usuariosAtivos: 892,
-          servicosMaisPopulares: [
-            { nome: 'Consultoria Fiscal', quantidade: 156 },
-            { nome: 'Contabilidade Empresarial', quantidade: 134 },
-            { nome: 'Declaração de Imposto de Renda', quantidade: 98 }
-          ],
-          crescimentoMensal: {
-            usuarios: 12.5,
-            contatos: 8.3,
-            servicos: 2.1
-          }
-        }
-
-        setStats(mockStats)
-      } catch (err) {
-        setError('Erro ao carregar estatísticas')
-        console.error('Erro ao carregar stats:', err)
-      } finally {
-        setLoading(false)
-      }
+  const loadStats = useCallback(async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      setSummary(await loadDashboardSummary())
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao carregar estatisticas')
+    } finally {
+      setLoading(false)
     }
-
-    loadStats()
   }, [])
 
-  if (loading) {
-    return <LoadingState />
-  }
+  useEffect(() => {
+    loadStats()
+  }, [loadStats])
 
-  if (error) {
-    return <ErrorState message={error} />
-  }
+  if (loading) return <LoadingState />
+  if (error) return <ErrorState message={error} />
+  if (!summary) return <ErrorState message="Nenhum dado encontrado para o dashboard" />
 
   return (
     <DashboardContainer>
-      {/* Header */}
       <DashboardHeader title="Dashboard" />
 
-      {/* Cards de Estatísticas */}
       <StatsGrid>
         <StatCard
-          title="Total de Usuários"
-          value={stats?.totalUsuarios || 0}
-          change={stats?.crescimentoMensal.usuarios || 0}
+          title="Acessos em 30 dias"
+          value={summary.pageViews}
           icon="users"
           color="blue"
         />
         <StatCard
-          title="Serviços Ativos"
-          value={stats?.totalServicos || 0}
-          change={stats?.crescimentoMensal.servicos || 0}
-          icon="briefcase"
+          title="Visitantes unicos"
+          value={summary.uniqueVisitors}
+          icon="users"
           color="green"
         />
         <StatCard
-          title="Total de Contatos"
-          value={stats?.totalContatos || 0}
-          change={stats?.crescimentoMensal.contatos || 0}
+          title="Solicitacoes"
+          value={summary.contactsTotal}
           icon="mail"
           color="yellow"
         />
         <StatCard
-          title="Contatos Não Lidos"
-          value={stats?.contatosNaoLidos || 0}
+          title="Pendentes"
+          value={summary.contactsUnread}
           icon="bell"
           color="red"
-          urgent={true}
+          urgent={summary.contactsUnread > 0}
         />
       </StatsGrid>
 
-      {/* Gráficos e Tabelas */}
-      <ChartsGrid>
-        {/* Serviços Mais Populares */}
-        <ServicesChart servicosMaisPopulares={stats?.servicosMaisPopulares || []} />
+      <StatsGrid>
+        <StatCard title="Acessos hoje" value={summary.pageViewsToday} icon="users" color="blue" />
+        <StatCard title="Posts acessados" value={summary.postViews} icon="briefcase" color="green" />
+        <StatCard title="Contatos hoje" value={summary.contactsToday} icon="mail" color="yellow" />
+        <StatCard title="Servicos ativos" value={summary.servicesActive} icon="briefcase" color="green" />
+      </StatsGrid>
 
-        {/* Atividade Recente */}
-        <ContentCard
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          <ContentCardTitle>Atividade Recente</ContentCardTitle>
-          <ContentCardList>
-            <ActivityItem
-              type="user"
-              message="Novo usuário cadastrado: Maria Silva"
-              time="5 min atrás"
-            />
-            <ActivityItem
-              type="contact"
-              message="Novo contato recebido de João Santos"
-              time="12 min atrás"
-            />
-            <ActivityItem
-              type="service"
-              message="Serviço 'Consultoria Fiscal' foi atualizado"
-              time="1 hora atrás"
-            />
-            <ActivityItem
-              type="user"
-              message="Usuário Pedro Costa fez login"
-              time="2 horas atrás"
-            />
-          </ContentCardList>
-          <ActivityFooter>
-            <ViewAllButton>
-              Ver todas as atividades
-            </ViewAllButton>
-          </ActivityFooter>
-        </ContentCard>
+      <ChartsGrid>
+        <MetricRanking
+          title="Paginas mais acessadas"
+          items={summary.topPages}
+          emptyText="Os acessos comecarao a aparecer aqui conforme o site for navegado."
+        />
+        <MetricRanking
+          title="Posts mais acessados"
+          items={summary.topPosts}
+          emptyText="Nenhum post acessado registrado ainda."
+        />
       </ChartsGrid>
 
-      {/* Usuários Ativos */}
-      <ActiveUsersCard
-        usuariosAtivos={stats?.usuariosAtivos || 0}
-        totalUsuarios={stats?.totalUsuarios || 0}
-      />
+      <WideGrid>
+        <ServicesChart
+          servicosMaisPopulares={summary.popularServices.map(item => ({
+            nome: item.label,
+            quantidade: item.total,
+          }))}
+        />
+
+        <ContentCard initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <ContentCardTitle>Status das solicitacoes</ContentCardTitle>
+          <StatusGrid>
+            {summary.contactStatus.map(item => (
+              <StatusPill key={item.status}>
+                <StatusLabel>{statusLabel[item.status] || item.status}</StatusLabel>
+                <StatusValue>{item.total.toLocaleString('pt-BR')}</StatusValue>
+              </StatusPill>
+            ))}
+          </StatusGrid>
+        </ContentCard>
+      </WideGrid>
+
+      <ContentCard initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <ContentCardTitle>Solicitacoes recentes</ContentCardTitle>
+        <ContentCardList>
+          {summary.recentContacts.length === 0 ? (
+            <ContactPreviewMeta>Nenhuma solicitacao recebida ainda.</ContactPreviewMeta>
+          ) : (
+            summary.recentContacts.map(contact => (
+              <ContactPreview key={contact.id}>
+                <ContactPreviewTitle>{contact.nome}</ContactPreviewTitle>
+                <ContactPreviewMeta>
+                  {contact.email} - {statusLabel[contact.status] || contact.status} - {formatDate(contact.createdAt || contact.dataContato)}
+                </ContactPreviewMeta>
+              </ContactPreview>
+            ))
+          )}
+        </ContentCardList>
+      </ContentCard>
     </DashboardContainer>
   )
 }
-
-
 
 export default AdminDashboard
