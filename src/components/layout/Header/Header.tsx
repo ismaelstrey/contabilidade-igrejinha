@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { Menu, X } from 'lucide-react'
 import Container from '@components/common/Container'
 import Button from '@components/common/Button'
 import ThemeToggle from '@components/common/ThemeToggle'
@@ -23,7 +24,6 @@ const Header: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Detecta scroll para adicionar efeito no header
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
@@ -33,10 +33,8 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Função para navegação
   const handleNavigation = (path: string, sectionId?: string) => {
     if (location.pathname === '/' && sectionId) {
-      // Se estamos na home e há uma seção, faz scroll
       const element = document.getElementById(sectionId)
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' })
@@ -50,12 +48,13 @@ const Header: React.FC = () => {
 
   const navItems = [
     { label: 'Início', path: '/', sectionId: 'hero', href: '/' },
-    { label: 'Serviços', path: '/', sectionId: 'services', href: '/#servicos' },
+    { label: 'Serviços', path: '/', sectionId: 'services', href: '/#services' },
     { label: 'Sobre', path: '/', sectionId: 'about', href: '/#sobre' },
     { label: 'Equipe', path: '/equipe', href: '/equipe' },
     { label: 'Posts', path: '/posts', href: '/posts' },
-    { label: 'Depoimentos', path: '/', sectionId: 'testimonials', href: '/#depoimentos' },
-    { label: 'FAQ', path: '/faq', href: '/faq' }
+    { label: 'Depoimentos', path: '/', sectionId: 'testimonials', href: '/#testimonials' },
+    { label: 'FAQ', path: '/faq', href: '/faq' },
+    { label: 'Contato', path: '/', sectionId: 'contact', href: '/#contact' }
   ]
 
   return (
@@ -102,11 +101,9 @@ const Header: React.FC = () => {
 
           <MobileMenuButton
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Menu mobile"
+            aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </MobileMenuButton>
         </Nav>
       </Container>

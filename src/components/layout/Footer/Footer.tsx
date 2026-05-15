@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Facebook, Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 import Container from '@components/common/Container'
 import companyInfo from '@data/companyInfo.json'
 import {
@@ -9,6 +10,7 @@ import {
   FooterTitle,
   FooterText,
   FooterLink,
+  FooterIconLink,
   FooterList,
   FooterListItem,
   SocialLinks,
@@ -22,17 +24,20 @@ const Footer: React.FC = () => {
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
+      return true
     }
+
+    return false
   }
 
   const currentYear = new Date().getFullYear()
 
   const quickLinks = [
     { label: 'Início', href: 'hero', url: '/' },
-    { label: 'Serviços', href: 'services', url: '/#servicos' },
+    { label: 'Serviços', href: 'services', url: '/#services' },
     { label: 'Sobre Nós', href: 'about', url: '/#sobre' },
     { label: 'Equipe', href: 'team', url: '/equipe' },
-    { label: 'Depoimentos', href: 'testimonials', url: '/#depoimentos' },
+    { label: 'Depoimentos', href: 'testimonials', url: '/#testimonials' },
     { label: 'FAQ', href: 'faq', url: '/faq' }
   ]
 
@@ -67,7 +72,7 @@ const Footer: React.FC = () => {
                   rel="noopener noreferrer"
                   aria-label="WhatsApp"
                 >
-                  📱
+                  <MessageCircle size={19} />
                 </SocialLink>
               )}
               {companyInfo.socialMedia.instagram && (
@@ -77,7 +82,7 @@ const Footer: React.FC = () => {
                   rel="noopener noreferrer"
                   aria-label="Instagram"
                 >
-                  📷
+                  <Instagram size={19} />
                 </SocialLink>
               )}
               {companyInfo.socialMedia.linkedin && (
@@ -87,7 +92,7 @@ const Footer: React.FC = () => {
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
                 >
-                  💼
+                  <Linkedin size={19} />
                 </SocialLink>
               )}
               {companyInfo.socialMedia.facebook && (
@@ -97,7 +102,7 @@ const Footer: React.FC = () => {
                   rel="noopener noreferrer"
                   aria-label="Facebook"
                 >
-                  📘
+                  <Facebook size={19} />
                 </SocialLink>
               )}
             </SocialLinks>
@@ -118,7 +123,9 @@ const Footer: React.FC = () => {
                     href={link.url}
                     onClick={(e: React.MouseEvent) => {
                       e.preventDefault()
-                      scrollToSection(link.href)
+                      if (!scrollToSection(link.href)) {
+                        window.location.href = link.url
+                      }
                     }}
                   >
                     {link.label}
@@ -140,7 +147,7 @@ const Footer: React.FC = () => {
               {services.map((service) => (
                 <FooterListItem key={service}>
                   <FooterLink 
-                    href="/#servicos"
+                    href="/#services"
                     onClick={(e: React.MouseEvent) => {
                       e.preventDefault()
                       scrollToSection('services')
@@ -164,20 +171,27 @@ const Footer: React.FC = () => {
             <FooterList>
               <FooterListItem>
                 <FooterText>
-                  📍 {companyInfo.address.street}<br />
-                  {companyInfo.address.city}, {companyInfo.address.state}<br />
-                  CEP: {companyInfo.address.zipCode}
+                  <FooterIconLink as="span">
+                    <MapPin size={17} />
+                    <span>
+                      {companyInfo.address.street}<br />
+                      {companyInfo.address.city}, {companyInfo.address.state}<br />
+                      CEP: {companyInfo.address.zipCode}
+                    </span>
+                  </FooterIconLink>
                 </FooterText>
               </FooterListItem>
               <FooterListItem>
-                <FooterLink href={`tel:${companyInfo.phone}`}>
-                  📞 {companyInfo.phone}
-                </FooterLink>
+                <FooterIconLink href={`tel:${companyInfo.phone}`}>
+                  <Phone size={17} />
+                  <span>{companyInfo.phone}</span>
+                </FooterIconLink>
               </FooterListItem>
               <FooterListItem>
-                <FooterLink href={`mailto:${companyInfo.email}`}>
-                  ✉️ {companyInfo.email}
-                </FooterLink>
+                <FooterIconLink href={`mailto:${companyInfo.email}`}>
+                  <Mail size={17} />
+                  <span>{companyInfo.email}</span>
+                </FooterIconLink>
               </FooterListItem>
             </FooterList>
           </FooterSection>

@@ -8,25 +8,26 @@ export const ContactContent = styled.div`
 `
 
 export const SectionHeader = styled.div`
+  max-width: 720px;
+  margin: 0 auto ${theme.spacing['3xl']};
   text-align: center;
-  margin-bottom: ${theme.spacing['3xl']};
 `
 
 export const SectionSubtitle = styled.p`
-  font-size: ${theme.typography.fontSize.lg};
-  font-weight: ${theme.typography.fontWeight.medium};
-  color: ${theme.colors.primary.main};
   margin-bottom: ${theme.spacing.sm};
+  color: ${({ theme }) => theme.colors.primary.main};
+  font-size: ${theme.typography.fontSize.sm};
+  font-weight: ${theme.typography.fontWeight.bold};
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0;
 `
 
 export const SectionTitle = styled.h2`
+  color: ${({ theme }) => theme.colors.text.primary};
   font-size: ${theme.typography.fontSize['4xl']};
   font-weight: ${theme.typography.fontWeight.bold};
-  color: ${theme.colors.neutral.gray900};
-  margin-bottom: ${theme.spacing.md};
-  
+  line-height: 1.08;
+
   @media (max-width: ${theme.breakpoints.tablet}) {
     font-size: ${theme.typography.fontSize['3xl']};
   }
@@ -34,19 +35,18 @@ export const SectionTitle = styled.h2`
 
 export const ContactGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: ${theme.spacing['4xl']};
-  
+  grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.18fr);
+  gap: ${theme.spacing.xl};
+  align-items: start;
+
   @media (max-width: ${theme.breakpoints.tablet}) {
     grid-template-columns: 1fr;
-    gap: ${theme.spacing.xl};
   }
 `
 
 export const ContactInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.xl};
+  display: grid;
+  gap: ${theme.spacing.md};
 `
 
 export const ContactItem = styled.div`
@@ -54,48 +54,42 @@ export const ContactItem = styled.div`
   align-items: flex-start;
   gap: ${theme.spacing.md};
   padding: ${theme.spacing.lg};
-  background: ${theme.colors.neutral.gray50};
-  border-radius: ${theme.borderRadius.xl};
-  border-left: 4px solid ${theme.colors.primary.main};
-  transition: all ${theme.transitions.normal};
-  
-  &:hover {
-    background: ${theme.colors.neutral.white};
-    box-shadow: ${theme.shadows.md};
-    transform: translateY(-2px);
-  }
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
+  border-radius: ${theme.borderRadius.lg};
+  background: ${({ theme }) => theme.colors.background.paper};
 `
 
 export const ContactIcon = styled.div`
-  font-size: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: ${theme.borderRadius.md};
+  background: ${({ theme }) => theme.colors.primary.background || theme.colors.background.secondary};
+  color: ${({ theme }) => theme.colors.primary.main};
   flex-shrink: 0;
-  margin-top: 2px;
 `
 
 export const ContactDetails = styled.div`
-  flex: 1;
+  min-width: 0;
 `
 
 export const ContactLabel = styled.div`
-  font-size: ${theme.typography.fontSize.sm};
-  font-weight: ${theme.typography.fontWeight.semibold};
-  color: ${theme.colors.neutral.gray900};
   margin-bottom: ${theme.spacing.xs};
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${theme.typography.fontSize.sm};
+  font-weight: ${theme.typography.fontWeight.bold};
 `
 
 export const ContactValue = styled.div`
+  color: ${({ theme }) => theme.colors.text.secondary};
   font-size: ${theme.typography.fontSize.base};
-  color: ${theme.colors.neutral.gray600};
-  line-height: 1.5;
-  
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+
   &[href] {
-    color: ${theme.colors.primary.main};
-    text-decoration: none;
-    transition: color ${theme.transitions.fast};
-    
-    &:hover {
-      color: ${theme.colors.primary.dark};
-    }
+    color: ${({ theme }) => theme.colors.primary.main};
   }
 `
 
@@ -103,18 +97,22 @@ export const ContactForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.lg};
-  background: ${theme.colors.neutral.white};
   padding: ${theme.spacing.xl};
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
   border-radius: ${theme.borderRadius.xl};
-  box-shadow: ${theme.shadows.lg};
-  border: 1px solid ${theme.colors.neutral.gray100};
+  background: ${({ theme }) => theme.colors.background.paper};
+  box-shadow: ${({ theme }) => theme.mode === 'dark' ? '0 24px 58px rgba(0, 0, 0, 0.32)' : '0 24px 58px rgba(15, 23, 42, 0.08)'};
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: ${theme.spacing.lg};
+  }
 `
 
 export const FormRow = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: ${theme.spacing.md};
-  
+
   @media (max-width: ${theme.breakpoints.mobile}) {
     grid-template-columns: 1fr;
   }
@@ -127,71 +125,66 @@ export const FormGroup = styled.div`
 `
 
 export const FormLabel = styled.label`
+  color: ${({ theme }) => theme.colors.text.primary};
   font-size: ${theme.typography.fontSize.sm};
-  font-weight: ${theme.typography.fontWeight.medium};
-  color: ${theme.colors.neutral.gray700};
+  font-weight: ${theme.typography.fontWeight.semibold};
 `
 
 export const FormInput = styled.input`
-  padding: ${theme.spacing.md};
-  border: 1px solid ${theme.colors.neutral.gray300};
+  width: 100%;
+  min-height: 48px;
+  padding: 0 ${theme.spacing.md};
+  border: 1px solid ${({ theme }) => theme.colors.border.medium};
   border-radius: ${theme.borderRadius.md};
+  background: ${({ theme }) => theme.colors.background.main};
+  color: ${({ theme }) => theme.colors.text.primary};
   font-size: ${theme.typography.fontSize.base};
-  transition: all ${theme.transitions.fast};
-  background: ${theme.colors.neutral.white};
-  
+  transition: border-color ${theme.transitions.fast}, box-shadow ${theme.transitions.fast};
+
   &:focus {
     outline: none;
-    border-color: ${theme.colors.primary.main};
-    box-shadow: 0 0 0 3px ${theme.colors.primary.main}20;
+    border-color: ${({ theme }) => theme.colors.primary.main};
+    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary.main}24;
   }
-  
+
   &::placeholder {
-    color: ${theme.colors.neutral.gray400};
-  }
-  
-  &:disabled {
-    background: ${theme.colors.neutral.gray100};
-    cursor: not-allowed;
+    color: ${({ theme }) => theme.colors.text.muted};
   }
 `
 
 export const FormTextarea = styled.textarea`
+  min-height: 132px;
   padding: ${theme.spacing.md};
-  border: 1px solid ${theme.colors.neutral.gray300};
+  border: 1px solid ${({ theme }) => theme.colors.border.medium};
   border-radius: ${theme.borderRadius.md};
-  font-size: ${theme.typography.fontSize.base};
+  background: ${({ theme }) => theme.colors.background.main};
+  color: ${({ theme }) => theme.colors.text.primary};
   font-family: inherit;
+  font-size: ${theme.typography.fontSize.base};
   resize: vertical;
-  min-height: 120px;
-  transition: all ${theme.transitions.fast};
-  background: ${theme.colors.neutral.white};
-  
+  transition: border-color ${theme.transitions.fast}, box-shadow ${theme.transitions.fast};
+
   &:focus {
     outline: none;
-    border-color: ${theme.colors.primary.main};
-    box-shadow: 0 0 0 3px ${theme.colors.primary.main}20;
+    border-color: ${({ theme }) => theme.colors.primary.main};
+    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary.main}24;
   }
-  
+
   &::placeholder {
-    color: ${theme.colors.neutral.gray400};
-  }
-  
-  &:disabled {
-    background: ${theme.colors.neutral.gray100};
-    cursor: not-allowed;
+    color: ${({ theme }) => theme.colors.text.muted};
   }
 `
 
 export const MapContainer = styled.div`
-  border-radius: ${theme.borderRadius.xl};
   overflow: hidden;
-  box-shadow: ${theme.shadows.lg};
-  border: 1px solid ${theme.colors.neutral.gray100};
-  
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
+  border-radius: ${theme.borderRadius.xl};
+  box-shadow: ${({ theme }) => theme.mode === 'dark' ? '0 18px 44px rgba(0, 0, 0, 0.3)' : '0 18px 44px rgba(15, 23, 42, 0.08)'};
+
   iframe {
+    display: block;
     width: 100%;
-    height: 300px;
+    height: 320px;
     border: none;
   }
 `

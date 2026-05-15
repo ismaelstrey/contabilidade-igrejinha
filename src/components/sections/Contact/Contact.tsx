@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useTheme } from 'styled-components'
+import { Clock, Mail, MapPin, Phone, type LucideIcon } from 'lucide-react'
 import Container from '@components/common/Container'
 import Section from '@components/common/Section'
 import Button from '@components/common/Button'
@@ -58,7 +59,11 @@ const Contact: React.FC = () => {
   }
 
   const getServiceId = (serviceName: string): number => {
-    // Mapear nomes dos serviços para IDs
+    const numericServiceId = Number(serviceName)
+    if (Number.isFinite(numericServiceId) && numericServiceId > 0) {
+      return numericServiceId
+    }
+
     const serviceMap: { [key: string]: number } = {
       'Contabilidade Geral': 1,
       'Abertura de Empresa': 2,
@@ -99,7 +104,6 @@ const Contact: React.FC = () => {
       // const whatsappUrl = `https://wa.me/${companyInfo.phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`
       // window.open(whatsappUrl, '_blank')
 
-      // Limpar formulário
       setFormData({
         name: '',
         email: '',
@@ -138,38 +142,28 @@ const Contact: React.FC = () => {
 
   const contactItems = [
     {
-      icon: '📍',
+      icon: MapPin,
       label: 'Endereço',
       value: `${companyInfo.address.street}, ${companyInfo.address.city} - ${companyInfo.address.state}, CEP: ${companyInfo.address.zipCode}`
     },
     {
-      icon: '📞',
+      icon: Phone,
       label: 'Telefone',
       value: companyInfo.phone,
       href: `tel:${companyInfo.phone}`
     },
     {
-      icon: '✉️',
+      icon: Mail,
       label: 'E-mail',
       value: companyInfo.email,
       href: `mailto:${companyInfo.email}`
     },
     {
-      icon: '🕒',
+      icon: Clock,
       label: 'Horário de Funcionamento',
       value: `${companyInfo.workingHours.weekdays} | Sáb: ${companyInfo.workingHours.saturday} | Dom: ${companyInfo.workingHours.sunday}`
     }
   ]
-
-  // const serviceOptions = [
-  //   'Contabilidade Geral',
-  //   'Abertura de Empresa',
-  //   'Departamento Pessoal',
-  //   'Fiscal e Tributário',
-  //   'Consultoria Empresarial',
-  //   'MEI e Simples Nacional',
-  //   'Outros'
-  // ]
 
   return (
     <Section id="contact">
@@ -195,9 +189,14 @@ const Contact: React.FC = () => {
                 as={motion.div}
                 variants={itemVariants}
               >
-                {contactItems.map((item, index) => (
-                  <ContactItem key={index}>
-                    <ContactIcon>{item.icon}</ContactIcon>
+                {contactItems.map((item) => {
+                  const Icon = item.icon as LucideIcon
+
+                  return (
+                  <ContactItem key={item.label}>
+                    <ContactIcon>
+                      <Icon size={22} />
+                    </ContactIcon>
                     <ContactDetails>
                       <ContactLabel>{item.label}</ContactLabel>
                       {item.href ? (
@@ -209,7 +208,8 @@ const Contact: React.FC = () => {
                       )}
                     </ContactDetails>
                   </ContactItem>
-                ))}
+                  )
+                })}
               </ContactInfo>
 
               <ContactForm
@@ -314,7 +314,7 @@ const Contact: React.FC = () => {
                     border: `1px solid ${theme.colors?.error?.light || '#fecaca'}`,
                     borderRadius: '8px'
                   }}>
-                    ⚠️ {error}
+                    Atenção: {error}
                   </div>
                 )}
 

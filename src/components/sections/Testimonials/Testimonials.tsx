@@ -124,8 +124,8 @@ const Testimonials: React.FC = () => {
                       <img 
                         src={currentTestimonial.photo} 
                         alt={currentTestimonial.name}
-                        onLoad={() => console.log('Imagem carregada:', currentTestimonial.photo)}
-                        onError={(e) => console.error('Erro ao carregar imagem:', currentTestimonial.photo, e)}
+                        loading="lazy"
+                        decoding="async"
                       />
                     ) : (
                       <svg

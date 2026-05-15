@@ -36,7 +36,7 @@ interface AdminSidebarProps {
 /**
  * Item de navegação da sidebar
  */
-interface NavItem {
+interface SidebarNavItem {
   name: string
   href: string
   icon: React.ReactNode
@@ -52,12 +52,10 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation()
   const { user } = useAdminAuth()
 
-  console.log(isOpen)
-
   /**
    * Itens de navegação da sidebar
    */
-  const navigationItems: NavItem[] = [
+  const navigationItems: SidebarNavItem[] = [
     {
       name: 'Dashboard',
       href: '/admin/dashboard',
@@ -144,7 +142,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onClose }) => {
   }
 
   return (
-    <SidebarContainer>
+    <SidebarContainer className={isOpen ? 'open' : undefined}>
       {/* Header da Sidebar */}
       <SidebarHeader>
         <SidebarHeaderContent>
