@@ -194,6 +194,16 @@ export const ChartsGrid = styled.div`
   }
 `
 
+export const WideGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+
+  @media (min-width: 1200px) {
+    grid-template-columns: 1.3fr 0.7fr;
+  }
+`
+
 /**
  * Card de estatística
  */
@@ -340,6 +350,90 @@ export const ServiceName = styled.span`
 export const ServiceCount = styled.span`
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.text.secondary};
+`
+
+export const MetricList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+`
+
+export const MetricRow = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+`
+
+export const MetricName = styled.span`
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: 0.875rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`
+
+export const MetricValue = styled.span`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: 0.8125rem;
+  font-weight: 600;
+`
+
+export const MetricBarTrack = styled.div`
+  grid-column: 1 / -1;
+  height: 0.5rem;
+  background: ${({ theme }) => theme.colors.background.secondary};
+  border-radius: 999px;
+  overflow: hidden;
+`
+
+export const MetricBar = styled.div<{ $percentage: number }>`
+  width: ${({ $percentage }) => Math.max($percentage, 4)}%;
+  height: 100%;
+  border-radius: inherit;
+  background: ${({ theme }) => theme.colors.primary.main};
+`
+
+export const StatusGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+`
+
+export const StatusPill = styled.div`
+  padding: 0.875rem;
+  border-radius: 0.5rem;
+  border: 1px solid ${({ theme }) => theme.colors.border.light};
+  background: ${({ theme }) => theme.colors.background.secondary};
+`
+
+export const StatusLabel = styled.span`
+  display: block;
+  font-size: 0.75rem;
+  color: ${({ theme }) => theme.colors.text.secondary};
+`
+
+export const StatusValue = styled.strong`
+  display: block;
+  margin-top: 0.25rem;
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: 1.25rem;
+`
+
+export const ContactPreview = styled.div`
+  display: grid;
+  gap: 0.25rem;
+`
+
+export const ContactPreviewTitle = styled.span`
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: 0.875rem;
+  font-weight: 600;
+`
+
+export const ContactPreviewMeta = styled.span`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: 0.75rem;
 `
 
 /**

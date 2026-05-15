@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Home from '@components/pages/Home/Home.tsx'
+import { usePageAnalytics } from '@hooks/usePageAnalytics'
 import { AppContainer } from './App.styles'
 
 // Lazy loading para páginas não críticas
@@ -30,6 +31,8 @@ const PageLoader: React.FC = () => (
 )
 
 const App: React.FC = () => {
+  usePageAnalytics()
+
   return (
     <AppContainer>
       <AnimatePresence mode="wait">
